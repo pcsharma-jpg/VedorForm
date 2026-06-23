@@ -676,16 +676,17 @@ async function runAIFiller() {
       messages = [{role:'user', content: 'Form content:\n\n' + text.substring(0,4000) + '\n\n' + buildPrompt(entityDetails, extra)}];
     }
 
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+    var scriptUrl = cfg.scriptUrl;
+    if(!scriptUrl){ throw new Error('Setup tab mein Apps Script URL daalo pehle'); }
+    var resp = await fetch(scriptUrl, {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1000, messages})
+      body: JSON.stringify({action:'aiProxy', messages, model:'claude-sonnet-4-6', max_tokens:1000})
     });
     var data = await resp.json();
     clearInterval(ticker);
     document.getElementById('ai-progress').style.width = '100%';
     document.getElementById('ai-status-text').textContent = 'Done!';
-    var out = data.content && data.content[0] ? data.content[0].text : 'Error: No response';
+    var out = data.content && data.content[0] ? data.content[0].text : (data.error || 'Error: No response');
     document.getElementById('ai-output').textContent = out;
     document.getElementById('ai-action-btns').style.display = 'flex';
   } catch(err) {
@@ -749,23 +750,25 @@ function genLink(entity) {
 // ── RESPONSES ──────────────────────────────────────────
 async function loadResponses() {
   var url = cfg.scriptUrl;
-  // Demo data if no URL configured
-  var demo = [
-    {date:'2025-06-20',name:'Acme Supplies LLC',entity:'US',email:'billing@acme.com',status:'Pending',docs:'N/A',folder:'#'},
-    {date:'2025-06-18',name:'TechVend Solutions Pvt Ltd',entity:'India',email:'accounts@techvend.in',status:'Approved',docs:'5/5',folder:'#'},
-    {date:'2025-06-15',name:'Innovate Corp',entity:'US',email:'ap@innovate.com',status:'Pending',docs:'1/1',folder:'#'},
-  ];
-  if (url) {
-    try {
-      var r = await fetch(url + '?action=getResponses');
-      var d = await r.json();
-      allResponses = Array.isArray(d) ? d : demo;
-    } catch(e) { allResponses = demo; }
-  } else {
-    allResponses = demo;
+  if (!url) {
+    // No URL configured — show empty state
+    allResponses = [];
+    renderResponses([]);
+    updateMetrics([]);
+    return;
   }
-  renderResponses(allResponses);
-  updateMetrics(allResponses);
+  try {
+    var r = await fetch(url + '?action=getAllVendors');
+    var d = await r.json();
+    allResponses = Array.isArray(d) ? d : [];
+    renderResponses(allResponses);
+    updateMetrics(allResponses);
+  } catch(err) {
+    console.error('loadResponses error:', err);
+    allResponses = [];
+    renderResponses([]);
+    updateMetrics([]);
+  }
 }
 
 function renderResponses(data) {
@@ -775,17 +778,24 @@ function renderResponses(data) {
     return;
   }
   tbody.innerHTML = data.map(r => {
-    var statusCls = r.status === 'Approved' ? 'b-green' : r.status === 'Rejected' ? 'b-red' : 'b-amber';
-    var entityBadge = r.entity === 'US' || r.entity === 'us' ? '<span class="badge b-blue">🇺🇸 US</span>' : '<span class="badge b-green">🇮🇳 India</span>';
-    return `<tr>
-      <td style="color:#6b7280;font-size:12px">${r.date || r['Submission Date'] || ''}</td>
-      <td style="font-weight:500">${r.name || r['Supplier Name'] || r['Company Name'] || ''}</td>
-      <td>${entityBadge}</td>
-      <td style="color:#6b7280;font-size:12px">${r.email || r['Email'] || ''}</td>
-      <td><span class="badge ${statusCls}">${r.status || r['Status'] || 'Pending'}</span></td>
-      <td style="font-size:12px;color:#6b7280">${r.docs || '—'}</td>
-      <td><a href="${r.folder || r['Drive Folder'] || '#'}" target="_blank" class="btn btn-sm">View Folder</a></td>
-    </tr>`;
+    var st = r.status || r['Status'] || 'Pending Review';
+    var statusCls = st.includes('Approved') ? 'b-green' : st.includes('Rejected') ? 'b-red' : 'b-amber';
+    var ent = r.entity || '';
+    var entityBadge = (ent==='US'||ent==='us') ? '<span class="badge b-blue">🇺🇸 US</span>' : '<span class="badge b-green">🇮🇳 India</span>';
+    var dt = r.date || (r['Submission Date'] ? new Date(r['Submission Date']).toLocaleDateString() : '') || '';
+    var nm = r.name || r['Supplier Name'] || r['Company Name'] || '';
+    var em = r.email || r['Email'] || '';
+    var fo = r.folder || r['Drive Folder'] || '#';
+    var dc = r.docs || '—';
+    return '<tr>' +
+      '<td style="color:#6b7280;font-size:12px">'+dt+'</td>' +
+      '<td style="font-weight:500">'+nm+'</td>' +
+      '<td>'+entityBadge+'</td>' +
+      '<td style="color:#6b7280;font-size:12px">'+em+'</td>' +
+      '<td><span class="badge '+statusCls+'">'+st+'</span></td>' +
+      '<td style="font-size:12px;color:#6b7280">'+dc+'</td>' +
+      '<td><a href="'+fo+'" target="_blank" class="btn btn-sm">View Folder</a></td>' +
+      '</tr>';
   }).join('');
   document.getElementById('resp-notif').style.display = data.filter(r=>(r.status||'Pending')==='Pending').length > 0 ? 'block' : 'none';
 }
