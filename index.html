@@ -6,152 +6,121 @@
 <title>ParallelDots Vendor Hub</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a1a;min-height:100vh;display:flex;flex-direction:column}
-
-/* SIDEBAR */
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a1a;min-height:100vh}
 .layout{display:flex;min-height:100vh}
-.sidebar{width:220px;background:#111827;flex-shrink:0;display:flex;flex-direction:column;padding:0}
-.sidebar-logo{padding:20px 16px 16px;border-bottom:1px solid #1f2937}
+.sidebar{width:220px;background:#111827;flex-shrink:0;display:flex;flex-direction:column}
+.sidebar-logo{padding:18px 16px 14px;border-bottom:1px solid #1f2937}
 .logo-mark{display:flex;align-items:center;gap:10px}
 .logo-dot{width:32px;height:32px;background:#1D9E75;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
-.logo-text{font-size:13px;font-weight:600;color:#fff;line-height:1.3}
+.logo-text{font-size:13px;font-weight:600;color:#fff}
 .logo-sub{font-size:10px;color:#6b7280;margin-top:1px}
-.sidebar-nav{padding:12px 8px;flex:1}
-.nav-label{font-size:10px;font-weight:600;color:#4b5563;letter-spacing:0.8px;padding:0 8px;margin:12px 0 4px}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;cursor:pointer;color:#9ca3af;font-size:13px;transition:all 0.15s;margin-bottom:2px}
+.sidebar-nav{padding:10px 8px;flex:1}
+.nav-label{font-size:10px;font-weight:600;color:#4b5563;letter-spacing:0.8px;padding:0 8px;margin:10px 0 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:7px;cursor:pointer;color:#9ca3af;font-size:13px;transition:all 0.15s;margin-bottom:2px}
 .nav-item:hover{background:#1f2937;color:#e5e7eb}
 .nav-item.active{background:#1D9E75;color:#fff}
-.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:0.8}
-.nav-item.active svg{opacity:1}
-.sidebar-footer{padding:12px;border-top:1px solid #1f2937}
-.entity-badges{display:flex;flex-direction:column;gap:6px}
-.entity-badge{padding:6px 10px;border-radius:6px;font-size:10px;font-weight:500}
+.nav-item svg{width:15px;height:15px;flex-shrink:0}
+.sidebar-footer{padding:10px 12px;border-top:1px solid #1f2937}
+.entity-badge{padding:5px 8px;border-radius:5px;font-size:10px;font-weight:500;margin-bottom:5px}
 .badge-us{background:#1e3a5f;color:#93c5fd}
 .badge-in{background:#14532d;color:#86efac}
-
-/* MAIN */
 .main{flex:1;overflow-y:auto;min-width:0}
 .topbar{background:#fff;border-bottom:1px solid #e5e7eb;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
 .page-title{font-size:16px;font-weight:600;color:#111827}
 .page-sub{font-size:12px;color:#6b7280;margin-top:1px}
-.topbar-actions{display:flex;gap:8px;align-items:center}
-.content{padding:24px}
-
-/* CARDS */
-.card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:16px}
-.card-header{padding:14px 20px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between}
-.card-title{font-size:13px;font-weight:600;color:#111827;display:flex;align-items:center;gap:8px}
-.card-body{padding:20px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.content{padding:20px}
+.card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:14px}
+.card-header{padding:12px 18px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:13px;font-weight:600;color:#111827;display:flex;align-items:center;gap:7px}
+.card-body{padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-
-/* METRICS */
-.metric{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px}
-.metric-val{font-size:26px;font-weight:600;color:#111827}
-.metric-label{font-size:11px;color:#6b7280;margin-top:3px;display:flex;align-items:center;gap:4px}
-.metric-label svg{width:12px;height:12px}
-
-/* FORM ELEMENTS */
-label{font-size:12px;font-weight:500;color:#374151;display:block;margin-bottom:5px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.metric{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px}
+.metric-val{font-size:24px;font-weight:600;color:#111827}
+.metric-label{font-size:11px;color:#6b7280;margin-top:2px}
+label{font-size:12px;font-weight:500;color:#374151;display:block;margin-bottom:4px}
 label .req{color:#ef4444}
-input,select,textarea{width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:7px;font-size:13px;color:#111827;background:#fff;font-family:inherit}
-input:focus,select:focus,textarea:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.12)}
-textarea{resize:vertical;min-height:80px}
-.field{display:flex;flex-direction:column;margin-bottom:0}
+input,select,textarea{width:100%;padding:8px 11px;border:1px solid #d1d5db;border-radius:7px;font-size:13px;color:#111827;background:#fff;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.1)}
+textarea{resize:vertical}
+.field{display:flex;flex-direction:column;margin-bottom:12px}
+.field:last-child{margin-bottom:0}
 .field-hint{font-size:10px;color:#9ca3af;margin-top:3px}
-
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid #d1d5db;background:#fff;color:#374151;transition:all 0.15s}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid #d1d5db;background:#fff;color:#374151;transition:all 0.15s}
 .btn:hover{background:#f9fafb}
 .btn-primary{background:#1D9E75;border-color:#1D9E75;color:#fff}
-.btn-primary:hover{background:#0F6E56;border-color:#0F6E56}
+.btn-primary:hover{background:#0F6E56}
 .btn-primary:disabled{background:#9acfbe;border-color:#9acfbe;cursor:not-allowed}
-.btn-blue{background:#185FA5;border-color:#185FA5;color:#fff}
-.btn-blue:hover{background:#0C447C}
 .btn-sm{padding:5px 10px;font-size:11px}
-.btn-icon{padding:6px;width:30px;height:30px;justify-content:center}
-
-/* UPLOAD */
-.upload-zone{border:2px dashed #d1d5db;border-radius:8px;padding:28px;text-align:center;cursor:pointer;transition:all 0.15s;background:#fafafa;position:relative}
+.upload-zone{border:2px dashed #d1d5db;border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all 0.15s;background:#fafafa;position:relative}
 .upload-zone:hover,.upload-zone.drag{border-color:#1D9E75;background:#f0fdf9}
 .upload-zone.done{border-color:#1D9E75;background:#f0fdf9;border-style:solid}
 .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upload-icon{width:40px;height:40px;background:#f0fdf9;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
-.upload-title{font-size:13px;font-weight:500;color:#374151}
-.upload-sub{font-size:11px;color:#9ca3af;margin-top:4px}
-.file-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;justify-content:center}
-.file-chip{display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#166534;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500}
-
-/* ENTITY TOGGLE */
-.entity-toggle{display:flex;background:#f3f4f6;border-radius:8px;padding:3px;gap:2px;width:fit-content}
-.entity-btn{padding:7px 16px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#6b7280;transition:all 0.15s}
+.file-chip{display:inline-flex;align-items:center;gap:5px;background:#dcfce7;color:#166534;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:500;margin:3px}
+.entity-toggle{display:flex;background:#f3f4f6;border-radius:8px;padding:3px;gap:2px}
+.entity-btn{flex:1;padding:7px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#6b7280;transition:all 0.15s;text-align:center}
 .entity-btn.active{background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
-
-/* AI OUTPUT */
-.ai-output{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;font-size:13px;line-height:1.8;min-height:160px;white-space:pre-wrap;color:#374151;max-height:420px;overflow-y:auto}
-.ai-placeholder{color:#9ca3af;font-style:italic;font-size:13px;text-align:center;padding:40px 0}
-
-/* PROGRESS */
-.progress-bar{height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden;margin:8px 0}
+.ai-output{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px;font-size:13px;line-height:1.8;min-height:140px;white-space:pre-wrap;color:#374151;max-height:400px;overflow-y:auto}
+.progress-bar{height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden;margin:6px 0}
 .progress-fill{height:100%;background:#1D9E75;border-radius:2px;transition:width 0.4s}
-.status-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#6b7280}
-.dot-pulse{width:8px;height:8px;border-radius:50%;background:#1D9E75;animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
-
-/* TABLE */
+.dot-pulse{width:7px;height:7px;border-radius:50%;background:#1D9E75;animation:pulse 1s infinite;display:inline-block}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;padding:10px 14px;background:#f9fafb;border-bottom:1px solid #e5e7eb;color:#6b7280;font-size:11px;font-weight:600;letter-spacing:0.5px}
-td{padding:10px 14px;border-bottom:1px solid #f3f4f6;color:#374151}
+th{text-align:left;padding:9px 12px;background:#f9fafb;border-bottom:1px solid #e5e7eb;color:#6b7280;font-size:11px;font-weight:600;letter-spacing:0.4px}
+td{padding:9px 12px;border-bottom:1px solid #f3f4f6;color:#374151}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafafa}
-
-/* BADGES */
-.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:500}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:500}
 .b-green{background:#dcfce7;color:#166534}
 .b-amber{background:#fef3c7;color:#92400e}
 .b-blue{background:#dbeafe;color:#1e40af}
 .b-red{background:#fee2e2;color:#991b1b}
 .b-gray{background:#f3f4f6;color:#374151}
-
-/* LINK BOX */
-.link-box{display:flex;align-items:center;gap:8px;background:#f0fdf9;border:1px solid #bbf7d0;border-radius:7px;padding:10px 14px}
-.link-text{flex:1;font-size:12px;color:#166534;word-break:break-all;font-family:monospace}
-
-/* STEPS */
-.setup-steps{counter-reset:step}
-.setup-step{display:flex;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #f3f4f6}
-.setup-step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.step-num{width:24px;height:24px;border-radius:50%;background:#1D9E75;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body{flex:1}
-.step-title{font-size:13px;font-weight:500;color:#111827;margin-bottom:3px}
-.step-desc{font-size:11px;color:#6b7280;line-height:1.6}
-
-/* CODE BLOCK */
-.code-block{background:#111827;border-radius:8px;padding:14px;font-family:monospace;font-size:11px;line-height:1.7;color:#d1d5db;max-height:280px;overflow-y:auto;white-space:pre}
-.code-block .c-green{color:#86efac}
-.code-block .c-amber{color:#fcd34d}
-.code-block .c-blue{color:#93c5fd}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;padding:12px 18px;border-radius:9px;font-size:13px;font-weight:500;z-index:9999;display:none;box-shadow:0 4px 16px rgba(0,0,0,0.15);max-width:340px}
-.toast.ok{background:#1D9E75;color:#fff}
-.toast.err{background:#ef4444;color:#fff}
-
-/* SECTIONS */
+.link-box{display:flex;align-items:center;gap:8px;background:#f0fdf9;border:1px solid #bbf7d0;border-radius:7px;padding:9px 12px;margin-top:10px}
+.link-text{flex:1;font-size:11px;color:#166534;word-break:break-all;font-family:monospace}
 .section{display:none}
 .section.active{display:block}
-
-/* OVERVIEW QUICK ACTION */
-.quick-action{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:all 0.15s;background:#fff}
+.quick-action{display:flex;align-items:center;gap:12px;padding:11px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:all 0.15s;background:#fff;margin-bottom:8px}
 .quick-action:hover{border-color:#1D9E75;background:#f0fdf9}
-.qa-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qa-icon{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .qa-title{font-size:13px;font-weight:500;color:#111827}
 .qa-sub{font-size:11px;color:#6b7280;margin-top:1px}
-
-/* NOTIFICATION DOT */
-.notif{width:7px;height:7px;border-radius:50%;background:#ef4444;margin-left:auto;flex-shrink:0}
+.profile-doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.doc-upload-card{border:1px solid #e5e7eb;border-radius:8px;padding:12px}
+.doc-label{font-size:11px;font-weight:600;color:#374151;margin-bottom:8px}
+.doc-status{font-size:11px;color:#6b7280;margin-top:5px}
+.doc-status.saved{color:#1D9E75;font-weight:500}
+.saved-indicator{display:inline-flex;align-items:center;gap:4px;background:#f0fdf9;border:1px solid #bbf7d0;border-radius:5px;padding:2px 8px;font-size:10px;font-weight:600;color:#1D9E75}
+.vault-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;margin-bottom:8px;transition:all 0.15s}
+.vault-item:hover{border-color:#1D9E75;background:#f0fdf9}
+.vault-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;background:#f3f4f6}
+.vault-info{flex:1;min-width:0}
+.vault-name{font-size:13px;font-weight:500;color:#111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vault-meta{font-size:11px;color:#6b7280;margin-top:1px}
+.vault-actions{display:flex;gap:5px;flex-shrink:0}
+.vault-empty{text-align:center;padding:32px;color:#9ca3af;font-size:12px}
+.add-doc-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border:2px dashed #d1d5db;border-radius:8px;cursor:pointer;transition:all 0.15s;background:#fafafa;position:relative}
+.add-doc-row:hover{border-color:#1D9E75;background:#f0fdf9}
+.add-doc-row input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.tag-badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-right:4px}
+.tag-in{background:#dcfce7;color:#166534}
+.tag-us{background:#dbeafe;color:#1e40af}
+.tag-both{background:#f3e8ff;color:#6b21a8}
+.toast{position:fixed;bottom:20px;right:20px;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;z-index:9999;display:none;box-shadow:0 4px 16px rgba(0,0,0,0.15);max-width:320px}
+.toast.ok{background:#1D9E75;color:#fff}
+.toast.err{background:#ef4444;color:#fff}
+.notif{width:6px;height:6px;border-radius:50%;background:#ef4444;margin-left:auto;flex-shrink:0}
+.divider{border-top:1px solid #f3f4f6;margin:14px 0}
+.info-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f9fafb;font-size:12px}
+.info-row:last-child{border-bottom:none}
+.info-key{color:#6b7280;font-weight:500}
+.info-val{color:#111827;text-align:right;max-width:60%;word-break:break-all}
+.step-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.step-num{width:22px;height:22px;border-radius:50%;background:#1D9E75;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;font-size:12px;color:#374151;line-height:1.6}
+.step-body strong{color:#111827}
 </style>
 </head>
 <body>
@@ -162,31 +131,36 @@ tr:hover td{background:#fafafa}
   <div class="sidebar-logo">
     <div class="logo-mark">
       <div class="logo-dot">PD</div>
-      <div>
-        <div class="logo-text">Vendor Hub</div>
-        <div class="logo-sub">ParallelDots</div>
-      </div>
+      <div><div class="logo-text">Vendor Hub</div><div class="logo-sub">ParallelDots</div></div>
     </div>
   </div>
   <div class="sidebar-nav">
-    <div class="nav-label">MENU</div>
+    <div class="nav-label">MAIN</div>
     <div class="nav-item active" onclick="goTo('overview',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       Overview
     </div>
+    <div class="nav-item" onclick="goTo('profile',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+      Company Profile
+      <div id="profile-notif" class="notif" style="display:none"></div>
+    </div>
     <div class="nav-item" onclick="goTo('aifiller',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       AI Form Filler
+    </div>
+    <div class="nav-item" onclick="window.open('form-filler.html','_blank')" style="font-size:11px;padding-left:18px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Full Screen Filler ↗
     </div>
     <div class="nav-label">VENDORS</div>
     <div class="nav-item" onclick="goTo('vendorlink',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
       Share Links
     </div>
-    <div class="nav-item" onclick="goTo('responses',this)" id="nav-responses">
+    <div class="nav-item" onclick="goTo('responses',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
       Responses
-      <div class="notif" id="resp-notif" style="display:none"></div>
     </div>
     <div class="nav-label">CONFIG</div>
     <div class="nav-item" onclick="goTo('settings',this)">
@@ -195,731 +169,679 @@ tr:hover td{background:#fafafa}
     </div>
   </div>
   <div class="sidebar-footer">
-    <div style="font-size:10px;color:#4b5563;margin-bottom:6px;font-weight:600">ENTITIES</div>
-    <div class="entity-badges">
-      <div class="entity-badge badge-us">🇺🇸 ParallelDots, Inc. · EIN 32-0535986</div>
-      <div class="entity-badge badge-in">🇮🇳 ParallelDots Tech Pvt Ltd · GSTIN 06AAJCP5428P1ZT</div>
+    <div style="font-size:10px;color:#4b5563;font-weight:600;margin-bottom:5px">ENTITIES</div>
+    <div class="entity-badge badge-us">🇺🇸 ParallelDots, Inc.</div>
+    <div class="entity-badge badge-in">🇮🇳 ParallelDots Tech Pvt Ltd</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div id="sec-overview" class="section active">
+  <div class="topbar"><div><div class="page-title">Overview</div><div class="page-sub">ParallelDots Vendor Onboarding Hub</div></div></div>
+  <div class="content">
+    <div class="grid4" style="margin-bottom:14px">
+      <div class="metric"><div class="metric-val" id="ov-total">0</div><div class="metric-label">Total Vendors</div></div>
+      <div class="metric"><div class="metric-val" id="ov-pending">0</div><div class="metric-label">Pending Review</div></div>
+      <div class="metric"><div class="metric-val" id="ov-india">0</div><div class="metric-label">🇮🇳 India Vendors</div></div>
+      <div class="metric"><div class="metric-val" id="ov-us">0</div><div class="metric-label">🇺🇸 US Vendors</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Quick Actions</div></div>
+        <div class="card-body">
+          <div class="quick-action" onclick="goTo('profile',null)">
+            <div class="qa-icon" style="background:#f0fdf9"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/></svg></div>
+            <div><div class="qa-title">Company Profile & Document Vault</div><div class="qa-sub">Save company details and all documents once</div></div>
+          </div>
+          <div class="quick-action" onclick="goTo('aifiller',null)">
+            <div class="qa-icon" style="background:#eff6ff"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+            <div><div class="qa-title">AI Form Filler</div><div class="qa-sub">Upload blank form → AI auto-fills using saved profile</div></div>
+          </div>
+          <div class="quick-action" onclick="goTo('vendorlink',null)">
+            <div class="qa-icon" style="background:#fefce8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/></svg></div>
+            <div><div class="qa-title">Vendor Onboarding Links</div><div class="qa-sub">Share registration links with India or US vendors</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Profile Status</div></div>
+        <div class="card-body" id="ov-profile-status">
+          <div style="font-size:12px;color:#6b7280;text-align:center;padding:20px 0">
+            Company Profile not saved yet.<br>
+            <span style="color:#1D9E75;cursor:pointer;font-weight:500" onclick="goTo('profile',null)">Set up Profile →</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="main">
-
-  <!-- ═══════════════════════════════ OVERVIEW ═══════════════════════════════ -->
-  <div id="sec-overview" class="section active">
-    <div class="topbar">
-      <div><div class="page-title">Overview</div><div class="page-sub">ParallelDots Vendor Onboarding Hub</div></div>
-    </div>
-    <div class="content">
-      <div class="grid4" style="margin-bottom:16px">
-        <div class="metric"><div class="metric-val" id="ov-total">0</div><div class="metric-label">Total Vendors</div></div>
-        <div class="metric"><div class="metric-val" id="ov-pending">0</div><div class="metric-label">Pending Review</div></div>
-        <div class="metric"><div class="metric-val" id="ov-india">0</div><div class="metric-label">🇮🇳 India Vendors</div></div>
-        <div class="metric"><div class="metric-val" id="ov-us">0</div><div class="metric-label">🇺🇸 US Vendors</div></div>
-      </div>
-      <div class="grid2">
+<!-- ══ COMPANY PROFILE ══ -->
+<div id="sec-profile" class="section">
+  <div class="topbar">
+    <div><div class="page-title">Company Profile</div><div class="page-sub">Save once — used automatically by AI Form Filler</div></div>
+    <button class="btn btn-primary" onclick="saveProfile()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17,21 17,13 7,13"/><polyline points="7,3 7,8 15,8"/></svg>
+      Save Profile
+    </button>
+  </div>
+  <div class="content">
+    <div class="grid2">
+      <!-- India Entity -->
+      <div>
         <div class="card">
-          <div class="card-header"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13,2 13,9 20,9"/></svg>Quick Actions</div></div>
-          <div class="card-body" style="display:flex;flex-direction:column;gap:8px">
-            <div class="quick-action" onclick="goTo('aifiller',null)">
-              <div class="qa-icon" style="background:#f0fdf9"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-              <div><div class="qa-title">AI Form Filler</div><div class="qa-sub">Upload any blank form → AI auto-fills with your company details</div></div>
-            </div>
-            <div class="quick-action" onclick="goTo('vendorlink',null)">
-              <div class="qa-icon" style="background:#eff6ff"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
-              <div><div class="qa-title">Share Vendor Link</div><div class="qa-sub">Send onboarding link to India or US vendors</div></div>
-            </div>
-            <div class="quick-action" onclick="goTo('responses',null)">
-              <div class="qa-icon" style="background:#fefce8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></svg></div>
-              <div><div class="qa-title">View Responses</div><div class="qa-sub">See all submitted vendor forms & approve</div></div>
+          <div class="card-header"><div class="card-title">🇮🇳 ParallelDots Technology Pvt Ltd</div></div>
+          <div class="card-body">
+            <div class="grid2">
+              <div class="field"><label>Company Name</label><input id="p-in-name" value="ParallelDots Technology Pvt Ltd"></div>
+              <div class="field"><label>GSTIN</label><input id="p-in-gstin" value="06AAJCP5428P1ZT"></div>
+              <div class="field"><label>PAN Number</label><input id="p-in-pan" value="AAJCP5428P"></div>
+              <div class="field"><label>Type of Vendor</label><input id="p-in-vendor-type" value="Service Vendor"></div>
+              <div class="field" style="grid-column:1/-1"><label>Registered Address</label><input id="p-in-address" value="520, Ocus Quantum Mall, Sector 51, Gurgaon 122003, Haryana"></div>
+              <div class="field"><label>City</label><input id="p-in-city" value="Gurgaon"></div>
+              <div class="field"><label>Pincode</label><input id="p-in-pin" value="122003"></div>
+              <div class="field"><label>State</label><input id="p-in-state" value="07 - Haryana"></div>
+              <div class="field"><label>Country</label><input id="p-in-country" value="India"></div>
+              <div class="field"><label>Mobile / Tel</label><input id="p-in-mobile" placeholder="+91-XXXXXXXXXX"></div>
+              <div class="field"><label>Email</label><input id="p-in-email" value="accounts@paralleldots.com"></div>
+              <div class="field"><label>Bank Name</label><input id="p-in-bank" placeholder="e.g. HDFC Bank"></div>
+              <div class="field"><label>IFSC Code</label><input id="p-in-ifsc" placeholder="e.g. HDFC0001234"></div>
+              <div class="field"><label>Account Number</label><input id="p-in-acct" placeholder="Bank account number"></div>
+              <div class="field"><label>Account Holder Name</label><input id="p-in-acct-name" value="ParallelDots Technology Pvt Ltd"></div>
+              <div class="field"><label>Bank Branch</label><input id="p-in-branch" placeholder="Branch name"></div>
+              <div class="field"><label>MSME Type</label><select id="p-in-msme"><option value="NA">NA — Not Applicable</option><option>Micro</option><option>Small</option><option>Medium</option></select></div>
+              <div class="field"><label>MSME Number</label><input id="p-in-msme-no" placeholder="Udyam number (if any)"></div>
+              <div class="field"><label>Payment Terms</label><input id="p-in-payment" value="Net 30"></div>
+              <div class="field"><label>Currency</label><input id="p-in-currency" value="INR"></div>
+              <div class="field" style="grid-column:1/-1"><label>Website</label><input id="p-in-web" value="paralleldots.com"></div>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><div class="card-title">How This System Works</div></div>
+          <div class="card-header"><div class="card-title">🇮🇳 India Entity Documents</div><div id="in-doc-count" style="font-size:11px;color:#6b7280"></div></div>
           <div class="card-body">
-            <div style="margin-bottom:14px">
-              <div style="font-size:11px;font-weight:600;color:#1D9E75;letter-spacing:0.5px;margin-bottom:8px">🤖 AI FORM FILLER</div>
-              <div class="setup-step" style="margin-bottom:8px;padding-bottom:8px"><div class="step-num" style="background:#1D9E75">1</div><div class="step-body"><div class="step-title">Upload any blank form</div><div class="step-desc">PDF, Excel, Word, image — vendor registration, compliance, tax form anything</div></div></div>
-              <div class="setup-step" style="margin-bottom:8px;padding-bottom:8px"><div class="step-num" style="background:#1D9E75">2</div><div class="step-body"><div class="step-title">AI reads & fills automatically</div><div class="step-desc">Picks correct entity (India or US) and fills all fields</div></div></div>
-              <div class="setup-step" style="margin-bottom:0;padding-bottom:0;border:none"><div class="step-num" style="background:#1D9E75">3</div><div class="step-body"><div class="step-title">Copy or download result</div><div class="step-desc">Filled text ready — paste into original form or save</div></div></div>
+            <div class="profile-doc-grid">
+              <div class="doc-upload-card"><div class="doc-label">GST Certificate</div><div class="upload-zone" id="dz-gst"><input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="profileUpload(this,'gstCertificate','dz-gst','ds-gst')"><div style="font-size:11px;color:#9ca3af">Click to upload</div></div><div class="doc-status" id="ds-gst">Not uploaded</div></div>
+              <div class="doc-upload-card"><div class="doc-label">PAN Card</div><div class="upload-zone" id="dz-pan"><input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="profileUpload(this,'panCard','dz-pan','ds-pan')"><div style="font-size:11px;color:#9ca3af">Click to upload</div></div><div class="doc-status" id="ds-pan">Not uploaded</div></div>
+              <div class="doc-upload-card"><div class="doc-label">Cancelled Cheque</div><div class="upload-zone" id="dz-cheque"><input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="profileUpload(this,'cancelledCheque','dz-cheque','ds-cheque')"><div style="font-size:11px;color:#9ca3af">Click to upload</div></div><div class="doc-status" id="ds-cheque">Not uploaded</div></div>
+              <div class="doc-upload-card"><div class="doc-label">COI — Certificate of Incorporation</div><div class="upload-zone" id="dz-coi"><input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="profileUpload(this,'coi','dz-coi','ds-coi')"><div style="font-size:11px;color:#9ca3af">Click to upload</div></div><div class="doc-status" id="ds-coi">Not uploaded</div></div>
+              <div class="doc-upload-card" style="grid-column:1/-1"><div class="doc-label">MSME Certificate (optional)</div><div class="upload-zone" id="dz-msme"><input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="profileUpload(this,'msmeCertificate','dz-msme','ds-msme')"><div style="font-size:11px;color:#9ca3af">Click to upload (optional)</div></div><div class="doc-status" id="ds-msme">Not uploaded</div></div>
             </div>
-            <div style="border-top:1px solid #f3f4f6;padding-top:14px">
-              <div style="font-size:11px;font-weight:600;color:#185FA5;letter-spacing:0.5px;margin-bottom:8px">🔗 VENDOR ONBOARDING</div>
-              <div class="step-desc">Generate link → vendor fills form → data goes to Google Sheet + Google Drive folder auto-created with all documents</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- US Entity -->
+      <div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">🇺🇸 ParallelDots, Inc.</div></div>
+          <div class="card-body">
+            <div class="grid2">
+              <div class="field"><label>Company Name</label><input id="p-us-name" value="ParallelDots, Inc."></div>
+              <div class="field"><label>EIN / Federal Tax ID</label><input id="p-us-ein" value="32-0535986"></div>
+              <div class="field"><label>Legal Structure</label><select id="p-us-structure"><option>Corporation (C-Corp)</option><option>LLC</option><option>S-Corporation</option></select></div>
+              <div class="field"><label>VAT Number</label><input id="p-us-vat" placeholder="If applicable"></div>
+              <div class="field" style="grid-column:1/-1"><label>Business Address</label><input id="p-us-address" value="600 Stewart Street, Suite 300 & 400"></div>
+              <div class="field"><label>City</label><input id="p-us-city" value="Seattle"></div>
+              <div class="field"><label>State</label><input id="p-us-state" value="Washington"></div>
+              <div class="field"><label>ZIP Code</label><input id="p-us-zip" value="98101"></div>
+              <div class="field"><label>Country</label><input id="p-us-country" value="USA"></div>
+              <div class="field"><label>Primary Contact Name</label><input id="p-us-contact" placeholder="Contact person name"></div>
+              <div class="field"><label>Email</label><input id="p-us-email" value="accounts@paralleldots.com"></div>
+              <div class="field"><label>Phone</label><input id="p-us-phone" placeholder="+1-XXX-XXX-XXXX"></div>
+              <div class="field"><label>Bank Name</label><input id="p-us-bank" placeholder="e.g. JPMorgan Chase"></div>
+              <div class="field"><label>Account Name</label><input id="p-us-acct-name" value="ParallelDots, Inc."></div>
+              <div class="field"><label>Account Number</label><input id="p-us-acct" placeholder="Account number"></div>
+              <div class="field"><label>ABA Routing Number</label><input id="p-us-routing" placeholder="9-digit routing number"></div>
+              <div class="field"><label>Payment Terms</label><input id="p-us-payment" value="Net 30"></div>
+              <div class="field"><label>Currency</label><input id="p-us-currency" value="USD"></div>
+              <div class="field" style="grid-column:1/-1"><label>Website</label><input id="p-us-web" value="paralleldots.com"></div>
             </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">🇺🇸 US Entity Documents</div><div id="us-doc-count" style="font-size:11px;color:#6b7280"></div></div>
+          <div class="card-body">
+            <div class="profile-doc-grid">
+              <div class="doc-upload-card" style="grid-column:1/-1"><div class="doc-label">W-9 Form</div><div class="upload-zone" id="dz-w9"><input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="profileUpload(this,'w9','dz-w9','ds-w9')"><div style="font-size:11px;color:#9ca3af">Click to upload</div></div><div class="doc-status" id="ds-w9">Not uploaded</div></div>
+              <div class="doc-upload-card" style="grid-column:1/-1"><div class="doc-label">Bank Statement (optional)</div><div class="upload-zone" id="dz-bs"><input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="profileUpload(this,'bankStatement','dz-bs','ds-bs')"><div style="font-size:11px;color:#9ca3af">Click to upload (optional)</div></div><div class="doc-status" id="ds-bs">Not uploaded</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Business Information</div></div>
+          <div class="card-body">
+            <div class="field"><label>Nature of Business</label><textarea id="p-biz-nature" style="min-height:50px" placeholder="e.g. AI/ML software services, data annotation, NLP solutions...">AI/ML Software Services and Data Solutions</textarea></div>
+            <div class="field"><label>Additional Notes for AI Form Filler</label><textarea id="p-extra-notes" style="min-height:50px" placeholder="Any extra information the AI should use when filling forms..."></textarea></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCUMENT VAULT -->
+    <div class="card" style="margin-top:0">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          Document Vault
+        </div>
+        <span id="vault-count" style="font-size:11px;color:#6b7280">0 documents</span>
+      </div>
+      <div class="card-body">
+        <div style="font-size:12px;color:#6b7280;margin-bottom:14px">Store all your company documents here — GST certificates, agreements, certifications, anything. Download anytime to share with anyone.</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+          <div class="add-doc-row" style="flex:1;min-width:200px">
+            <input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls,.docx,.doc,.txt" onchange="vaultAddFiles(this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span style="font-size:13px;color:#6b7280">Click to add documents (multiple files allowed)</span>
+          </div>
+          <select id="vault-tag-select" style="width:auto;padding:7px 10px;font-size:12px">
+            <option value="both">Both Entities</option>
+            <option value="in">🇮🇳 India Only</option>
+            <option value="us">🇺🇸 US Only</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:12px">
+          <button class="btn btn-sm" id="vf-all" onclick="vaultFilter('all')" style="border-color:#1D9E75;color:#1D9E75">All</button>
+          <button class="btn btn-sm" id="vf-in" onclick="vaultFilter('in')">🇮🇳 India</button>
+          <button class="btn btn-sm" id="vf-us" onclick="vaultFilter('us')">🇺🇸 US</button>
+        </div>
+        <div id="vault-list"><div class="vault-empty"><div style="font-size:24px;margin-bottom:8px">📁</div>No documents stored yet.<br>Click "Add documents" above to get started.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AI FORM FILLER ══ -->
+<div id="sec-aifiller" class="section">
+  <div class="topbar">
+    <div><div class="page-title">AI Form Filler</div><div class="page-sub">Upload any blank form → AI fills it using your saved company profile</div></div>
+    <a href="form-filler.html" target="_blank" class="btn btn-primary" style="text-decoration:none">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Open Full Screen
+    </a>
+  </div>
+  <div class="content">
+    <div class="grid2">
+      <div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Upload Blank Form</div></div>
+          <div class="card-body">
+            <div class="upload-zone" id="ai-zone">
+              <input type="file" accept=".pdf,.xlsx,.xls,.docx,.doc,.png,.jpg,.jpeg,.txt,.csv" onchange="aiHandleFile(this)">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.5" style="margin:0 auto 8px;display:block"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+              <div style="font-size:13px;font-weight:500;color:#374151">Click to upload</div>
+              <div style="font-size:11px;color:#9ca3af;margin-top:4px">Excel · PDF · Word · Image · Text</div>
+              <div id="ai-file-chips" style="margin-top:8px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Fill as which entity?</div></div>
+          <div class="card-body">
+            <div class="entity-toggle" style="margin-bottom:12px">
+              <div class="entity-btn active" id="ai-btn-us" onclick="aiSelectEntity('us')">🇺🇸 ParallelDots, Inc.</div>
+              <div class="entity-btn" id="ai-btn-in" onclick="aiSelectEntity('in')">🇮🇳 ParallelDots Tech</div>
+            </div>
+            <div id="ai-entity-preview" style="background:#f9fafb;border-radius:6px;padding:10px;font-size:12px;color:#374151;line-height:1.7;border:1px solid #f3f4f6"></div>
+            <div id="ai-profile-warn" style="display:none;margin-top:8px;background:#fef3c7;border-radius:6px;padding:8px 10px;font-size:11px;color:#92400e">
+              ⚠️ Profile not saved — <span style="cursor:pointer;text-decoration:underline" onclick="goTo('profile',null)">set up Company Profile first</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Additional Instructions (optional)</div></div>
+          <div class="card-body">
+            <textarea id="ai-instructions" placeholder="e.g. This is a W-9 form, focus on tax fields.&#10;Or: Fill only the vendor section." style="min-height:60px"></textarea>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:10px" id="ai-btn" onclick="runAIFiller()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Fill Form with AI
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">AI Output</div>
+            <div id="ai-action-btns" style="display:none;gap:6px">
+              <button class="btn btn-sm" onclick="aiCopy()">Copy</button>
+              <button class="btn btn-sm" onclick="aiDownload()">Download .txt</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="ai-status-row" style="display:none;margin-bottom:8px">
+              <div class="progress-bar"><div class="progress-fill" id="ai-progress" style="width:0%"></div></div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#6b7280"><div class="dot-pulse"></div><span id="ai-status-text">Processing...</span></div>
+            </div>
+            <div id="ai-output" class="ai-output"><div style="color:#9ca3af;font-size:12px;text-align:center;padding:30px 0">Upload a form and click "Fill Form with AI"</div></div>
+          </div>
+        </div>
+        <div class="card" style="background:#f0fdf9;border-color:#bbf7d0">
+          <div class="card-body" style="padding:14px 16px">
+            <div style="font-size:12px;font-weight:600;color:#166534;margin-bottom:8px">💡 For best results — use Full Screen Filler</div>
+            <div style="font-size:12px;color:#374151;line-height:1.7">The <strong>Full Screen Form Filler</strong> page supports downloading the filled form in the same format as the original (Excel stays Excel, etc.).<br><br>
+            <a href="form-filler.html" target="_blank" style="color:#1D9E75;font-weight:600">Open form-filler.html →</a></div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ═══════════════════════════════ AI FORM FILLER ═══════════════════════════════ -->
-  <div id="sec-aifiller" class="section">
-    <div class="topbar">
-      <div><div class="page-title">AI Form Filler</div><div class="page-sub">Upload any blank form → AI fills it with your company details</div></div>
-    </div>
-    <div class="content">
-      <div class="grid2">
-
-        <!-- LEFT PANEL -->
-        <div>
-          <div class="card">
-            <div class="card-header"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload Form</div></div>
-            <div class="card-body">
-              <div class="upload-zone" id="ai-upload-zone">
-                <input type="file" accept=".pdf,.xlsx,.xls,.docx,.doc,.png,.jpg,.jpeg,.txt,.csv" onchange="aiHandleFile(this)" id="ai-file-input">
-                <div class="upload-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></div>
-                <div class="upload-title">Click to upload or drag & drop</div>
-                <div class="upload-sub">PDF · Excel · Word · Image · Text — max 10MB</div>
-                <div id="ai-file-chips" class="file-chips"></div>
-              </div>
-            </div>
+<!-- ══ VENDOR LINKS ══ -->
+<div id="sec-vendorlink" class="section">
+  <div class="topbar"><div><div class="page-title">Share Vendor Links</div><div class="page-sub">Send registration links to your vendors</div></div></div>
+  <div class="content">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-header" style="background:#f0fdf9;border-bottom-color:#d1fae5"><div class="card-title" style="color:#166534">🇮🇳 India Vendor Form — ParallelDots Tech</div></div>
+        <div class="card-body">
+          <div style="font-size:12px;color:#374151;margin-bottom:12px;line-height:1.7">Send this link to <strong>Indian vendors</strong>. They will fill company details, bank details, GST/PAN/MSME info, and upload required documents (GST cert, PAN card, cancelled cheque, COI).</div>
+          <div class="field"><label>India Form URL (GitHub Pages)</label><input id="india-url" placeholder="https://pcsharma-jpg.github.io/VedorForm/india.html"></div>
+          <button class="btn btn-primary" onclick="genLink('in')" style="width:100%;justify-content:center">Generate India Vendor Link</button>
+          <div id="india-link-box" style="display:none">
+            <div class="link-box"><span class="link-text" id="india-link-text"></span><button class="btn btn-sm" onclick="copyText('india-link-text')">Copy</button></div>
           </div>
-
-          <div class="card">
-            <div class="card-header"><div class="card-title">Fill as which company?</div></div>
-            <div class="card-body">
-              <div class="entity-toggle" style="margin-bottom:12px">
-                <div class="entity-btn active" id="ai-btn-us" onclick="aiSelectEntity('us')">🇺🇸 ParallelDots, Inc.</div>
-                <div class="entity-btn" id="ai-btn-in" onclick="aiSelectEntity('in')">🇮🇳 ParallelDots Tech</div>
-              </div>
-              <div id="ai-entity-preview" style="background:#f9fafb;border-radius:6px;padding:10px;font-size:12px;color:#374151;line-height:1.7;border:1px solid #f3f4f6">
-                <strong>ParallelDots, Inc.</strong><br>600 Stewart Street, Suite 300 & 400<br>Seattle WA 98101, USA<br>EIN: 32-0535986
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><div class="card-title">Extra Instructions (optional)</div></div>
-            <div class="card-body">
-              <textarea id="ai-instructions" placeholder="e.g. This is a W-9 form, focus on tax fields only.&#10;Or: Skip internal-use fields, fill vendor section only.&#10;Or: This is a GST registration form." style="min-height:70px"></textarea>
-              <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:10px" id="ai-fill-btn" onclick="runAIFiller()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                Fill Form with AI
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT PANEL -->
-        <div>
-          <div class="card" style="height:calc(100% - 0px)">
-            <div class="card-header">
-              <div class="card-title">AI Output</div>
-              <div style="display:flex;gap:6px" id="ai-action-btns" style="display:none">
-                <button class="btn btn-sm" onclick="aiCopy()" title="Copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-                <button class="btn btn-sm" onclick="aiDownload()" title="Download"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div id="ai-status-row" style="display:none;margin-bottom:10px">
-                <div class="progress-bar"><div class="progress-fill" id="ai-progress" style="width:0%"></div></div>
-                <div class="status-row"><div class="dot-pulse"></div><span id="ai-status-text">Processing...</span></div>
-              </div>
-              <div id="ai-output" class="ai-output">
-                <div class="ai-placeholder">
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5" style="margin:0 auto 10px;display:block"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
-                  Upload a form and click "Fill Form with AI"
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════ VENDOR LINKS ═══════════════════════════════ -->
-  <div id="sec-vendorlink" class="section">
-    <div class="topbar">
-      <div><div class="page-title">Share Vendor Links</div><div class="page-sub">Generate shareable links to send vendors for self-registration</div></div>
-    </div>
-    <div class="content">
-      <div class="grid2">
-        <!-- INDIA -->
-        <div class="card">
-          <div class="card-header" style="background:#f0fdf9;border-bottom-color:#d1fae5">
-            <div class="card-title" style="color:#166534">🇮🇳 India Vendor Form — ParallelDots Technology Pvt Ltd</div>
-          </div>
-          <div class="card-body">
-            <div style="font-size:12px;color:#374151;margin-bottom:12px;line-height:1.7">
-              Send this link to your <strong>Indian vendors</strong>. They will fill:
-              <ul style="margin:6px 0 0 16px;color:#6b7280">
-                <li>Company details (as per GSTIN)</li>
-                <li>Bank details (IFSC, account no.)</li>
-                <li>GST No., PAN No., MSME details</li>
-                <li>Upload: GST Cert, PAN Card, Cancelled Cheque, COI, MSME Cert</li>
-              </ul>
-            </div>
-            <div class="field" style="margin-bottom:10px">
-              <label>Your India Form URL (GitHub Pages)</label>
-              <input type="text" id="india-form-url" placeholder="https://yourusername.github.io/vendor-form-india.html">
-            </div>
-            <button class="btn btn-primary" onclick="genLink('in')" style="width:100%;justify-content:center">Generate India Vendor Link</button>
-            <div id="india-link-box" style="display:none;margin-top:12px">
-              <div class="link-box">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-                <span class="link-text" id="india-link-text"></span>
-                <button class="btn btn-sm" onclick="copyText('india-link-text')">Copy</button>
-              </div>
-            </div>
-            <div style="margin-top:14px;border-top:1px solid #f3f4f6;padding-top:14px">
-              <label style="margin-bottom:6px">Email template for vendor</label>
-              <textarea id="india-email-tmpl" style="font-size:11px;min-height:90px" readonly>Subject: Vendor Registration — ParallelDots Technology Pvt Ltd
+          <div class="divider"></div>
+          <label>Email Template</label>
+          <textarea id="india-email" style="font-size:11px;min-height:90px" readonly>Subject: Vendor Registration — ParallelDots Technology Pvt Ltd
 
 Dear [Vendor Name],
 
-Please complete your vendor onboarding for ParallelDots Technology Pvt Ltd using the link below:
-
+Please complete your vendor registration using the link below:
 [LINK]
 
-Please keep the following ready:
-• GST Certificate
-• PAN Card
-• Cancelled Cheque
-• Certificate of Incorporation (COI)
+Please keep the following documents ready:
+• GST Certificate  • PAN Card
+• Cancelled Cheque  • Certificate of Incorporation (COI)
 
 Regards,
 ParallelDots Team</textarea>
-              <button class="btn btn-sm" style="margin-top:6px" onclick="copyText('india-email-tmpl')">Copy Email Template</button>
-            </div>
-          </div>
+          <button class="btn btn-sm" style="margin-top:6px" onclick="copyText('india-email')">Copy Email Template</button>
         </div>
-
-        <!-- US -->
-        <div class="card">
-          <div class="card-header" style="background:#eff6ff;border-bottom-color:#bfdbfe">
-            <div class="card-title" style="color:#1e40af">🇺🇸 US Vendor Form — ParallelDots, Inc.</div>
+      </div>
+      <div class="card">
+        <div class="card-header" style="background:#eff6ff;border-bottom-color:#bfdbfe"><div class="card-title" style="color:#1e40af">🇺🇸 US Vendor Form — ParallelDots Inc.</div></div>
+        <div class="card-body">
+          <div style="font-size:12px;color:#374151;margin-bottom:12px;line-height:1.7">Send this link to <strong>US vendors</strong>. They will fill company details, EIN/Tax ID, banking information, and optionally upload a bank statement.</div>
+          <div class="field"><label>US Form URL (GitHub Pages)</label><input id="us-url" placeholder="https://pcsharma-jpg.github.io/VedorForm/us.html"></div>
+          <button class="btn" style="width:100%;justify-content:center;background:#185FA5;border-color:#185FA5;color:#fff" onclick="genLink('us')">Generate US Vendor Link</button>
+          <div id="us-link-box" style="display:none">
+            <div class="link-box" style="background:#eff6ff;border-color:#bfdbfe"><span class="link-text" id="us-link-text" style="color:#1e40af"></span><button class="btn btn-sm" onclick="copyText('us-link-text')">Copy</button></div>
           </div>
-          <div class="card-body">
-            <div style="font-size:12px;color:#374151;margin-bottom:12px;line-height:1.7">
-              Send this link to your <strong>US vendors</strong>. They will fill:
-              <ul style="margin:6px 0 0 16px;color:#6b7280">
-                <li>Company details (legal name, structure)</li>
-                <li>EIN / Federal Tax ID (or VAT number)</li>
-                <li>Bank details (routing no., account no.)</li>
-                <li>Upload: Bank Statement (optional)</li>
-              </ul>
-            </div>
-            <div class="field" style="margin-bottom:10px">
-              <label>Your US Form URL (GitHub Pages)</label>
-              <input type="text" id="us-form-url" placeholder="https://yourusername.github.io/vendor-form-us.html">
-            </div>
-            <button class="btn btn-blue" onclick="genLink('us')" style="width:100%;justify-content:center">Generate US Vendor Link</button>
-            <div id="us-link-box" style="display:none;margin-top:12px">
-              <div class="link-box" style="background:#eff6ff;border-color:#bfdbfe">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1e40af" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-                <span class="link-text" id="us-link-text" style="color:#1e40af"></span>
-                <button class="btn btn-sm" onclick="copyText('us-link-text')">Copy</button>
-              </div>
-            </div>
-            <div style="margin-top:14px;border-top:1px solid #f3f4f6;padding-top:14px">
-              <label style="margin-bottom:6px">Email template for vendor</label>
-              <textarea id="us-email-tmpl" style="font-size:11px;min-height:90px" readonly>Subject: Vendor Registration — ParallelDots, Inc.
+          <div class="divider"></div>
+          <label>Email Template</label>
+          <textarea id="us-email" style="font-size:11px;min-height:90px" readonly>Subject: Vendor Registration — ParallelDots, Inc.
 
 Dear [Vendor Name],
 
-Please complete your vendor onboarding for ParallelDots, Inc. using the link below:
-
+Please complete your vendor registration using the link below:
 [LINK]
 
 Please keep the following ready:
-• EIN / Federal Tax ID
-• Bank account details
+• EIN / Federal Tax ID  • Bank account details
 • Bank statement (optional, speeds up approval)
 
 Regards,
 ParallelDots Team</textarea>
-              <button class="btn btn-sm" style="margin-top:6px" onclick="copyText('us-email-tmpl')">Copy Email Template</button>
-            </div>
-          </div>
+          <button class="btn btn-sm" style="margin-top:6px" onclick="copyText('us-email')">Copy Email Template</button>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- ═══════════════════════════════ RESPONSES ═══════════════════════════════ -->
-  <div id="sec-responses" class="section">
-    <div class="topbar">
-      <div><div class="page-title">Vendor Responses</div><div class="page-sub">All submitted vendor registrations</div></div>
-      <div class="topbar-actions">
-        <button class="btn btn-sm" onclick="loadResponses()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
-      </div>
-    </div>
-    <div class="content">
-      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
-        <button class="btn btn-sm" id="rf-all" onclick="filterResp('all')" style="border-color:#1D9E75;color:#1D9E75">All</button>
-        <button class="btn btn-sm" id="rf-in" onclick="filterResp('in')">🇮🇳 India</button>
-        <button class="btn btn-sm" id="rf-us" onclick="filterResp('us')">🇺🇸 US</button>
-        <button class="btn btn-sm" id="rf-pending" onclick="filterResp('pending')">⏳ Pending</button>
-        <button class="btn btn-sm" id="rf-approved" onclick="filterResp('approved')">✅ Approved</button>
-      </div>
-      <div class="card" style="padding:0">
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>DATE</th>
-                <th>VENDOR NAME</th>
-                <th>ENTITY</th>
-                <th>EMAIL</th>
-                <th>STATUS</th>
-                <th>DOCUMENTS</th>
-                <th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody id="resp-tbody">
-              <tr>
-                <td colspan="7" style="text-align:center;padding:40px;color:#9ca3af">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5" style="display:block;margin:0 auto 8px"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                  No responses yet. Share vendor links to start collecting.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════ SETTINGS ═══════════════════════════════ -->
-  <div id="sec-settings" class="section">
-    <div class="topbar">
-      <div><div class="page-title">Setup & Configuration</div><div class="page-sub">Connect Google Sheets, configure company details</div></div>
-    </div>
-    <div class="content">
-      <div class="grid2">
-        <div>
-          <div class="card">
-            <div class="card-header"><div class="card-title">Google Apps Script URL</div></div>
-            <div class="card-body">
-              <div class="field" style="margin-bottom:12px">
-                <label>Apps Script Web App URL <span class="req">*</span></label>
-                <input type="text" id="cfg-script-url" placeholder="https://script.google.com/macros/s/XXXXX/exec">
-                <div class="field-hint">Deploy karne ke baad jo URL milega woh paste karo</div>
-              </div>
-              <div class="field" style="margin-bottom:12px">
-                <label>Google Sheet ID</label>
-                <input type="text" id="cfg-sheet-id" placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms">
-                <div class="field-hint">Sheet URL mein /d/ ke baad wala ID</div>
-              </div>
-              <button class="btn btn-primary" onclick="saveConfig()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17,21 17,13 7,13"/><polyline points="7,3 7,8 15,8"/></svg> Save Configuration</button>
-              <div id="cfg-saved" style="display:none;margin-top:8px;font-size:12px;color:#1D9E75">✓ Saved successfully</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><div class="card-title">Company Details (for AI Filler)</div></div>
-            <div class="card-body">
-              <div class="field" style="margin-bottom:10px">
-                <label>🇺🇸 US Entity Details</label>
-                <textarea id="cfg-us-details" style="min-height:72px;font-size:11px">Company: ParallelDots, Inc.
-Address: 600 Stewart Street, Suite 300 & 400, Seattle WA 98101, USA
-EIN: 32-0535986
-Website: paralleldots.com
-Email: accounts@paralleldots.com</textarea>
-              </div>
-              <div class="field" style="margin-bottom:10px">
-                <label>🇮🇳 India Entity Details</label>
-                <textarea id="cfg-in-details" style="min-height:72px;font-size:11px">Company: ParallelDots Technology Pvt Ltd
-Address: 520, Ocus Quantum Mall, Sector 51, Gurgaon 122003, Haryana
-GSTIN: 06AAJCP5428P1ZT
-PAN: AAJCP5428P
-Website: paralleldots.com
-Email: accounts@paralleldots.com</textarea>
-              </div>
-              <button class="btn btn-primary" onclick="saveCompany()">Save Company Details</button>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="card">
-            <div class="card-header"><div class="card-title">Apps Script Setup Guide</div></div>
-            <div class="card-body">
-              <div class="setup-steps">
-                <div class="setup-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Google Sheet banao</div><div class="step-desc">Google Drive → New → Google Sheets → naam: "ParallelDots Vendor Onboarding". Sheet URL se ID copy karo (/d/XXXXX/edit mein se XXXXX).</div></div></div>
-                <div class="setup-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Drive folder banao</div><div class="step-desc">Google Drive → New Folder → "Vendor Documents". Folder open karo, URL se ID copy karo (/folders/XXXXX mein se).</div></div></div>
-                <div class="setup-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Apps Script mein code paste karo</div><div class="step-desc">Sheet → Extensions → Apps Script → Code.gs mein neeche wala code paste karo. SHEET_ID aur DRIVE_FOLDER_ID update karo.</div></div></div>
-                <div class="setup-step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Deploy karo</div><div class="step-desc">Deploy → New Deployment → Web App → Execute as: Me → Who has access: Anyone → Deploy → URL copy karo.</div></div></div>
-                <div class="setup-step"><div class="step-num">5</div><div class="step-body"><div class="step-title">URL yahan paste karo + vendor forms mein bhi</div><div class="step-desc">Upar wale field mein URL daalo. Vendor HTML files mein bhi APPS_SCRIPT_URL replace karo.</div></div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">Apps Script Code</div>
-              <button class="btn btn-sm" onclick="copyCode()">Copy Code</button>
-            </div>
-            <div class="card-body" style="padding:0">
-              <div class="code-block" id="code-display">
-<span class="c-green">// ParallelDots Vendor Onboarding Backend</span>
-<span class="c-amber">var</span> SHEET_ID = <span class="c-blue">'YOUR_SHEET_ID'</span>;
-<span class="c-amber">var</span> DRIVE_FOLDER_ID = <span class="c-blue">'YOUR_FOLDER_ID'</span>;
-<span class="c-amber">var</span> ADMIN_EMAIL = <span class="c-blue">'you@paralleldots.com'</span>;
-
-<span class="c-amber">function</span> <span class="c-green">doPost</span>(e) {
-  <span class="c-amber">var</span> params = JSON.parse(e.postData.contents);
-  <span class="c-amber">if</span> (params.entity === <span class="c-blue">'india'</span>)
-    <span class="c-amber">return</span> handleIndia(params);
-  <span class="c-amber">else</span>
-    <span class="c-amber">return</span> handleUS(params);
-}
-
-<span class="c-green">// See downloaded Code.gs for full code</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
 </div>
 
+<!-- ══ RESPONSES ══ -->
+<div id="sec-responses" class="section">
+  <div class="topbar">
+    <div><div class="page-title">Vendor Responses</div><div class="page-sub">All submitted vendor registrations</div></div>
+    <button class="btn btn-sm" onclick="loadResponses()">↻ Refresh from Sheet</button>
+  </div>
+  <div class="content">
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <button class="btn btn-sm" id="rf-all" onclick="filterResp('all')" style="border-color:#1D9E75;color:#1D9E75">All</button>
+      <button class="btn btn-sm" id="rf-in" onclick="filterResp('in')">🇮🇳 India</button>
+      <button class="btn btn-sm" id="rf-us" onclick="filterResp('us')">🇺🇸 US</button>
+      <button class="btn btn-sm" id="rf-pending" onclick="filterResp('pending')">⏳ Pending</button>
+      <button class="btn btn-sm" id="rf-approved" onclick="filterResp('approved')">✅ Approved</button>
+    </div>
+    <div class="card" style="padding:0">
+      <div class="table-wrap">
+        <table><thead><tr><th>DATE</th><th>VENDOR NAME</th><th>ENTITY</th><th>EMAIL</th><th>STATUS</th><th>DOCS</th><th>DRIVE FOLDER</th></tr></thead>
+        <tbody id="resp-tbody"><tr><td colspan="7" style="text-align:center;padding:40px;color:#9ca3af">Loading responses...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SETTINGS ══ -->
+<div id="sec-settings" class="section">
+  <div class="topbar"><div><div class="page-title">Setup & Configuration</div><div class="page-sub">Connect Google Sheets backend</div></div></div>
+  <div class="content">
+    <div class="grid2">
+      <div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Google Apps Script URL</div></div>
+          <div class="card-body">
+            <div class="field"><label>Web App URL <span class="req">*</span></label><input id="cfg-url" placeholder="https://script.google.com/macros/s/.../exec"><div class="field-hint">Paste the URL after deploying Code.gs as a Web App</div></div>
+            <button class="btn btn-primary" onclick="saveConfig()" style="margin-top:6px">Save Configuration</button>
+            <div id="cfg-saved" style="display:none;font-size:12px;color:#1D9E75;margin-top:6px">✓ Saved successfully</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Your Live Links</div></div>
+          <div class="card-body">
+            <div class="info-row"><span class="info-key">Dashboard</span><span class="info-val" style="color:#1D9E75">pcsharma-jpg.github.io/VedorForm/</span></div>
+            <div class="info-row"><span class="info-key">India Vendor Form</span><span class="info-val">pcsharma-jpg.github.io/VedorForm/india.html</span></div>
+            <div class="info-row"><span class="info-key">US Vendor Form</span><span class="info-val">pcsharma-jpg.github.io/VedorForm/us.html</span></div>
+            <div class="info-row"><span class="info-key">AI Form Filler</span><span class="info-val">pcsharma-jpg.github.io/VedorForm/form-filler.html</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Setup Checklist</div></div>
+          <div class="card-body">
+            <div class="step-row"><div class="step-num">1</div><div class="step-body"><strong>Google Sheet created</strong> — "ParallelDots Vendor Onboarding" — copy the Sheet ID from the URL</div></div>
+            <div class="step-row"><div class="step-num">2</div><div class="step-body"><strong>Google Drive folder created</strong> — "Vendor Documents" — copy the Folder ID from the URL</div></div>
+            <div class="step-row"><div class="step-num">3</div><div class="step-body"><strong>Code.gs deployed</strong> — Sheet → Extensions → Apps Script → paste code → update SHEET_ID, FOLDER_ID, ADMIN_EMAIL → Deploy as Web App → Anyone</div></div>
+            <div class="step-row"><div class="step-num">4</div><div class="step-body"><strong>Apps Script URL saved</strong> — paste the Web App URL above and click Save</div></div>
+            <div class="step-row"><div class="step-num">5</div><div class="step-body"><strong>HTML files updated</strong> — replace YOUR_APPS_SCRIPT_URL_HERE in india.html and us.html, re-upload to GitHub</div></div>
+            <div class="step-row"><div class="step-num">6</div><div class="step-body"><strong>Company Profile filled</strong> — go to Company Profile tab, fill all details, save</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-// ── STATE ──────────────────────────────────────────────
+var cfg = JSON.parse(localStorage.getItem('pd_cfg') || '{}');
+var profile = JSON.parse(localStorage.getItem('pd_profile') || '{}');
+var profileDocs = {};
 var aiEntity = 'us';
 var aiFile = null;
 var allResponses = [];
-var cfg = JSON.parse(localStorage.getItem('pd_cfg') || '{}');
+var vaultDocs = JSON.parse(localStorage.getItem('pd_vault_meta') || '[]');
 
-// Apply saved config
 window.onload = function() {
-  if (cfg.scriptUrl) document.getElementById('cfg-script-url').value = cfg.scriptUrl;
-  if (cfg.sheetId) document.getElementById('cfg-sheet-id').value = cfg.sheetId;
-  if (cfg.usDetails) document.getElementById('cfg-us-details').value = cfg.usDetails;
-  if (cfg.inDetails) document.getElementById('cfg-in-details').value = cfg.inDetails;
+  if (cfg.scriptUrl) document.getElementById('cfg-url').value = cfg.scriptUrl;
+  loadProfileFields();
+  updateEntityPreview();
+  checkProfileStatus();
   loadResponses();
+  vaultRender('all');
 };
 
-// ── NAVIGATION ─────────────────────────────────────────
 function goTo(id, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('sec-' + id).classList.add('active');
-  if (el) el.classList.add('active');
-  else {
-    var map = {overview:'sec-overview',aifiller:'sec-aifiller',vendorlink:'sec-vendorlink',responses:'sec-responses',settings:'sec-settings'};
-    document.querySelectorAll('.nav-item').forEach(n => {
-      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
-    });
-  }
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) { el.classList.add('active'); return; }
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if ((n.getAttribute('onclick')||'').includes("'"+id+"'")) n.classList.add('active');
+  });
 }
 
-// ── AI FORM FILLER ─────────────────────────────────────
+// ── PROFILE ────────────────────────────────
+function profileUpload(input, key, zoneId, statusId) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 10*1024*1024) { showToast('File too large (max 10MB)', 'err'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    profileDocs[key] = {data:e.target.result.split(',')[1], mimeType:file.type, fileName:file.name, name:file.name};
+    document.getElementById(zoneId).classList.add('done');
+    document.getElementById(statusId).textContent = '✓ '+file.name;
+    document.getElementById(statusId).className = 'doc-status saved';
+    updateDocCounts();
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateDocCounts() {
+  var inDocs = ['gstCertificate','panCard','cancelledCheque','coi'].filter(k=>profileDocs[k]).length;
+  var usDocs = ['w9'].filter(k=>profileDocs[k]).length;
+  document.getElementById('in-doc-count').textContent = inDocs+'/4 uploaded';
+  document.getElementById('us-doc-count').textContent = usDocs+'/1 uploaded';
+}
+
+function getVal(id) { var el=document.getElementById(id); return el?el.value:''; }
+
+function saveProfile() {
+  profile = {
+    in:{name:getVal('p-in-name'),gstin:getVal('p-in-gstin'),pan:getVal('p-in-pan'),vendorType:getVal('p-in-vendor-type'),address:getVal('p-in-address'),city:getVal('p-in-city'),pin:getVal('p-in-pin'),state:getVal('p-in-state'),country:getVal('p-in-country'),mobile:getVal('p-in-mobile'),email:getVal('p-in-email'),bank:getVal('p-in-bank'),ifsc:getVal('p-in-ifsc'),acct:getVal('p-in-acct'),acctName:getVal('p-in-acct-name'),branch:getVal('p-in-branch'),msme:getVal('p-in-msme'),msmeNo:getVal('p-in-msme-no'),payment:getVal('p-in-payment'),currency:getVal('p-in-currency'),web:getVal('p-in-web')},
+    us:{name:getVal('p-us-name'),ein:getVal('p-us-ein'),structure:getVal('p-us-structure'),vat:getVal('p-us-vat'),address:getVal('p-us-address'),city:getVal('p-us-city'),state:getVal('p-us-state'),zip:getVal('p-us-zip'),country:getVal('p-us-country'),contact:getVal('p-us-contact'),email:getVal('p-us-email'),phone:getVal('p-us-phone'),bank:getVal('p-us-bank'),acctName:getVal('p-us-acct-name'),acct:getVal('p-us-acct'),routing:getVal('p-us-routing'),payment:getVal('p-us-payment'),currency:getVal('p-us-currency'),web:getVal('p-us-web')},
+    bizNature:getVal('p-biz-nature'),extraNotes:getVal('p-extra-notes'),docNames:{}
+  };
+  Object.keys(profileDocs).forEach(k=>{profile.docNames[k]=profileDocs[k].name;});
+  localStorage.setItem('pd_profile', JSON.stringify(profile));
+  document.getElementById('profile-notif').style.display = 'none';
+  checkProfileStatus(); updateEntityPreview();
+  showToast('Profile saved! AI Form Filler is ready.', 'ok');
+}
+
+function loadProfileFields() {
+  if (!profile.in) return;
+  var map = {'p-in-name':profile.in.name,'p-in-gstin':profile.in.gstin,'p-in-pan':profile.in.pan,'p-in-vendor-type':profile.in.vendorType,'p-in-address':profile.in.address,'p-in-city':profile.in.city,'p-in-pin':profile.in.pin,'p-in-state':profile.in.state,'p-in-country':profile.in.country,'p-in-mobile':profile.in.mobile,'p-in-email':profile.in.email,'p-in-bank':profile.in.bank,'p-in-ifsc':profile.in.ifsc,'p-in-acct':profile.in.acct,'p-in-acct-name':profile.in.acctName,'p-in-branch':profile.in.branch,'p-in-msme-no':profile.in.msmeNo,'p-in-payment':profile.in.payment,'p-in-currency':profile.in.currency,'p-in-web':profile.in.web,'p-us-name':profile.us&&profile.us.name,'p-us-ein':profile.us&&profile.us.ein,'p-us-vat':profile.us&&profile.us.vat,'p-us-address':profile.us&&profile.us.address,'p-us-city':profile.us&&profile.us.city,'p-us-state':profile.us&&profile.us.state,'p-us-zip':profile.us&&profile.us.zip,'p-us-country':profile.us&&profile.us.country,'p-us-contact':profile.us&&profile.us.contact,'p-us-email':profile.us&&profile.us.email,'p-us-phone':profile.us&&profile.us.phone,'p-us-bank':profile.us&&profile.us.bank,'p-us-acct-name':profile.us&&profile.us.acctName,'p-us-acct':profile.us&&profile.us.acct,'p-us-routing':profile.us&&profile.us.routing,'p-us-payment':profile.us&&profile.us.payment,'p-us-currency':profile.us&&profile.us.currency,'p-us-web':profile.us&&profile.us.web,'p-biz-nature':profile.bizNature,'p-extra-notes':profile.extraNotes};
+  Object.entries(map).forEach(([id,val])=>{var el=document.getElementById(id);if(el&&val)el.value=val;});
+  if (profile.docNames) {
+    var sm={gstCertificate:'ds-gst',panCard:'ds-pan',cancelledCheque:'ds-cheque',coi:'ds-coi',msmeCertificate:'ds-msme',w9:'ds-w9',bankStatement:'ds-bs'};
+    var zm={gstCertificate:'dz-gst',panCard:'dz-pan',cancelledCheque:'dz-cheque',coi:'dz-coi',msmeCertificate:'dz-msme',w9:'dz-w9',bankStatement:'dz-bs'};
+    Object.entries(profile.docNames).forEach(([k,name])=>{
+      if(sm[k]){var el=document.getElementById(sm[k]);if(el){el.textContent='✓ '+name+' (saved)';el.className='doc-status saved';}}
+      if(zm[k]){var el=document.getElementById(zm[k]);if(el)el.classList.add('done');}
+    });
+  }
+  updateDocCounts();
+}
+
+function checkProfileStatus() {
+  var hasSaved = profile && profile.in && profile.in.name;
+  if (!hasSaved) {
+    document.getElementById('profile-notif').style.display = 'block';
+    document.getElementById('ov-profile-status').innerHTML = '<div style="font-size:12px;color:#6b7280;text-align:center;padding:20px 0">Profile not saved yet.<br><span style="color:#1D9E75;cursor:pointer;font-weight:500" onclick="goTo(\'profile\',null)">Set up Company Profile →</span></div>';
+    return;
+  }
+  var inDocs = profile.docNames ? Object.keys(profile.docNames).filter(k=>['gstCertificate','panCard','cancelledCheque','coi'].includes(k)).length : 0;
+  document.getElementById('ov-profile-status').innerHTML =
+    '<div class="info-row"><span class="info-key">🇮🇳 India Entity</span><span class="info-val saved-indicator">✓ Saved</span></div>'+
+    '<div class="info-row"><span class="info-key">Company</span><span class="info-val">'+profile.in.name+'</span></div>'+
+    '<div class="info-row"><span class="info-key">GSTIN</span><span class="info-val">'+profile.in.gstin+'</span></div>'+
+    '<div class="info-row"><span class="info-key">PAN</span><span class="info-val">'+profile.in.pan+'</span></div>'+
+    '<div class="info-row"><span class="info-key">India Docs</span><span class="info-val">'+inDocs+'/4 saved</span></div>'+
+    '<div class="info-row"><span class="info-key">🇺🇸 US Entity</span><span class="info-val saved-indicator">✓ Saved</span></div>'+
+    '<div class="info-row"><span class="info-key">EIN</span><span class="info-val">'+(profile.us&&profile.us.ein||'')+'</span></div>';
+}
+
+// ── DOCUMENT VAULT ─────────────────────────
+function vaultAddFiles(input) {
+  var tag = document.getElementById('vault-tag-select').value;
+  var files = Array.from(input.files);
+  if (!files.length) return;
+  var processed = 0;
+  files.forEach(function(file) {
+    if (file.size > 8*1024*1024) { showToast(file.name+' too large (max 8MB)', 'err'); return; }
+    var id = 'vd_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        localStorage.setItem('pd_vault_data_'+id, e.target.result);
+        vaultDocs.push({id,name:file.name,size:file.size,type:file.type,tag,date:new Date().toLocaleDateString('en-IN')});
+        localStorage.setItem('pd_vault_meta', JSON.stringify(vaultDocs));
+        processed++;
+        if (processed===files.length) { vaultRender('all'); showToast(processed+' document(s) saved to vault!','ok'); }
+      } catch(e) { showToast('Storage full — clear some documents first','err'); }
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value='';
+}
+
+function vaultRender(filter) {
+  var list = document.getElementById('vault-list');
+  if (!list) return;
+  var filtered = filter==='all' ? vaultDocs : filter==='in' ? vaultDocs.filter(d=>d.tag==='in'||d.tag==='both') : vaultDocs.filter(d=>d.tag==='us'||d.tag==='both');
+  document.getElementById('vault-count').textContent = vaultDocs.length+' document'+(vaultDocs.length!==1?'s':'');
+  if (!filtered.length) { list.innerHTML='<div class="vault-empty"><div style="font-size:24px;margin-bottom:8px">📁</div>No documents stored.<br>Click "Add documents" above to get started.</div>'; return; }
+  list.innerHTML = filtered.map(function(doc) {
+    var icon = doc.type.includes('pdf')?'📄':doc.type.includes('image')?'🖼️':doc.name.match(/\.xlsx?$/i)?'📊':doc.name.match(/\.docx?$/i)?'📝':'📎';
+    var sz = Math.round(doc.size/1024); var szStr = sz>1024?(sz/1024).toFixed(1)+'MB':sz+'KB';
+    var tagHtml = doc.tag==='in'?'<span class="tag-badge tag-in">🇮🇳 India</span>':doc.tag==='us'?'<span class="tag-badge tag-us">🇺🇸 US</span>':'<span class="tag-badge tag-both">Both</span>';
+    return '<div class="vault-item"><div class="vault-icon">'+icon+'</div><div class="vault-info"><div class="vault-name">'+esc(doc.name)+'</div><div class="vault-meta">'+tagHtml+' '+szStr+' · '+doc.date+'</div></div><div class="vault-actions"><button class="btn btn-sm btn-primary" onclick="vaultDownload(\''+doc.id+'\',\''+esc(doc.name)+'\')">⬇ Download</button><button class="btn btn-sm" onclick="vaultDelete(\''+doc.id+'\')" style="color:#ef4444;border-color:#fca5a5">✕</button></div></div>';
+  }).join('');
+}
+
+function vaultFilter(f) {
+  document.querySelectorAll('[id^="vf-"]').forEach(b=>{b.style.borderColor='';b.style.color='';});
+  document.getElementById('vf-'+f).style.borderColor='#1D9E75'; document.getElementById('vf-'+f).style.color='#1D9E75';
+  vaultRender(f);
+}
+
+function vaultDownload(id,name) {
+  var data=localStorage.getItem('pd_vault_data_'+id);
+  if(!data){showToast('File not found','err');return;}
+  var a=document.createElement('a'); a.href=data; a.download=name; a.click();
+  showToast('Downloading: '+name,'ok');
+}
+
+function vaultDelete(id) {
+  if(!confirm('Delete this document from vault?'))return;
+  localStorage.removeItem('pd_vault_data_'+id);
+  vaultDocs=vaultDocs.filter(d=>d.id!==id);
+  localStorage.setItem('pd_vault_meta',JSON.stringify(vaultDocs));
+  vaultRender('all'); showToast('Document deleted','ok');
+}
+
+// ── AI FORM FILLER ─────────────────────────
 function aiHandleFile(input) {
-  var f = input.files[0];
-  if (!f) return;
-  aiFile = f;
-  var zone = document.getElementById('ai-upload-zone');
-  zone.classList.add('done');
-  document.getElementById('ai-file-chips').innerHTML =
-    '<div class="file-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + f.name + ' (' + Math.round(f.size/1024) + ' KB)</div>';
+  var f=input.files[0]; if(!f)return; aiFile=f;
+  document.getElementById('ai-zone').classList.add('done');
+  document.getElementById('ai-file-chips').innerHTML='<div class="file-chip">✓ '+f.name+' ('+Math.round(f.size/1024)+' KB)</div>';
 }
 
 function aiSelectEntity(e) {
-  aiEntity = e;
-  document.getElementById('ai-btn-us').classList.toggle('active', e==='us');
-  document.getElementById('ai-btn-in').classList.toggle('active', e==='in');
-  var usD = cfg.usDetails || 'ParallelDots, Inc.\n600 Stewart Street, Suite 300 & 400\nSeattle WA 98101, USA\nEIN: 32-0535986';
-  var inD = cfg.inDetails || 'ParallelDots Technology Pvt Ltd\n520, Ocus Quantum Mall, Sector 51\nGurgaon 122003, Haryana\nGSTIN: 06AAJCP5428P1ZT\nPAN: AAJCP5428P';
-  document.getElementById('ai-entity-preview').innerHTML = e==='us'
-    ? '<strong>ParallelDots, Inc.</strong><br>' + (usD.replace(/\n/g,'<br>'))
-    : '<strong>ParallelDots Technology Pvt Ltd</strong><br>' + (inD.replace(/\n/g,'<br>'));
+  aiEntity=e;
+  document.getElementById('ai-btn-us').classList.toggle('active',e==='us');
+  document.getElementById('ai-btn-in').classList.toggle('active',e==='in');
+  updateEntityPreview();
+}
+
+function updateEntityPreview() {
+  var el=document.getElementById('ai-entity-preview'); if(!el)return;
+  var hasSaved=profile&&profile.in&&profile.in.name;
+  var warnEl=document.getElementById('ai-profile-warn'); if(warnEl)warnEl.style.display=hasSaved?'none':'block';
+  if(aiEntity==='us'&&profile.us) el.innerHTML='<strong>'+profile.us.name+'</strong><br>'+profile.us.address+'<br>'+profile.us.city+', '+profile.us.state+' '+profile.us.zip+'<br>EIN: '+profile.us.ein;
+  else if(profile.in) el.innerHTML='<strong>'+profile.in.name+'</strong><br>'+profile.in.address+'<br>GSTIN: '+profile.in.gstin+' | PAN: '+profile.in.pan;
+  else el.innerHTML='<span style="color:#9ca3af">Profile not saved — go to Company Profile tab</span>';
+}
+
+function buildEntityStr(entity) {
+  var p=entity==='us'?profile.us:profile.in;
+  if(!p) return entity==='us'?'ParallelDots, Inc. | EIN: 32-0535986 | Seattle WA USA':'ParallelDots Technology Pvt Ltd | GSTIN: 06AAJCP5428P1ZT | Gurgaon';
+  if(entity==='us') return ['Company: '+p.name,'EIN/Tax ID: '+p.ein,'Legal Structure: '+(p.structure||''),'Address: '+p.address+', '+p.city+', '+p.state+' '+p.zip+', '+p.country,'Email: '+p.email,'Phone: '+(p.phone||''),'Contact: '+(p.contact||''),'Bank: '+(p.bank||'')+' | Account: '+(p.acct||'')+' | Routing: '+(p.routing||''),'Payment Terms: '+(p.payment||'Net 30'),'Currency: '+(p.currency||'USD'),'Website: '+(p.web||'')].join('\n');
+  return ['Company: '+p.name,'GSTIN: '+p.gstin,'PAN: '+p.pan,'Type of Vendor: '+(p.vendorType||'Service Vendor'),'Vendor Account Group: Z004 Service Provider','Address: '+p.address,'City: '+p.city+' | PIN: '+p.pin+' | State: '+p.state+' | Country: '+p.country,'Mobile: '+(p.mobile||'')+' | Email: '+p.email,'Bank Account Name: '+(p.acctName||p.name),'Bank: '+(p.bank||'')+' | IFSC: '+(p.ifsc||'')+' | Account: '+(p.acct||''),'Registered to GSTIN: Yes','MSME Type: '+(p.msme||'NA'),'Payment Terms: '+(p.payment||'Net 30'),'Currency: '+(p.currency||'INR'),'Website: '+(p.web||''),'Department of Applicant: Finance & Accounts'].join('\n');
 }
 
 async function runAIFiller() {
-  if (!aiFile) { showToast('Pehle form upload karo', 'err'); return; }
-  var btn = document.getElementById('ai-fill-btn');
-  btn.disabled = true; btn.innerHTML = '<div class="dot-pulse" style="margin-right:6px"></div>Processing...';
-  document.getElementById('ai-status-row').style.display = 'block';
-  document.getElementById('ai-action-btns').style.display = 'none';
-  document.getElementById('ai-output').innerHTML = '';
-
-  var usD = cfg.usDetails || 'Company: ParallelDots, Inc.\nAddress: 600 Stewart Street, Suite 300 & 400, Seattle WA 98101, USA\nEIN: 32-0535986\nWebsite: paralleldots.com';
-  var inD = cfg.inDetails || 'Company: ParallelDots Technology Pvt Ltd\nAddress: 520, Ocus Quantum Mall, Sector 51, Gurgaon 122003, Haryana\nGSTIN: 06AAJCP5428P1ZT\nPAN: AAJCP5428P\nWebsite: paralleldots.com';
-  var entityDetails = aiEntity === 'us' ? usD : inD;
-  var extra = document.getElementById('ai-instructions').value;
-
-  var steps = ['File padh raha hoon...','Form fields analyze kar raha hoon...','Company data match kar raha hoon...','Output generate ho raha hai...'];
-  var pcts = [20, 45, 70, 90];
-  var si = 0;
-  var ticker = setInterval(function(){
-    if (si < steps.length) {
-      document.getElementById('ai-status-text').textContent = steps[si];
-      document.getElementById('ai-progress').style.width = pcts[si] + '%';
-      si++;
-    }
-  }, 900);
-
+  if(!aiFile){showToast('Please upload a form first','err');return;}
+  var btn=document.getElementById('ai-btn'); btn.disabled=true; btn.innerHTML='<div class="dot-pulse" style="margin-right:6px"></div>Processing...';
+  document.getElementById('ai-status-row').style.display='block'; document.getElementById('ai-action-btns').style.display='none';
+  document.getElementById('ai-output').innerHTML='';
+  var steps=['Reading file...','Identifying form fields...','Matching company data...','Generating filled output...'];
+  var pcts=[20,50,75,92]; var si=0;
+  var ticker=setInterval(function(){if(si<steps.length){document.getElementById('ai-status-text').textContent=steps[si];document.getElementById('ai-progress').style.width=pcts[si]+'%';si++;}},1100);
+  var extra=document.getElementById('ai-instructions').value;
+  var prompt='This is a vendor/supplier registration form. Fill every field using these company details:\n\n'+buildEntityStr(aiEntity)+(profile.extraNotes?'\n\nAdditional notes: '+profile.extraNotes:'')+(extra?'\n\nInstructions: '+extra:'')+'\n\nFor every field respond as:\n[FIELD NAME]: [VALUE]\n\nIf data not available: [FIELD NAME]: [Please fill manually]\n\nList every single field — do not skip any.';
   try {
-    var messages;
-    var isImg = aiFile.type.startsWith('image/');
-    var isPdf = aiFile.type === 'application/pdf';
-
-    if (isImg || isPdf) {
-      var b64 = await toBase64(aiFile);
-      messages = [{role:'user', content:[
-        {type: isPdf ? 'document' : 'image', source:{type:'base64', media_type:aiFile.type, data:b64}},
-        {type:'text', text: buildPrompt(entityDetails, extra)}
-      ]}];
-    } else {
-      var text = await readAsText(aiFile);
-      messages = [{role:'user', content: 'Form content:\n\n' + text.substring(0,4000) + '\n\n' + buildPrompt(entityDetails, extra)}];
-    }
-
-    var scriptUrl = cfg.scriptUrl;
-    if(!scriptUrl){ throw new Error('Setup tab mein Apps Script URL daalo pehle'); }
-    var resp = await fetch(scriptUrl, {
-      method:'POST',
-      body: JSON.stringify({action:'aiProxy', messages, model:'claude-sonnet-4-6', max_tokens:1000})
-    });
-    var data = await resp.json();
-    clearInterval(ticker);
-    document.getElementById('ai-progress').style.width = '100%';
-    document.getElementById('ai-status-text').textContent = 'Done!';
-    var out = data.content && data.content[0] ? data.content[0].text : (data.error || 'Error: No response');
-    document.getElementById('ai-output').textContent = out;
-    document.getElementById('ai-action-btns').style.display = 'flex';
-  } catch(err) {
-    clearInterval(ticker);
-    document.getElementById('ai-output').textContent = 'Error: ' + err.message;
-  }
-  btn.disabled = false;
-  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Fill Form with AI';
+    var messages; var isImg=aiFile.type.startsWith('image/'); var isPdf=aiFile.type==='application/pdf';
+    if(isImg||isPdf){var b64=await toBase64(aiFile);messages=[{role:'user',content:[{type:isPdf?'document':'image',source:{type:'base64',media_type:aiFile.type,data:b64}},{type:'text',text:prompt}]}];}
+    else{var text=await readAsText(aiFile);messages=[{role:'user',content:'FORM:\n\n'+text.substring(0,4000)+'\n\n'+prompt}];}
+    var data=await callAI(messages,1500);
+    clearInterval(ticker); document.getElementById('ai-progress').style.width='100%'; document.getElementById('ai-status-text').textContent='Done!';
+    var out=data.content&&data.content[0]?data.content[0].text:(data.error||'Error: No response');
+    document.getElementById('ai-output').textContent=out;
+    document.getElementById('ai-action-btns').style.display='flex';
+  } catch(err){clearInterval(ticker);document.getElementById('ai-output').textContent='Error: '+err.message+'\n\nNote: Apps Script URL must be configured in Setup & Config tab.';}
+  btn.disabled=false; btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Fill Form with AI';
 }
 
-function buildPrompt(entityDetails, extra) {
-  return 'This is a vendor/supplier registration form or official document that needs to be filled out by a company.\n\nPlease analyze every field visible in this form and provide a complete filled version using these company details:\n\n' + entityDetails + '\n\n' + (extra ? 'Additional instructions: ' + extra + '\n\n' : '') + 'For EVERY field in the form, respond in this exact format:\n[FIELD NAME]: [VALUE TO FILL]\n\nIf a field cannot be determined from available data, write:\n[FIELD NAME]: [Please fill manually]\n\nBe thorough. List every single field you identify. Do not skip any field.';
+async function callAI(messages,maxTokens){
+  var scriptUrl=cfg.scriptUrl;
+  if(scriptUrl){var resp=await fetch(scriptUrl,{method:'POST',body:JSON.stringify({action:'aiProxy',messages,model:'claude-sonnet-4-6',max_tokens:maxTokens||1500})});return await resp.json();}
+  var resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,messages})});
+  return await resp.json();
 }
 
-function toBase64(file) {
-  return new Promise((res, rej) => {
-    var r = new FileReader();
-    r.onload = e => res(e.target.result.split(',')[1]);
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
-}
+function aiCopy(){navigator.clipboard.writeText(document.getElementById('ai-output').textContent);showToast('Copied!','ok');}
+function aiDownload(){var blob=new Blob([document.getElementById('ai-output').textContent],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='filled-form-'+aiEntity+'-'+Date.now()+'.txt';a.click();}
+function toBase64(f){return new Promise((r,j)=>{var rd=new FileReader();rd.onload=e=>r(e.target.result.split(',')[1]);rd.onerror=j;rd.readAsDataURL(f);});}
+function readAsText(f){return new Promise((r,j)=>{var rd=new FileReader();rd.onload=e=>r(e.target.result);rd.onerror=j;rd.readAsText(f);});}
 
-function readAsText(file) {
-  return new Promise((res, rej) => {
-    var r = new FileReader();
-    r.onload = e => res(e.target.result);
-    r.onerror = rej;
-    r.readAsText(file);
-  });
-}
-
-function aiCopy() {
-  navigator.clipboard.writeText(document.getElementById('ai-output').textContent);
-  showToast('Copied to clipboard!', 'ok');
-}
-
-function aiDownload() {
-  var blob = new Blob([document.getElementById('ai-output').textContent], {type:'text/plain'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'filled-form-' + aiEntity + '-' + Date.now() + '.txt';
-  a.click();
-}
-
-// ── VENDOR LINKS ───────────────────────────────────────
+// ── VENDOR LINKS ───────────────────────────
 function genLink(entity) {
-  var urlId = entity === 'in' ? 'india-form-url' : 'us-form-url';
-  var boxId = entity === 'in' ? 'india-link-box' : 'us-link-box';
-  var txtId = entity === 'in' ? 'india-link-text' : 'us-link-text';
-  var tmplId = entity === 'in' ? 'india-email-tmpl' : 'us-email-tmpl';
-  var baseUrl = document.getElementById(urlId).value;
-  if (!baseUrl) { showToast('Form URL daalo pehle', 'err'); return; }
-  var link = baseUrl + (baseUrl.includes('?') ? '&' : '?') + 'entity=' + entity;
-  document.getElementById(txtId).textContent = link;
-  document.getElementById(boxId).style.display = 'block';
-  var tmpl = document.getElementById(tmplId);
-  tmpl.value = tmpl.value.replace('[LINK]', link);
+  var urlId=entity==='in'?'india-url':'us-url',boxId=entity==='in'?'india-link-box':'us-link-box',txtId=entity==='in'?'india-link-text':'us-link-text',tmplId=entity==='in'?'india-email':'us-email';
+  var base=document.getElementById(urlId).value; if(!base){showToast('Please enter the form URL first','err');return;}
+  document.getElementById(txtId).textContent=base; document.getElementById(boxId).style.display='block';
+  var t=document.getElementById(tmplId); if(!t.value.includes(base))t.value=t.value.replace('[LINK]',base);
 }
 
-// ── RESPONSES ──────────────────────────────────────────
+// ── RESPONSES ──────────────────────────────
 async function loadResponses() {
-  var url = cfg.scriptUrl;
-  if (!url) {
-    // No URL configured — show empty state
-    allResponses = [];
-    renderResponses([]);
-    updateMetrics([]);
-    return;
-  }
-  try {
-    var r = await fetch(url + '?action=getAllVendors');
-    var d = await r.json();
-    allResponses = Array.isArray(d) ? d : [];
-    renderResponses(allResponses);
-    updateMetrics(allResponses);
-  } catch(err) {
-    console.error('loadResponses error:', err);
-    allResponses = [];
-    renderResponses([]);
-    updateMetrics([]);
-  }
+  var url=cfg.scriptUrl; if(!url){renderResponses([]);updateMetrics([]);return;}
+  try{var r=await fetch(url+'?action=getAllVendors');var d=await r.json();allResponses=Array.isArray(d)?d:[];renderResponses(allResponses);updateMetrics(allResponses);}
+  catch(e){renderResponses([]);updateMetrics([]);}
 }
 
 function renderResponses(data) {
-  var tbody = document.getElementById('resp-tbody');
-  if (!data || data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:#9ca3af">No responses found.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = data.map(r => {
-    var st = r.status || r['Status'] || 'Pending Review';
-    var statusCls = st.includes('Approved') ? 'b-green' : st.includes('Rejected') ? 'b-red' : 'b-amber';
-    var ent = r.entity || '';
-    var entityBadge = (ent==='US'||ent==='us') ? '<span class="badge b-blue">🇺🇸 US</span>' : '<span class="badge b-green">🇮🇳 India</span>';
-    var dt = r.date || (r['Submission Date'] ? new Date(r['Submission Date']).toLocaleDateString() : '') || '';
-    var nm = r.name || r['Supplier Name'] || r['Company Name'] || '';
-    var em = r.email || r['Email'] || '';
-    var fo = r.folder || r['Drive Folder'] || '#';
-    var dc = r.docs || '—';
-    return '<tr>' +
-      '<td style="color:#6b7280;font-size:12px">'+dt+'</td>' +
-      '<td style="font-weight:500">'+nm+'</td>' +
-      '<td>'+entityBadge+'</td>' +
-      '<td style="color:#6b7280;font-size:12px">'+em+'</td>' +
-      '<td><span class="badge '+statusCls+'">'+st+'</span></td>' +
-      '<td style="font-size:12px;color:#6b7280">'+dc+'</td>' +
-      '<td><a href="'+fo+'" target="_blank" class="btn btn-sm">View Folder</a></td>' +
-      '</tr>';
+  var tbody=document.getElementById('resp-tbody');
+  if(!data||!data.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:40px;color:#9ca3af">No responses yet. Share vendor links to start collecting.</td></tr>';return;}
+  tbody.innerHTML=data.map(r=>{
+    var st=r.status||r['Status']||'Pending Review';
+    var sc=st.includes('Approved')?'b-green':st.includes('Rejected')?'b-red':'b-amber';
+    var ent=r.entity||'';
+    var eb=(ent==='US'||ent==='us')?'<span class="badge b-blue">🇺🇸 US</span>':'<span class="badge b-green">🇮🇳 India</span>';
+    var dt=r.date||(r['Submission Date']?new Date(r['Submission Date']).toLocaleDateString():'')||'';
+    var nm=r.name||r['Supplier Name']||r['Company Name']||''; var em=r.email||r['Email']||'';
+    var fo=r.folder||r['Drive Folder']||'#'; var dc=r.docs||'—';
+    return '<tr><td style="color:#6b7280;font-size:12px">'+dt+'</td><td style="font-weight:500">'+nm+'</td><td>'+eb+'</td><td style="color:#6b7280;font-size:12px">'+em+'</td><td><span class="badge '+sc+'">'+st+'</span></td><td style="font-size:11px;color:#6b7280">'+dc+'</td><td><a href="'+fo+'" target="_blank" class="btn btn-sm">View Folder</a></td></tr>';
   }).join('');
-  document.getElementById('resp-notif').style.display = data.filter(r=>(r.status||'Pending')==='Pending').length > 0 ? 'block' : 'none';
 }
 
-function filterResp(f) {
-  document.querySelectorAll('[id^="rf-"]').forEach(b => { b.style.borderColor=''; b.style.color=''; });
-  document.getElementById('rf-'+f).style.borderColor = '#1D9E75';
-  document.getElementById('rf-'+f).style.color = '#1D9E75';
-  var filtered = f === 'all' ? allResponses
-    : f === 'in' ? allResponses.filter(r => (r.entity||'').toLowerCase().includes('india') || (r.entity||'').toLowerCase() === 'in')
-    : f === 'us' ? allResponses.filter(r => (r.entity||'').toLowerCase().includes('us'))
-    : f === 'pending' ? allResponses.filter(r => (r.status||'Pending') === 'Pending')
-    : allResponses.filter(r => r.status === 'Approved');
+function filterResp(f){
+  document.querySelectorAll('[id^="rf-"]').forEach(b=>{b.style.borderColor='';b.style.color='';});
+  document.getElementById('rf-'+f).style.borderColor='#1D9E75';document.getElementById('rf-'+f).style.color='#1D9E75';
+  var filtered=f==='all'?allResponses:f==='in'?allResponses.filter(r=>(r.entity||'').toLowerCase().includes('india')||r.entity==='in'):f==='us'?allResponses.filter(r=>(r.entity||'').toLowerCase()==='us'):f==='pending'?allResponses.filter(r=>(r.status||'').includes('Pending')):allResponses.filter(r=>(r.status||'').includes('Approved'));
   renderResponses(filtered);
 }
 
-function updateMetrics(data) {
-  document.getElementById('ov-total').textContent = data.length;
-  document.getElementById('ov-pending').textContent = data.filter(r => (r.status||'Pending')==='Pending').length;
-  document.getElementById('ov-india').textContent = data.filter(r => (r.entity||'').toLowerCase().includes('india') || r.entity==='in').length;
-  document.getElementById('ov-us').textContent = data.filter(r => (r.entity||'').toLowerCase().includes('us')).length;
+function updateMetrics(data){
+  document.getElementById('ov-total').textContent=data.length;
+  document.getElementById('ov-pending').textContent=data.filter(r=>(r.status||'').includes('Pending')).length;
+  document.getElementById('ov-india').textContent=data.filter(r=>(r.entity||'').toLowerCase().includes('india')||r.entity==='in').length;
+  document.getElementById('ov-us').textContent=data.filter(r=>(r.entity||'').toLowerCase()==='us').length;
 }
 
-// ── SETTINGS ───────────────────────────────────────────
-function saveConfig() {
-  cfg.scriptUrl = document.getElementById('cfg-script-url').value;
-  cfg.sheetId = document.getElementById('cfg-sheet-id').value;
-  localStorage.setItem('pd_cfg', JSON.stringify(cfg));
-  document.getElementById('cfg-saved').style.display = 'block';
-  setTimeout(() => document.getElementById('cfg-saved').style.display='none', 2500);
+// ── SETTINGS ───────────────────────────────
+function saveConfig(){
+  cfg.scriptUrl=document.getElementById('cfg-url').value;
+  localStorage.setItem('pd_cfg',JSON.stringify(cfg));
+  document.getElementById('cfg-saved').style.display='block';
+  setTimeout(()=>document.getElementById('cfg-saved').style.display='none',2000);
 }
 
-function saveCompany() {
-  cfg.usDetails = document.getElementById('cfg-us-details').value;
-  cfg.inDetails = document.getElementById('cfg-in-details').value;
-  localStorage.setItem('pd_cfg', JSON.stringify(cfg));
-  showToast('Company details saved!', 'ok');
-}
-
-function copyCode() {
-  var fullCode = `// ParallelDots Vendor Onboarding Backend
-var SHEET_ID = 'YOUR_SHEET_ID';
-var DRIVE_FOLDER_ID = 'YOUR_FOLDER_ID';
-var ADMIN_EMAIL = 'you@paralleldots.com';
-
-function doPost(e) {
-  var params = JSON.parse(e.postData.contents);
-  var entity = params.entity;
-  if (entity === 'india') return handleIndia(params);
-  else return handleUS(params);
-}
-
-function doGet(e) {
-  if (e.parameter.action === 'getResponses') return getAll(e.parameter.entity);
-  return respond({status:'ok'});
-}
-
-function handleIndia(p) {
-  var ts = new Date();
-  var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID).createFolder('IN_' + p.supplierName.replace(/[^a-zA-Z0-9]/g,'_').substring(0,30) + '_' + Utilities.formatDate(ts, 'IST', 'ddMMyyyy'));
-  var docs = {};
-  ['gstCertificate','msmeCertificate','panCard','cancelledCheque','coi'].forEach(function(k) {
-    if (p[k] && p[k].data) {
-      var f = folder.createFile(Utilities.newBlob(Utilities.base64Decode(p[k].data), p[k].mimeType, p[k].fileName));
-      docs[k] = f.getUrl();
-    }
-  });
-  var ss = SpreadsheetApp.openById(SHEET_ID);
-  var sheet = ss.getSheetByName('India Vendors') || ss.insertSheet('India Vendors');
-  if (sheet.getLastRow() === 0) sheet.appendRow(['Date','Name','Type','GST No','PAN No','MSME','City','State','Email','Mobile','Bank','IFSC','Account No','GST Cert','PAN Card','Cheque','COI','MSME Cert','Folder','Status']);
-  sheet.appendRow([ts, p.supplierName||'', p.typeOfVendor||'', p.gstNo||'', p.panNo||'', p.msmeNumber||'', p.city||'', p.stateCode||'', p.email||'', p.mobileNo||'', p.bankName||'', p.ifscCode||'', p.bankAccountNo||'', docs.gstCertificate||'', docs.panCard||'', docs.cancelledCheque||'', docs.coi||'', docs.msmeCertificate||'', folder.getUrl(), 'Pending']);
-  MailApp.sendEmail(ADMIN_EMAIL, 'New India Vendor: ' + p.supplierName, 'View folder: ' + folder.getUrl());
-  return respond({status:'ok', folderUrl: folder.getUrl()});
-}
-
-function handleUS(p) {
-  var ts = new Date();
-  var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID).createFolder('US_' + p.companyName.replace(/[^a-zA-Z0-9]/g,'_').substring(0,30) + '_' + Utilities.formatDate(ts, 'PST', 'ddMMyyyy'));
-  var docs = {};
-  if (p.bankStatement && p.bankStatement.data) {
-    var f = folder.createFile(Utilities.newBlob(Utilities.base64Decode(p.bankStatement.data), p.bankStatement.mimeType, p.bankStatement.fileName));
-    docs.bankStatement = f.getUrl();
-  }
-  var ss = SpreadsheetApp.openById(SHEET_ID);
-  var sheet = ss.getSheetByName('US Vendors') || ss.insertSheet('US Vendors');
-  if (sheet.getLastRow() === 0) sheet.appendRow(['Date','Company','Legal Structure','EIN','VAT','Address','City','State','ZIP','Contact','Email','Phone','Bank','Account No','Routing No','Bank Statement','Folder','Status']);
-  sheet.appendRow([ts, p.companyName||'', p.legalStructure||'', p.ein||'', p.vat||'', p.address||'', p.city||'', p.state||'', p.zip||'', p.contactName||'', p.email||'', p.phone||'', p.bankName||'', p.accountNo||'', p.routingNo||'', docs.bankStatement||'', folder.getUrl(), 'Pending']);
-  MailApp.sendEmail(ADMIN_EMAIL, 'New US Vendor: ' + p.companyName, 'View folder: ' + folder.getUrl());
-  return respond({status:'ok', folderUrl: folder.getUrl()});
-}
-
-function getAll(entity) {
-  var ss = SpreadsheetApp.openById(SHEET_ID);
-  var sName = entity === 'us' ? 'US Vendors' : 'India Vendors';
-  var sheet = ss.getSheetByName(sName);
-  if (!sheet || sheet.getLastRow() < 2) return respond([]);
-  var rows = sheet.getDataRange().getValues();
-  var headers = rows[0];
-  return respond(rows.slice(1).map(function(r){var o={};headers.forEach(function(h,i){o[h]=r[i]});return o}));
-}
-
-function respond(data) {
-  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
-}`;
-  navigator.clipboard.writeText(fullCode);
-  showToast('Code copied! Paste in Apps Script', 'ok');
-}
-
-// ── UTILS ──────────────────────────────────────────────
-function copyText(id) {
-  var el = document.getElementById(id);
-  var text = el.tagName === 'TEXTAREA' ? el.value : el.textContent;
-  navigator.clipboard.writeText(text);
-  showToast('Copied!', 'ok');
-}
-
-function showToast(msg, type) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast ' + type;
-  t.style.display = 'block';
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.style.display='none', 3000);
-}
+// ── UTILS ──────────────────────────────────
+function copyText(id){var el=document.getElementById(id);navigator.clipboard.writeText(el.tagName==='TEXTAREA'?el.value:el.textContent);showToast('Copied!','ok');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showToast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',3000);}
 </script>
 </body>
 </html>
