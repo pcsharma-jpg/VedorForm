@@ -337,7 +337,7 @@
           <div class="doc-req">Required</div>
           <div class="doc-title">GST Certificate</div>
           <div class="upload-area" id="zone-gst">
-            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'gst','zone-gst','lbl-gst')">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'gstCertificate','zone-gst','lbl-gst')">
             <div class="upload-icon">📄</div>
             <div class="upload-title">Click to upload</div>
             <div class="upload-sub">PDF, JPG, PNG — max 5MB</div>
@@ -349,7 +349,7 @@
           <div class="doc-req">Required</div>
           <div class="doc-title">PAN Card</div>
           <div class="upload-area" id="zone-pan">
-            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'pan','zone-pan','lbl-pan')">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'panCard','zone-pan','lbl-pan')">
             <div class="upload-icon">🪪</div>
             <div class="upload-title">Click to upload</div>
             <div class="upload-sub">PDF, JPG, PNG — max 5MB</div>
@@ -455,9 +455,9 @@ function validate() {
     if (!gst.value.trim()) { gst.classList.add('error'); ok = false; }
     else gst.classList.remove('error');
   }
-  var requiredDocs = ['gst','pan','cancelledCheque','coi'];
+  var requiredDocs = ['gstCertificate','panCard','cancelledCheque','coi'];
   requiredDocs.forEach(function(key) {
-    var realKey = key === 'gst' ? 'gstCertificate' : key === 'pan' ? 'panCard' : key;
+    var realKey = key;
     if (!uploadedFiles[realKey]) { ok = false; }
   });
   if (!ok) showToast('Please fill all required fields and upload required documents', 'error');
