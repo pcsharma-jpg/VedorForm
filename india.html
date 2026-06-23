@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Registration — ParallelDots Technology Pvt Ltd</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f6f8;color:#1a1a1a;min-height:100vh}
+  .header{background:#1D9E75;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:12px}
+  .header-logo{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff}
+  .header-text{color:#fff}
+  .header-title{font-size:16px;font-weight:600}
+  .header-sub{font-size:12px;opacity:0.85;margin-top:2px}
+  .container{max-width:860px;margin:2rem auto;padding:0 1rem 3rem}
+  .progress-strip{background:#fff;border-radius:10px;padding:1rem 1.5rem;margin-bottom:1.5rem;border:1px solid #e8e8e8;display:flex;align-items:center;gap:0}
+  .prog-step{flex:1;text-align:center;position:relative}
+  .prog-step:not(:last-child)::after{content:'';position:absolute;top:14px;right:0;width:100%;height:2px;background:#e0e0e0;z-index:0;transform:translateX(50%)}
+  .prog-step.done::after{background:#1D9E75}
+  .prog-dot{width:28px;height:28px;border-radius:50%;border:2px solid #e0e0e0;background:#fff;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#999;position:relative;z-index:1}
+  .prog-step.active .prog-dot{border-color:#1D9E75;color:#1D9E75;background:#E1F5EE}
+  .prog-step.done .prog-dot{border-color:#1D9E75;background:#1D9E75;color:#fff}
+  .prog-label{font-size:11px;color:#999}
+  .prog-step.active .prog-label{color:#1D9E75;font-weight:600}
+  .section-card{background:#fff;border-radius:10px;border:1px solid #e8e8e8;margin-bottom:1.25rem;overflow:hidden}
+  .section-header{background:#f9f9f9;padding:12px 20px;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;gap:10px}
+  .section-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .icon-green{background:#E1F5EE;color:#1D9E75}
+  .icon-blue{background:#E6F1FB;color:#185FA5}
+  .icon-amber{background:#FAEEDA;color:#854F0B}
+  .icon-purple{background:#EEEDFE;color:#534AB7}
+  .section-title{font-size:14px;font-weight:600}
+  .section-sub{font-size:11px;color:#888;margin-top:1px}
+  .section-body{padding:20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field.full{grid-column:1/-1}
+  label{font-size:12px;font-weight:500;color:#555}
+  label .req{color:#e24b4a;margin-left:2px}
+  input,select,textarea{padding:9px 12px;border:1px solid #ddd;border-radius:7px;font-size:13px;color:#1a1a1a;background:#fff;width:100%;transition:border 0.15s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.1)}
+  input.error,select.error{border-color:#e24b4a}
+  .field-hint{font-size:10px;color:#aaa;margin-top:2px}
+  .upload-area{border:2px dashed #ddd;border-radius:8px;padding:1.25rem;text-align:center;cursor:pointer;transition:all 0.15s;background:#fafafa;position:relative}
+  .upload-area:hover{border-color:#1D9E75;background:#E1F5EE20}
+  .upload-area.uploaded{border-color:#1D9E75;background:#E1F5EE40;border-style:solid}
+  .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .upload-icon{font-size:22px;margin-bottom:6px}
+  .upload-title{font-size:12px;font-weight:500;color:#555}
+  .upload-sub{font-size:10px;color:#aaa;margin-top:3px}
+  .upload-name{font-size:11px;color:#1D9E75;margin-top:6px;font-weight:500;word-break:break-all}
+  .upload-badge{display:inline-flex;align-items:center;gap:4px;background:#E1F5EE;color:#1D9E75;padding:3px 8px;border-radius:12px;font-size:10px;font-weight:600;margin-bottom:6px}
+  .docs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .doc-card{border:1px solid #eee;border-radius:8px;padding:12px;background:#fafafa}
+  .doc-req{font-size:10px;font-weight:600;color:#e24b4a;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+  .doc-opt{font-size:10px;font-weight:600;color:#854F0B;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+  .doc-title{font-size:12px;font-weight:600;color:#333;margin-bottom:8px}
+  .doc-hint{font-size:10px;color:#aaa;margin-top:4px}
+  .submit-bar{background:#fff;border-radius:10px;border:1px solid #e8e8e8;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .submit-note{font-size:12px;color:#888;flex:1}
+  .btn-submit{background:#1D9E75;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;min-width:160px}
+  .btn-submit:hover{background:#0F6E56}
+  .btn-submit:disabled{background:#9acfbe;cursor:not-allowed}
+  .toast{position:fixed;bottom:2rem;right:2rem;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;display:none;max-width:360px;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+  .toast.success{background:#1D9E75;color:#fff}
+  .toast.error{background:#e24b4a;color:#fff}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998;display:none;align-items:center;justify-content:center}
+  .overlay.show{display:flex}
+  .overlay-box{background:#fff;border-radius:12px;padding:2rem;text-align:center;max-width:360px}
+  .overlay-icon{font-size:40px;margin-bottom:12px}
+  .overlay-title{font-size:16px;font-weight:600;margin-bottom:8px}
+  .overlay-sub{font-size:13px;color:#666;line-height:1.6;margin-bottom:1rem}
+  .overlay-link{display:inline-flex;align-items:center;gap:6px;background:#E1F5EE;color:#1D9E75;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;word-break:break-all}
+  .note-box{background:#FAEEDA;border-left:3px solid #EF9F27;padding:10px 14px;border-radius:0 6px 6px 0;font-size:11px;color:#633806;line-height:1.7;margin-bottom:12px}
+  @media(max-width:600px){.grid2,.grid3,.docs-grid{grid-template-columns:1fr}.submit-bar{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">PD</div>
+  <div class="header-text">
+    <div class="header-title">Vendor Registration — ParallelDots Technology Pvt Ltd</div>
+    <div class="header-sub">520, Ocus Quantum Mall, Sector 51, Gurgaon 122003 &nbsp;|&nbsp; GSTIN: 06AAJCP5428P1ZT</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="progress-strip">
+    <div class="prog-step active" id="ps1">
+      <div class="prog-dot">1</div>
+      <div class="prog-label">Company Info</div>
+    </div>
+    <div class="prog-step" id="ps2">
+      <div class="prog-dot">2</div>
+      <div class="prog-label">Bank Details</div>
+    </div>
+    <div class="prog-step" id="ps3">
+      <div class="prog-dot">3</div>
+      <div class="prog-label">Registration</div>
+    </div>
+    <div class="prog-step" id="ps4">
+      <div class="prog-dot">4</div>
+      <div class="prog-label">Documents</div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    ⚠️ <strong>Important:</strong> All fields marked <span style="color:#e24b4a">*</span> are mandatory. Do not copy-paste data — type it manually. Selection of Vendor Account Group should be done carefully. Green coloured fields are optional.
+  </div>
+
+  <!-- SECTION 1: Company Details -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-green">🏢</div>
+      <div>
+        <div class="section-title">Company & Contact Details</div>
+        <div class="section-sub">Basic supplier information as per GSTIN registration</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid2" style="margin-bottom:14px">
+        <div class="field">
+          <label>Department of Applicant<span class="req">*</span></label>
+          <select id="department" required>
+            <option value="">Select department</option>
+            <option value="Finance & Accounts">Finance & Accounts</option>
+            <option value="Operations">Operations</option>
+            <option value="IT">IT</option>
+            <option value="HR">HR</option>
+            <option value="Procurement">Procurement</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Type of Vendor<span class="req">*</span></label>
+          <select id="typeOfVendor" required>
+            <option value="">Select type</option>
+            <option value="Material Vendor">Material Vendor</option>
+            <option value="Service Vendor">Service Vendor</option>
+            <option value="Both Material & Service">Both Material & Service</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Vendor Account Group<span class="req">*</span></label>
+          <select id="vendorAccountGroup" required>
+            <option value="">Select account group</option>
+            <option value="Z001 Domestic Vendor (Material Purchase)">Z001 — Domestic Vendor (Material Purchase)</option>
+            <option value="Z002 Domestic Vendor (Service)">Z002 — Domestic Vendor (Service)</option>
+            <option value="Z003 Import Vendor">Z003 — Import Vendor</option>
+            <option value="Z004 Employee Vendor">Z004 — Employee Vendor</option>
+          </select>
+          <div class="field-hint">⚠ Select carefully — this determines accounting treatment</div>
+        </div>
+        <div class="field full">
+          <label>Supplier Name (as per GSTIN Registration)<span class="req">*</span></label>
+          <input type="text" id="supplierName" placeholder="Exact name as on GSTIN certificate" required>
+        </div>
+      </div>
+      <div class="grid3" style="margin-bottom:14px">
+        <div class="field full">
+          <label>Address Line 1<span class="req">*</span></label>
+          <input type="text" id="address1" placeholder="Building / Flat / House No." required>
+        </div>
+        <div class="field full">
+          <label>Address Line 2</label>
+          <input type="text" id="address2" placeholder="Street / Area / Locality" style="background:#f0faf5">
+        </div>
+        <div class="field full">
+          <label>Address Line 3</label>
+          <input type="text" id="address3" placeholder="Landmark (optional)" style="background:#f0faf5">
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="field">
+          <label>City<span class="req">*</span></label>
+          <input type="text" id="city" placeholder="City" required>
+        </div>
+        <div class="field">
+          <label>Pincode<span class="req">*</span></label>
+          <input type="text" id="pincode" placeholder="6-digit pincode" maxlength="6" required>
+        </div>
+        <div class="field">
+          <label>State Code<span class="req">*</span></label>
+          <select id="stateCode" required>
+            <option value="">Select state</option>
+            <option>Andhra Pradesh</option><option>Assam</option><option>Bihar</option>
+            <option>Chhattisgarh</option><option>Delhi</option><option>Goa</option>
+            <option>Gujarat</option><option selected>Haryana</option><option>Himachal Pradesh</option>
+            <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+            <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option>
+            <option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option>
+            <option>Odisha</option><option>Punjab</option><option>Rajasthan</option>
+            <option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+            <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option>
+            <option>West Bengal</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Country<span class="req">*</span></label>
+          <input type="text" id="country" value="India" required>
+        </div>
+        <div class="field">
+          <label>Tel No.</label>
+          <input type="tel" id="telNo" placeholder="Landline with STD code" style="background:#f0faf5">
+        </div>
+        <div class="field">
+          <label>Mobile No.<span class="req">*</span></label>
+          <input type="tel" id="mobileNo" placeholder="10-digit mobile" maxlength="10" required>
+        </div>
+        <div class="field full">
+          <label>e-Mail ID<span class="req">*</span></label>
+          <input type="email" id="email" placeholder="accounts@yourcompany.com" required>
+        </div>
+        <div class="field">
+          <label>Payment Terms<span class="req">*</span></label>
+          <select id="paymentTerms" required>
+            <option value="">Select</option>
+            <option value="Net 15">Net 15</option>
+            <option value="Net 30">Net 30</option>
+            <option value="Net 45">Net 45</option>
+            <option value="Net 60">Net 60</option>
+            <option value="Immediate">Immediate</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Inco Terms</label>
+          <select id="incoTerms" style="background:#f0faf5">
+            <option value="">Select (optional)</option>
+            <option>EXW</option><option>FOB</option><option>CIF</option>
+            <option>DDP</option><option>DAP</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Currency<span class="req">*</span></label>
+          <input type="text" id="currency" value="INR" required>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Bank Details -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-blue">🏦</div>
+      <div>
+        <div class="section-title">Bank Details</div>
+        <div class="section-sub">Must match cancelled cheque exactly</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid2">
+        <div class="field full">
+          <label>Name as per Bank Records<span class="req">*</span></label>
+          <input type="text" id="bankNameAsPerRecords" placeholder="Exact account holder name" required>
+        </div>
+        <div class="field">
+          <label>Bank Name<span class="req">*</span></label>
+          <input type="text" id="bankName" placeholder="e.g. HDFC Bank" required>
+        </div>
+        <div class="field">
+          <label>Bank IFSC Code<span class="req">*</span></label>
+          <input type="text" id="ifscCode" placeholder="e.g. HDFC0001234" maxlength="11" style="text-transform:uppercase" required>
+        </div>
+        <div class="field">
+          <label>Bank Account No.<span class="req">*</span></label>
+          <input type="text" id="bankAccountNo" placeholder="Account number" required>
+        </div>
+        <div class="field">
+          <label>Bank Branch<span class="req">*</span></label>
+          <input type="text" id="bankBranch" placeholder="Branch name" required>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Registration Details -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-amber">📋</div>
+      <div>
+        <div class="section-title">Registration Details</div>
+        <div class="section-sub">GST, PAN and MSME information</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid2">
+        <div class="field">
+          <label>Registered to GSTIN?<span class="req">*</span></label>
+          <select id="registeredToGSTIN" required onchange="toggleGST(this.value)">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>GST No. (if Registered)<span class="req">*</span></label>
+          <input type="text" id="gstNo" placeholder="15-digit GSTIN" maxlength="15" style="text-transform:uppercase" required>
+          <div class="field-hint">Format: 22AAAAA0000A1Z5</div>
+        </div>
+        <div class="field">
+          <label>PAN No.<span class="req">*</span></label>
+          <input type="text" id="panNo" placeholder="10-character PAN" maxlength="10" style="text-transform:uppercase" required>
+        </div>
+        <div class="field">
+          <label>Type of MSME</label>
+          <select id="typeOfMSME" style="background:#f0faf5">
+            <option value="NA">NA (Not Applicable)</option>
+            <option value="Micro">Micro</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>MSME Number</label>
+          <input type="text" id="msmeNumber" placeholder="Udyam Registration Number" style="background:#f0faf5">
+          <div class="field-hint">Fill if MSME registered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Document Upload -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-purple">📎</div>
+      <div>
+        <div class="section-title">Document Uploads</div>
+        <div class="section-sub">PDF or image format, max 5MB each</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="docs-grid">
+
+        <div class="doc-card">
+          <div class="doc-req">Required</div>
+          <div class="doc-title">GST Certificate</div>
+          <div class="upload-area" id="zone-gst">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'gst','zone-gst','lbl-gst')">
+            <div class="upload-icon">📄</div>
+            <div class="upload-title">Click to upload</div>
+            <div class="upload-sub">PDF, JPG, PNG — max 5MB</div>
+            <div class="upload-name" id="lbl-gst"></div>
+          </div>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-req">Required</div>
+          <div class="doc-title">PAN Card</div>
+          <div class="upload-area" id="zone-pan">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'pan','zone-pan','lbl-pan')">
+            <div class="upload-icon">🪪</div>
+            <div class="upload-title">Click to upload</div>
+            <div class="upload-sub">PDF, JPG, PNG — max 5MB</div>
+            <div class="upload-name" id="lbl-pan"></div>
+          </div>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-req">Required</div>
+          <div class="doc-title">Cancelled Cheque</div>
+          <div class="upload-area" id="zone-cheque">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'cancelledCheque','zone-cheque','lbl-cheque')">
+            <div class="upload-icon">🏦</div>
+            <div class="upload-title">Click to upload</div>
+            <div class="upload-sub">Cheque with your name & IFSC visible</div>
+            <div class="upload-name" id="lbl-cheque"></div>
+          </div>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-req">Required</div>
+          <div class="doc-title">COI — Certificate of Incorporation</div>
+          <div class="upload-area" id="zone-coi">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'coi','zone-coi','lbl-coi')">
+            <div class="upload-icon">📜</div>
+            <div class="upload-title">Click to upload</div>
+            <div class="upload-sub">MCA/ROC issued certificate</div>
+            <div class="upload-name" id="lbl-coi"></div>
+          </div>
+        </div>
+
+        <div class="doc-card" style="grid-column:1/-1">
+          <div class="doc-opt">Optional</div>
+          <div class="doc-title">MSME Certificate (Udyam Registration)</div>
+          <div class="upload-area" id="zone-msme" style="max-width:380px">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'msmeCertificate','zone-msme','lbl-msme')">
+            <div class="upload-icon">🏅</div>
+            <div class="upload-title">Click to upload (optional)</div>
+            <div class="upload-sub">Upload if MSME registered</div>
+            <div class="upload-name" id="lbl-msme"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-bar">
+    <div class="submit-note">By submitting, you confirm all details are accurate and documents are authentic. Data will be shared only with ParallelDots Technology Pvt Ltd.</div>
+    <button class="btn-submit" id="submitBtn" onclick="submitForm()">Submit Registration →</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <div class="overlay-icon">✅</div>
+    <div class="overlay-title">Registration Submitted!</div>
+    <div class="overlay-sub">Your vendor details have been received by <strong>ParallelDots Technology Pvt Ltd</strong>. A dedicated folder has been created with all your documents. You will be contacted within 2-3 business days.</div>
+    <a class="overlay-link" id="folderLink" href="#" target="_blank">📁 View your submission folder</a>
+  </div>
+</div>
+
+<script>
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzeJ7UmpUr-QABgGWAlx_uwIYFk9zR5P2LAOXgzriZrLOn8kvnVzq6pbixcSTQ1D7r2jw/exec';
+var uploadedFiles = {};
+
+function handleUpload(input, key, zoneId, lblId) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('File too large (max 5MB): ' + file.name, 'error'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    uploadedFiles[key] = {
+      data: e.target.result.split(',')[1],
+      mimeType: file.type,
+      fileName: file.name
+    };
+    document.getElementById(lblId).textContent = '✓ ' + file.name;
+    document.getElementById(zoneId).classList.add('uploaded');
+  };
+  reader.readAsDataURL(file);
+}
+
+function toggleGST(val) {
+  var gstField = document.getElementById('gstNo');
+  if (val === 'No') { gstField.required = false; gstField.style.background = '#f0faf5'; }
+  else { gstField.required = true; gstField.style.background = ''; }
+}
+
+function validate() {
+  var required = ['department','typeOfVendor','vendorAccountGroup','supplierName','address1','city','pincode','stateCode','country','mobileNo','email','paymentTerms','currency','bankNameAsPerRecords','bankName','ifscCode','bankAccountNo','bankBranch','registeredToGSTIN','panNo'];
+  var ok = true;
+  required.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add('error'); ok = false; }
+    else el.classList.remove('error');
+  });
+  if (document.getElementById('registeredToGSTIN').value === 'Yes') {
+    var gst = document.getElementById('gstNo');
+    if (!gst.value.trim()) { gst.classList.add('error'); ok = false; }
+    else gst.classList.remove('error');
+  }
+  var requiredDocs = ['gst','pan','cancelledCheque','coi'];
+  requiredDocs.forEach(function(key) {
+    var realKey = key === 'gst' ? 'gstCertificate' : key === 'pan' ? 'panCard' : key;
+    if (!uploadedFiles[realKey]) { ok = false; }
+  });
+  if (!ok) showToast('Please fill all required fields and upload required documents', 'error');
+  return ok;
+}
+
+async function submitForm() {
+  if (!validate()) return;
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  var payload = {
+    entity: 'india',
+    department: v('department'), typeOfVendor: v('typeOfVendor'),
+    vendorAccountGroup: v('vendorAccountGroup'), supplierName: v('supplierName'),
+    address1: v('address1'), address2: v('address2'), address3: v('address3'),
+    city: v('city'), pincode: v('pincode'), stateCode: v('stateCode'),
+    country: v('country'), telNo: v('telNo'), mobileNo: v('mobileNo'),
+    email: v('email'), paymentTerms: v('paymentTerms'),
+    incoTerms: v('incoTerms'), currency: v('currency'),
+    bankNameAsPerRecords: v('bankNameAsPerRecords'), bankName: v('bankName'),
+    ifscCode: v('ifscCode'), bankAccountNo: v('bankAccountNo'), bankBranch: v('bankBranch'),
+    registeredToGSTIN: v('registeredToGSTIN'), gstNo: v('gstNo'),
+    panNo: v('panNo'), typeOfMSME: v('typeOfMSME'), msmeNumber: v('msmeNumber'),
+    gstCertificate: uploadedFiles.gstCertificate || null,
+    msmeCertificate: uploadedFiles.msmeCertificate || null,
+    panCard: uploadedFiles.panCard || null,
+    cancelledCheque: uploadedFiles.cancelledCheque || null,
+    coi: uploadedFiles.coi || null
+  };
+  try {
+    var res = await fetch(APPS_SCRIPT_URL, {method:'POST', body: JSON.stringify(payload)});
+    var data = await res.json();
+    if (data.status === 'ok') {
+      document.getElementById('folderLink').href = data.folderUrl || '#';
+      document.getElementById('overlay').classList.add('show');
+    } else {
+      throw new Error(data.message || 'Submission failed');
+    }
+  } catch(err) {
+    showToast('Submission failed: ' + err.message, 'error');
+    btn.disabled = false;
+    btn.textContent = 'Submit Registration →';
+  }
+}
+
+function v(id) { return document.getElementById(id).value; }
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.style.display = 'block';
+  setTimeout(function(){ t.style.display='none'; }, 4000);
+}
+
+// Auto-update progress bar
+var fields = ['supplierName','bankName','gstNo','panNo'];
+fields.forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateProgress);
+});
+document.querySelectorAll('select').forEach(function(s){ s.addEventListener('change', updateProgress); });
+
+function updateProgress() {
+  var filled = [v('supplierName'),v('address1'),v('city')].filter(Boolean).length;
+  var bankFilled = [v('bankName'),v('bankAccountNo'),v('ifscCode')].filter(Boolean).length;
+  var regFilled = [v('gstNo'),v('panNo')].filter(Boolean).length;
+  var docCount = Object.keys(uploadedFiles).length;
+  var steps = [1, bankFilled>=2?2:0, regFilled>=1?3:0, docCount>=3?4:0];
+  [1,2,3,4].forEach(function(n) {
+    var ps = document.getElementById('ps'+n);
+    if (filled >= 2 && n === 1) ps.classList.add('active');
+    if (bankFilled >= 2 && n === 2) { ps.classList.add('active'); document.getElementById('ps1').classList.add('done'); }
+    if (regFilled >= 1 && n === 3) { ps.classList.add('active'); document.getElementById('ps2').classList.add('done'); }
+    if (docCount >= 3 && n === 4) { ps.classList.add('active'); document.getElementById('ps3').classList.add('done'); }
+  });
+}
+</script>
+</body>
+</html>

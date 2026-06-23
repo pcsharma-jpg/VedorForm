@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParallelDots Vendor Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a1a;min-height:100vh;display:flex;flex-direction:column}
+
+/* SIDEBAR */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:220px;background:#111827;flex-shrink:0;display:flex;flex-direction:column;padding:0}
+.sidebar-logo{padding:20px 16px 16px;border-bottom:1px solid #1f2937}
+.logo-mark{display:flex;align-items:center;gap:10px}
+.logo-dot{width:32px;height:32px;background:#1D9E75;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
+.logo-text{font-size:13px;font-weight:600;color:#fff;line-height:1.3}
+.logo-sub{font-size:10px;color:#6b7280;margin-top:1px}
+.sidebar-nav{padding:12px 8px;flex:1}
+.nav-label{font-size:10px;font-weight:600;color:#4b5563;letter-spacing:0.8px;padding:0 8px;margin:12px 0 4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;cursor:pointer;color:#9ca3af;font-size:13px;transition:all 0.15s;margin-bottom:2px}
+.nav-item:hover{background:#1f2937;color:#e5e7eb}
+.nav-item.active{background:#1D9E75;color:#fff}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:0.8}
+.nav-item.active svg{opacity:1}
+.sidebar-footer{padding:12px;border-top:1px solid #1f2937}
+.entity-badges{display:flex;flex-direction:column;gap:6px}
+.entity-badge{padding:6px 10px;border-radius:6px;font-size:10px;font-weight:500}
+.badge-us{background:#1e3a5f;color:#93c5fd}
+.badge-in{background:#14532d;color:#86efac}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;min-width:0}
+.topbar{background:#fff;border-bottom:1px solid #e5e7eb;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.page-title{font-size:16px;font-weight:600;color:#111827}
+.page-sub{font-size:12px;color:#6b7280;margin-top:1px}
+.topbar-actions{display:flex;gap:8px;align-items:center}
+.content{padding:24px}
+
+/* CARDS */
+.card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:16px}
+.card-header{padding:14px 20px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:13px;font-weight:600;color:#111827;display:flex;align-items:center;gap:8px}
+.card-body{padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* METRICS */
+.metric{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px}
+.metric-val{font-size:26px;font-weight:600;color:#111827}
+.metric-label{font-size:11px;color:#6b7280;margin-top:3px;display:flex;align-items:center;gap:4px}
+.metric-label svg{width:12px;height:12px}
+
+/* FORM ELEMENTS */
+label{font-size:12px;font-weight:500;color:#374151;display:block;margin-bottom:5px}
+label .req{color:#ef4444}
+input,select,textarea{width:100%;padding:9px 12px;border:1px solid #d1d5db;border-radius:7px;font-size:13px;color:#111827;background:#fff;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.12)}
+textarea{resize:vertical;min-height:80px}
+.field{display:flex;flex-direction:column;margin-bottom:0}
+.field-hint{font-size:10px;color:#9ca3af;margin-top:3px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid #d1d5db;background:#fff;color:#374151;transition:all 0.15s}
+.btn:hover{background:#f9fafb}
+.btn-primary{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.btn-primary:hover{background:#0F6E56;border-color:#0F6E56}
+.btn-primary:disabled{background:#9acfbe;border-color:#9acfbe;cursor:not-allowed}
+.btn-blue{background:#185FA5;border-color:#185FA5;color:#fff}
+.btn-blue:hover{background:#0C447C}
+.btn-sm{padding:5px 10px;font-size:11px}
+.btn-icon{padding:6px;width:30px;height:30px;justify-content:center}
+
+/* UPLOAD */
+.upload-zone{border:2px dashed #d1d5db;border-radius:8px;padding:28px;text-align:center;cursor:pointer;transition:all 0.15s;background:#fafafa;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:#1D9E75;background:#f0fdf9}
+.upload-zone.done{border-color:#1D9E75;background:#f0fdf9;border-style:solid}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-icon{width:40px;height:40px;background:#f0fdf9;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.upload-title{font-size:13px;font-weight:500;color:#374151}
+.upload-sub{font-size:11px;color:#9ca3af;margin-top:4px}
+.file-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;justify-content:center}
+.file-chip{display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#166534;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:500}
+
+/* ENTITY TOGGLE */
+.entity-toggle{display:flex;background:#f3f4f6;border-radius:8px;padding:3px;gap:2px;width:fit-content}
+.entity-btn{padding:7px 16px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#6b7280;transition:all 0.15s}
+.entity-btn.active{background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+
+/* AI OUTPUT */
+.ai-output{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px;font-size:13px;line-height:1.8;min-height:160px;white-space:pre-wrap;color:#374151;max-height:420px;overflow-y:auto}
+.ai-placeholder{color:#9ca3af;font-style:italic;font-size:13px;text-align:center;padding:40px 0}
+
+/* PROGRESS */
+.progress-bar{height:4px;background:#e5e7eb;border-radius:2px;overflow:hidden;margin:8px 0}
+.progress-fill{height:100%;background:#1D9E75;border-radius:2px;transition:width 0.4s}
+.status-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#6b7280}
+.dot-pulse{width:8px;height:8px;border-radius:50%;background:#1D9E75;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 14px;background:#f9fafb;border-bottom:1px solid #e5e7eb;color:#6b7280;font-size:11px;font-weight:600;letter-spacing:0.5px}
+td{padding:10px 14px;border-bottom:1px solid #f3f4f6;color:#374151}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafafa}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:500}
+.b-green{background:#dcfce7;color:#166534}
+.b-amber{background:#fef3c7;color:#92400e}
+.b-blue{background:#dbeafe;color:#1e40af}
+.b-red{background:#fee2e2;color:#991b1b}
+.b-gray{background:#f3f4f6;color:#374151}
+
+/* LINK BOX */
+.link-box{display:flex;align-items:center;gap:8px;background:#f0fdf9;border:1px solid #bbf7d0;border-radius:7px;padding:10px 14px}
+.link-text{flex:1;font-size:12px;color:#166534;word-break:break-all;font-family:monospace}
+
+/* STEPS */
+.setup-steps{counter-reset:step}
+.setup-step{display:flex;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #f3f4f6}
+.setup-step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.step-num{width:24px;height:24px;border-radius:50%;background:#1D9E75;color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-size:13px;font-weight:500;color:#111827;margin-bottom:3px}
+.step-desc{font-size:11px;color:#6b7280;line-height:1.6}
+
+/* CODE BLOCK */
+.code-block{background:#111827;border-radius:8px;padding:14px;font-family:monospace;font-size:11px;line-height:1.7;color:#d1d5db;max-height:280px;overflow-y:auto;white-space:pre}
+.code-block .c-green{color:#86efac}
+.code-block .c-amber{color:#fcd34d}
+.code-block .c-blue{color:#93c5fd}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 18px;border-radius:9px;font-size:13px;font-weight:500;z-index:9999;display:none;box-shadow:0 4px 16px rgba(0,0,0,0.15);max-width:340px}
+.toast.ok{background:#1D9E75;color:#fff}
+.toast.err{background:#ef4444;color:#fff}
+
+/* SECTIONS */
+.section{display:none}
+.section.active{display:block}
+
+/* OVERVIEW QUICK ACTION */
+.quick-action{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:all 0.15s;background:#fff}
+.quick-action:hover{border-color:#1D9E75;background:#f0fdf9}
+.qa-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qa-title{font-size:13px;font-weight:500;color:#111827}
+.qa-sub{font-size:11px;color:#6b7280;margin-top:1px}
+
+/* NOTIFICATION DOT */
+.notif{width:7px;height:7px;border-radius:50%;background:#ef4444;margin-left:auto;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-dot">PD</div>
+      <div>
+        <div class="logo-text">Vendor Hub</div>
+        <div class="logo-sub">ParallelDots</div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-label">MENU</div>
+    <div class="nav-item active" onclick="goTo('overview',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Overview
+    </div>
+    <div class="nav-item" onclick="goTo('aifiller',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      AI Form Filler
+    </div>
+    <div class="nav-label">VENDORS</div>
+    <div class="nav-item" onclick="goTo('vendorlink',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Share Links
+    </div>
+    <div class="nav-item" onclick="goTo('responses',this)" id="nav-responses">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Responses
+      <div class="notif" id="resp-notif" style="display:none"></div>
+    </div>
+    <div class="nav-label">CONFIG</div>
+    <div class="nav-item" onclick="goTo('settings',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M20 12h2M2 12h2M12 20v2M12 2v2"/></svg>
+      Setup & Config
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div style="font-size:10px;color:#4b5563;margin-bottom:6px;font-weight:600">ENTITIES</div>
+    <div class="entity-badges">
+      <div class="entity-badge badge-us">🇺🇸 ParallelDots, Inc. · EIN 32-0535986</div>
+      <div class="entity-badge badge-in">🇮🇳 ParallelDots Tech Pvt Ltd · GSTIN 06AAJCP5428P1ZT</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- ═══════════════════════════════ OVERVIEW ═══════════════════════════════ -->
+  <div id="sec-overview" class="section active">
+    <div class="topbar">
+      <div><div class="page-title">Overview</div><div class="page-sub">ParallelDots Vendor Onboarding Hub</div></div>
+    </div>
+    <div class="content">
+      <div class="grid4" style="margin-bottom:16px">
+        <div class="metric"><div class="metric-val" id="ov-total">0</div><div class="metric-label">Total Vendors</div></div>
+        <div class="metric"><div class="metric-val" id="ov-pending">0</div><div class="metric-label">Pending Review</div></div>
+        <div class="metric"><div class="metric-val" id="ov-india">0</div><div class="metric-label">🇮🇳 India Vendors</div></div>
+        <div class="metric"><div class="metric-val" id="ov-us">0</div><div class="metric-label">🇺🇸 US Vendors</div></div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-header"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13,2 13,9 20,9"/></svg>Quick Actions</div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:8px">
+            <div class="quick-action" onclick="goTo('aifiller',null)">
+              <div class="qa-icon" style="background:#f0fdf9"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+              <div><div class="qa-title">AI Form Filler</div><div class="qa-sub">Upload any blank form → AI auto-fills with your company details</div></div>
+            </div>
+            <div class="quick-action" onclick="goTo('vendorlink',null)">
+              <div class="qa-icon" style="background:#eff6ff"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
+              <div><div class="qa-title">Share Vendor Link</div><div class="qa-sub">Send onboarding link to India or US vendors</div></div>
+            </div>
+            <div class="quick-action" onclick="goTo('responses',null)">
+              <div class="qa-icon" style="background:#fefce8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></svg></div>
+              <div><div class="qa-title">View Responses</div><div class="qa-sub">See all submitted vendor forms & approve</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">How This System Works</div></div>
+          <div class="card-body">
+            <div style="margin-bottom:14px">
+              <div style="font-size:11px;font-weight:600;color:#1D9E75;letter-spacing:0.5px;margin-bottom:8px">🤖 AI FORM FILLER</div>
+              <div class="setup-step" style="margin-bottom:8px;padding-bottom:8px"><div class="step-num" style="background:#1D9E75">1</div><div class="step-body"><div class="step-title">Upload any blank form</div><div class="step-desc">PDF, Excel, Word, image — vendor registration, compliance, tax form anything</div></div></div>
+              <div class="setup-step" style="margin-bottom:8px;padding-bottom:8px"><div class="step-num" style="background:#1D9E75">2</div><div class="step-body"><div class="step-title">AI reads & fills automatically</div><div class="step-desc">Picks correct entity (India or US) and fills all fields</div></div></div>
+              <div class="setup-step" style="margin-bottom:0;padding-bottom:0;border:none"><div class="step-num" style="background:#1D9E75">3</div><div class="step-body"><div class="step-title">Copy or download result</div><div class="step-desc">Filled text ready — paste into original form or save</div></div></div>
+            </div>
+            <div style="border-top:1px solid #f3f4f6;padding-top:14px">
+              <div style="font-size:11px;font-weight:600;color:#185FA5;letter-spacing:0.5px;margin-bottom:8px">🔗 VENDOR ONBOARDING</div>
+              <div class="step-desc">Generate link → vendor fills form → data goes to Google Sheet + Google Drive folder auto-created with all documents</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ AI FORM FILLER ═══════════════════════════════ -->
+  <div id="sec-aifiller" class="section">
+    <div class="topbar">
+      <div><div class="page-title">AI Form Filler</div><div class="page-sub">Upload any blank form → AI fills it with your company details</div></div>
+    </div>
+    <div class="content">
+      <div class="grid2">
+
+        <!-- LEFT PANEL -->
+        <div>
+          <div class="card">
+            <div class="card-header"><div class="card-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Upload Form</div></div>
+            <div class="card-body">
+              <div class="upload-zone" id="ai-upload-zone">
+                <input type="file" accept=".pdf,.xlsx,.xls,.docx,.doc,.png,.jpg,.jpeg,.txt,.csv" onchange="aiHandleFile(this)" id="ai-file-input">
+                <div class="upload-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg></div>
+                <div class="upload-title">Click to upload or drag & drop</div>
+                <div class="upload-sub">PDF · Excel · Word · Image · Text — max 10MB</div>
+                <div id="ai-file-chips" class="file-chips"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Fill as which company?</div></div>
+            <div class="card-body">
+              <div class="entity-toggle" style="margin-bottom:12px">
+                <div class="entity-btn active" id="ai-btn-us" onclick="aiSelectEntity('us')">🇺🇸 ParallelDots, Inc.</div>
+                <div class="entity-btn" id="ai-btn-in" onclick="aiSelectEntity('in')">🇮🇳 ParallelDots Tech</div>
+              </div>
+              <div id="ai-entity-preview" style="background:#f9fafb;border-radius:6px;padding:10px;font-size:12px;color:#374151;line-height:1.7;border:1px solid #f3f4f6">
+                <strong>ParallelDots, Inc.</strong><br>600 Stewart Street, Suite 300 & 400<br>Seattle WA 98101, USA<br>EIN: 32-0535986
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Extra Instructions (optional)</div></div>
+            <div class="card-body">
+              <textarea id="ai-instructions" placeholder="e.g. This is a W-9 form, focus on tax fields only.&#10;Or: Skip internal-use fields, fill vendor section only.&#10;Or: This is a GST registration form." style="min-height:70px"></textarea>
+              <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:10px" id="ai-fill-btn" onclick="runAIFiller()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                Fill Form with AI
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div>
+          <div class="card" style="height:calc(100% - 0px)">
+            <div class="card-header">
+              <div class="card-title">AI Output</div>
+              <div style="display:flex;gap:6px" id="ai-action-btns" style="display:none">
+                <button class="btn btn-sm" onclick="aiCopy()" title="Copy"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+                <button class="btn btn-sm" onclick="aiDownload()" title="Download"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="ai-status-row" style="display:none;margin-bottom:10px">
+                <div class="progress-bar"><div class="progress-fill" id="ai-progress" style="width:0%"></div></div>
+                <div class="status-row"><div class="dot-pulse"></div><span id="ai-status-text">Processing...</span></div>
+              </div>
+              <div id="ai-output" class="ai-output">
+                <div class="ai-placeholder">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5" style="margin:0 auto 10px;display:block"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+                  Upload a form and click "Fill Form with AI"
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ VENDOR LINKS ═══════════════════════════════ -->
+  <div id="sec-vendorlink" class="section">
+    <div class="topbar">
+      <div><div class="page-title">Share Vendor Links</div><div class="page-sub">Generate shareable links to send vendors for self-registration</div></div>
+    </div>
+    <div class="content">
+      <div class="grid2">
+        <!-- INDIA -->
+        <div class="card">
+          <div class="card-header" style="background:#f0fdf9;border-bottom-color:#d1fae5">
+            <div class="card-title" style="color:#166534">🇮🇳 India Vendor Form — ParallelDots Technology Pvt Ltd</div>
+          </div>
+          <div class="card-body">
+            <div style="font-size:12px;color:#374151;margin-bottom:12px;line-height:1.7">
+              Send this link to your <strong>Indian vendors</strong>. They will fill:
+              <ul style="margin:6px 0 0 16px;color:#6b7280">
+                <li>Company details (as per GSTIN)</li>
+                <li>Bank details (IFSC, account no.)</li>
+                <li>GST No., PAN No., MSME details</li>
+                <li>Upload: GST Cert, PAN Card, Cancelled Cheque, COI, MSME Cert</li>
+              </ul>
+            </div>
+            <div class="field" style="margin-bottom:10px">
+              <label>Your India Form URL (GitHub Pages)</label>
+              <input type="text" id="india-form-url" placeholder="https://yourusername.github.io/vendor-form-india.html">
+            </div>
+            <button class="btn btn-primary" onclick="genLink('in')" style="width:100%;justify-content:center">Generate India Vendor Link</button>
+            <div id="india-link-box" style="display:none;margin-top:12px">
+              <div class="link-box">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#166534" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                <span class="link-text" id="india-link-text"></span>
+                <button class="btn btn-sm" onclick="copyText('india-link-text')">Copy</button>
+              </div>
+            </div>
+            <div style="margin-top:14px;border-top:1px solid #f3f4f6;padding-top:14px">
+              <label style="margin-bottom:6px">Email template for vendor</label>
+              <textarea id="india-email-tmpl" style="font-size:11px;min-height:90px" readonly>Subject: Vendor Registration — ParallelDots Technology Pvt Ltd
+
+Dear [Vendor Name],
+
+Please complete your vendor onboarding for ParallelDots Technology Pvt Ltd using the link below:
+
+[LINK]
+
+Please keep the following ready:
+• GST Certificate
+• PAN Card
+• Cancelled Cheque
+• Certificate of Incorporation (COI)
+
+Regards,
+ParallelDots Team</textarea>
+              <button class="btn btn-sm" style="margin-top:6px" onclick="copyText('india-email-tmpl')">Copy Email Template</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- US -->
+        <div class="card">
+          <div class="card-header" style="background:#eff6ff;border-bottom-color:#bfdbfe">
+            <div class="card-title" style="color:#1e40af">🇺🇸 US Vendor Form — ParallelDots, Inc.</div>
+          </div>
+          <div class="card-body">
+            <div style="font-size:12px;color:#374151;margin-bottom:12px;line-height:1.7">
+              Send this link to your <strong>US vendors</strong>. They will fill:
+              <ul style="margin:6px 0 0 16px;color:#6b7280">
+                <li>Company details (legal name, structure)</li>
+                <li>EIN / Federal Tax ID (or VAT number)</li>
+                <li>Bank details (routing no., account no.)</li>
+                <li>Upload: Bank Statement (optional)</li>
+              </ul>
+            </div>
+            <div class="field" style="margin-bottom:10px">
+              <label>Your US Form URL (GitHub Pages)</label>
+              <input type="text" id="us-form-url" placeholder="https://yourusername.github.io/vendor-form-us.html">
+            </div>
+            <button class="btn btn-blue" onclick="genLink('us')" style="width:100%;justify-content:center">Generate US Vendor Link</button>
+            <div id="us-link-box" style="display:none;margin-top:12px">
+              <div class="link-box" style="background:#eff6ff;border-color:#bfdbfe">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1e40af" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                <span class="link-text" id="us-link-text" style="color:#1e40af"></span>
+                <button class="btn btn-sm" onclick="copyText('us-link-text')">Copy</button>
+              </div>
+            </div>
+            <div style="margin-top:14px;border-top:1px solid #f3f4f6;padding-top:14px">
+              <label style="margin-bottom:6px">Email template for vendor</label>
+              <textarea id="us-email-tmpl" style="font-size:11px;min-height:90px" readonly>Subject: Vendor Registration — ParallelDots, Inc.
+
+Dear [Vendor Name],
+
+Please complete your vendor onboarding for ParallelDots, Inc. using the link below:
+
+[LINK]
+
+Please keep the following ready:
+• EIN / Federal Tax ID
+• Bank account details
+• Bank statement (optional, speeds up approval)
+
+Regards,
+ParallelDots Team</textarea>
+              <button class="btn btn-sm" style="margin-top:6px" onclick="copyText('us-email-tmpl')">Copy Email Template</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ RESPONSES ═══════════════════════════════ -->
+  <div id="sec-responses" class="section">
+    <div class="topbar">
+      <div><div class="page-title">Vendor Responses</div><div class="page-sub">All submitted vendor registrations</div></div>
+      <div class="topbar-actions">
+        <button class="btn btn-sm" onclick="loadResponses()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Refresh</button>
+      </div>
+    </div>
+    <div class="content">
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="btn btn-sm" id="rf-all" onclick="filterResp('all')" style="border-color:#1D9E75;color:#1D9E75">All</button>
+        <button class="btn btn-sm" id="rf-in" onclick="filterResp('in')">🇮🇳 India</button>
+        <button class="btn btn-sm" id="rf-us" onclick="filterResp('us')">🇺🇸 US</button>
+        <button class="btn btn-sm" id="rf-pending" onclick="filterResp('pending')">⏳ Pending</button>
+        <button class="btn btn-sm" id="rf-approved" onclick="filterResp('approved')">✅ Approved</button>
+      </div>
+      <div class="card" style="padding:0">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>DATE</th>
+                <th>VENDOR NAME</th>
+                <th>ENTITY</th>
+                <th>EMAIL</th>
+                <th>STATUS</th>
+                <th>DOCUMENTS</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="resp-tbody">
+              <tr>
+                <td colspan="7" style="text-align:center;padding:40px;color:#9ca3af">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5" style="display:block;margin:0 auto 8px"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                  No responses yet. Share vendor links to start collecting.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SETTINGS ═══════════════════════════════ -->
+  <div id="sec-settings" class="section">
+    <div class="topbar">
+      <div><div class="page-title">Setup & Configuration</div><div class="page-sub">Connect Google Sheets, configure company details</div></div>
+    </div>
+    <div class="content">
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Google Apps Script URL</div></div>
+            <div class="card-body">
+              <div class="field" style="margin-bottom:12px">
+                <label>Apps Script Web App URL <span class="req">*</span></label>
+                <input type="text" id="cfg-script-url" placeholder="https://script.google.com/macros/s/XXXXX/exec">
+                <div class="field-hint">Deploy karne ke baad jo URL milega woh paste karo</div>
+              </div>
+              <div class="field" style="margin-bottom:12px">
+                <label>Google Sheet ID</label>
+                <input type="text" id="cfg-sheet-id" placeholder="1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms">
+                <div class="field-hint">Sheet URL mein /d/ ke baad wala ID</div>
+              </div>
+              <button class="btn btn-primary" onclick="saveConfig()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17,21 17,13 7,13"/><polyline points="7,3 7,8 15,8"/></svg> Save Configuration</button>
+              <div id="cfg-saved" style="display:none;margin-top:8px;font-size:12px;color:#1D9E75">✓ Saved successfully</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Company Details (for AI Filler)</div></div>
+            <div class="card-body">
+              <div class="field" style="margin-bottom:10px">
+                <label>🇺🇸 US Entity Details</label>
+                <textarea id="cfg-us-details" style="min-height:72px;font-size:11px">Company: ParallelDots, Inc.
+Address: 600 Stewart Street, Suite 300 & 400, Seattle WA 98101, USA
+EIN: 32-0535986
+Website: paralleldots.com
+Email: accounts@paralleldots.com</textarea>
+              </div>
+              <div class="field" style="margin-bottom:10px">
+                <label>🇮🇳 India Entity Details</label>
+                <textarea id="cfg-in-details" style="min-height:72px;font-size:11px">Company: ParallelDots Technology Pvt Ltd
+Address: 520, Ocus Quantum Mall, Sector 51, Gurgaon 122003, Haryana
+GSTIN: 06AAJCP5428P1ZT
+PAN: AAJCP5428P
+Website: paralleldots.com
+Email: accounts@paralleldots.com</textarea>
+              </div>
+              <button class="btn btn-primary" onclick="saveCompany()">Save Company Details</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Apps Script Setup Guide</div></div>
+            <div class="card-body">
+              <div class="setup-steps">
+                <div class="setup-step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Google Sheet banao</div><div class="step-desc">Google Drive → New → Google Sheets → naam: "ParallelDots Vendor Onboarding". Sheet URL se ID copy karo (/d/XXXXX/edit mein se XXXXX).</div></div></div>
+                <div class="setup-step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Drive folder banao</div><div class="step-desc">Google Drive → New Folder → "Vendor Documents". Folder open karo, URL se ID copy karo (/folders/XXXXX mein se).</div></div></div>
+                <div class="setup-step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Apps Script mein code paste karo</div><div class="step-desc">Sheet → Extensions → Apps Script → Code.gs mein neeche wala code paste karo. SHEET_ID aur DRIVE_FOLDER_ID update karo.</div></div></div>
+                <div class="setup-step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Deploy karo</div><div class="step-desc">Deploy → New Deployment → Web App → Execute as: Me → Who has access: Anyone → Deploy → URL copy karo.</div></div></div>
+                <div class="setup-step"><div class="step-num">5</div><div class="step-body"><div class="step-title">URL yahan paste karo + vendor forms mein bhi</div><div class="step-desc">Upar wale field mein URL daalo. Vendor HTML files mein bhi APPS_SCRIPT_URL replace karo.</div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Apps Script Code</div>
+              <button class="btn btn-sm" onclick="copyCode()">Copy Code</button>
+            </div>
+            <div class="card-body" style="padding:0">
+              <div class="code-block" id="code-display">
+<span class="c-green">// ParallelDots Vendor Onboarding Backend</span>
+<span class="c-amber">var</span> SHEET_ID = <span class="c-blue">'YOUR_SHEET_ID'</span>;
+<span class="c-amber">var</span> DRIVE_FOLDER_ID = <span class="c-blue">'YOUR_FOLDER_ID'</span>;
+<span class="c-amber">var</span> ADMIN_EMAIL = <span class="c-blue">'you@paralleldots.com'</span>;
+
+<span class="c-amber">function</span> <span class="c-green">doPost</span>(e) {
+  <span class="c-amber">var</span> params = JSON.parse(e.postData.contents);
+  <span class="c-amber">if</span> (params.entity === <span class="c-blue">'india'</span>)
+    <span class="c-amber">return</span> handleIndia(params);
+  <span class="c-amber">else</span>
+    <span class="c-amber">return</span> handleUS(params);
+}
+
+<span class="c-green">// See downloaded Code.gs for full code</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────
+var aiEntity = 'us';
+var aiFile = null;
+var allResponses = [];
+var cfg = JSON.parse(localStorage.getItem('pd_cfg') || '{}');
+
+// Apply saved config
+window.onload = function() {
+  if (cfg.scriptUrl) document.getElementById('cfg-script-url').value = cfg.scriptUrl;
+  if (cfg.sheetId) document.getElementById('cfg-sheet-id').value = cfg.sheetId;
+  if (cfg.usDetails) document.getElementById('cfg-us-details').value = cfg.usDetails;
+  if (cfg.inDetails) document.getElementById('cfg-in-details').value = cfg.inDetails;
+  loadResponses();
+};
+
+// ── NAVIGATION ─────────────────────────────────────────
+function goTo(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  else {
+    var map = {overview:'sec-overview',aifiller:'sec-aifiller',vendorlink:'sec-vendorlink',responses:'sec-responses',settings:'sec-settings'};
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
+    });
+  }
+}
+
+// ── AI FORM FILLER ─────────────────────────────────────
+function aiHandleFile(input) {
+  var f = input.files[0];
+  if (!f) return;
+  aiFile = f;
+  var zone = document.getElementById('ai-upload-zone');
+  zone.classList.add('done');
+  document.getElementById('ai-file-chips').innerHTML =
+    '<div class="file-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>' + f.name + ' (' + Math.round(f.size/1024) + ' KB)</div>';
+}
+
+function aiSelectEntity(e) {
+  aiEntity = e;
+  document.getElementById('ai-btn-us').classList.toggle('active', e==='us');
+  document.getElementById('ai-btn-in').classList.toggle('active', e==='in');
+  var usD = cfg.usDetails || 'ParallelDots, Inc.\n600 Stewart Street, Suite 300 & 400\nSeattle WA 98101, USA\nEIN: 32-0535986';
+  var inD = cfg.inDetails || 'ParallelDots Technology Pvt Ltd\n520, Ocus Quantum Mall, Sector 51\nGurgaon 122003, Haryana\nGSTIN: 06AAJCP5428P1ZT\nPAN: AAJCP5428P';
+  document.getElementById('ai-entity-preview').innerHTML = e==='us'
+    ? '<strong>ParallelDots, Inc.</strong><br>' + (usD.replace(/\n/g,'<br>'))
+    : '<strong>ParallelDots Technology Pvt Ltd</strong><br>' + (inD.replace(/\n/g,'<br>'));
+}
+
+async function runAIFiller() {
+  if (!aiFile) { showToast('Pehle form upload karo', 'err'); return; }
+  var btn = document.getElementById('ai-fill-btn');
+  btn.disabled = true; btn.innerHTML = '<div class="dot-pulse" style="margin-right:6px"></div>Processing...';
+  document.getElementById('ai-status-row').style.display = 'block';
+  document.getElementById('ai-action-btns').style.display = 'none';
+  document.getElementById('ai-output').innerHTML = '';
+
+  var usD = cfg.usDetails || 'Company: ParallelDots, Inc.\nAddress: 600 Stewart Street, Suite 300 & 400, Seattle WA 98101, USA\nEIN: 32-0535986\nWebsite: paralleldots.com';
+  var inD = cfg.inDetails || 'Company: ParallelDots Technology Pvt Ltd\nAddress: 520, Ocus Quantum Mall, Sector 51, Gurgaon 122003, Haryana\nGSTIN: 06AAJCP5428P1ZT\nPAN: AAJCP5428P\nWebsite: paralleldots.com';
+  var entityDetails = aiEntity === 'us' ? usD : inD;
+  var extra = document.getElementById('ai-instructions').value;
+
+  var steps = ['File padh raha hoon...','Form fields analyze kar raha hoon...','Company data match kar raha hoon...','Output generate ho raha hai...'];
+  var pcts = [20, 45, 70, 90];
+  var si = 0;
+  var ticker = setInterval(function(){
+    if (si < steps.length) {
+      document.getElementById('ai-status-text').textContent = steps[si];
+      document.getElementById('ai-progress').style.width = pcts[si] + '%';
+      si++;
+    }
+  }, 900);
+
+  try {
+    var messages;
+    var isImg = aiFile.type.startsWith('image/');
+    var isPdf = aiFile.type === 'application/pdf';
+
+    if (isImg || isPdf) {
+      var b64 = await toBase64(aiFile);
+      messages = [{role:'user', content:[
+        {type: isPdf ? 'document' : 'image', source:{type:'base64', media_type:aiFile.type, data:b64}},
+        {type:'text', text: buildPrompt(entityDetails, extra)}
+      ]}];
+    } else {
+      var text = await readAsText(aiFile);
+      messages = [{role:'user', content: 'Form content:\n\n' + text.substring(0,4000) + '\n\n' + buildPrompt(entityDetails, extra)}];
+    }
+
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({model:'claude-sonnet-4-6', max_tokens:1000, messages})
+    });
+    var data = await resp.json();
+    clearInterval(ticker);
+    document.getElementById('ai-progress').style.width = '100%';
+    document.getElementById('ai-status-text').textContent = 'Done!';
+    var out = data.content && data.content[0] ? data.content[0].text : 'Error: No response';
+    document.getElementById('ai-output').textContent = out;
+    document.getElementById('ai-action-btns').style.display = 'flex';
+  } catch(err) {
+    clearInterval(ticker);
+    document.getElementById('ai-output').textContent = 'Error: ' + err.message;
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Fill Form with AI';
+}
+
+function buildPrompt(entityDetails, extra) {
+  return 'This is a vendor/supplier registration form or official document that needs to be filled out by a company.\n\nPlease analyze every field visible in this form and provide a complete filled version using these company details:\n\n' + entityDetails + '\n\n' + (extra ? 'Additional instructions: ' + extra + '\n\n' : '') + 'For EVERY field in the form, respond in this exact format:\n[FIELD NAME]: [VALUE TO FILL]\n\nIf a field cannot be determined from available data, write:\n[FIELD NAME]: [Please fill manually]\n\nBe thorough. List every single field you identify. Do not skip any field.';
+}
+
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    var r = new FileReader();
+    r.onload = e => res(e.target.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function readAsText(file) {
+  return new Promise((res, rej) => {
+    var r = new FileReader();
+    r.onload = e => res(e.target.result);
+    r.onerror = rej;
+    r.readAsText(file);
+  });
+}
+
+function aiCopy() {
+  navigator.clipboard.writeText(document.getElementById('ai-output').textContent);
+  showToast('Copied to clipboard!', 'ok');
+}
+
+function aiDownload() {
+  var blob = new Blob([document.getElementById('ai-output').textContent], {type:'text/plain'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'filled-form-' + aiEntity + '-' + Date.now() + '.txt';
+  a.click();
+}
+
+// ── VENDOR LINKS ───────────────────────────────────────
+function genLink(entity) {
+  var urlId = entity === 'in' ? 'india-form-url' : 'us-form-url';
+  var boxId = entity === 'in' ? 'india-link-box' : 'us-link-box';
+  var txtId = entity === 'in' ? 'india-link-text' : 'us-link-text';
+  var tmplId = entity === 'in' ? 'india-email-tmpl' : 'us-email-tmpl';
+  var baseUrl = document.getElementById(urlId).value;
+  if (!baseUrl) { showToast('Form URL daalo pehle', 'err'); return; }
+  var link = baseUrl + (baseUrl.includes('?') ? '&' : '?') + 'entity=' + entity;
+  document.getElementById(txtId).textContent = link;
+  document.getElementById(boxId).style.display = 'block';
+  var tmpl = document.getElementById(tmplId);
+  tmpl.value = tmpl.value.replace('[LINK]', link);
+}
+
+// ── RESPONSES ──────────────────────────────────────────
+async function loadResponses() {
+  var url = cfg.scriptUrl;
+  // Demo data if no URL configured
+  var demo = [
+    {date:'2025-06-20',name:'Acme Supplies LLC',entity:'US',email:'billing@acme.com',status:'Pending',docs:'N/A',folder:'#'},
+    {date:'2025-06-18',name:'TechVend Solutions Pvt Ltd',entity:'India',email:'accounts@techvend.in',status:'Approved',docs:'5/5',folder:'#'},
+    {date:'2025-06-15',name:'Innovate Corp',entity:'US',email:'ap@innovate.com',status:'Pending',docs:'1/1',folder:'#'},
+  ];
+  if (url) {
+    try {
+      var r = await fetch(url + '?action=getResponses');
+      var d = await r.json();
+      allResponses = Array.isArray(d) ? d : demo;
+    } catch(e) { allResponses = demo; }
+  } else {
+    allResponses = demo;
+  }
+  renderResponses(allResponses);
+  updateMetrics(allResponses);
+}
+
+function renderResponses(data) {
+  var tbody = document.getElementById('resp-tbody');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:#9ca3af">No responses found.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(r => {
+    var statusCls = r.status === 'Approved' ? 'b-green' : r.status === 'Rejected' ? 'b-red' : 'b-amber';
+    var entityBadge = r.entity === 'US' || r.entity === 'us' ? '<span class="badge b-blue">🇺🇸 US</span>' : '<span class="badge b-green">🇮🇳 India</span>';
+    return `<tr>
+      <td style="color:#6b7280;font-size:12px">${r.date || r['Submission Date'] || ''}</td>
+      <td style="font-weight:500">${r.name || r['Supplier Name'] || r['Company Name'] || ''}</td>
+      <td>${entityBadge}</td>
+      <td style="color:#6b7280;font-size:12px">${r.email || r['Email'] || ''}</td>
+      <td><span class="badge ${statusCls}">${r.status || r['Status'] || 'Pending'}</span></td>
+      <td style="font-size:12px;color:#6b7280">${r.docs || '—'}</td>
+      <td><a href="${r.folder || r['Drive Folder'] || '#'}" target="_blank" class="btn btn-sm">View Folder</a></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('resp-notif').style.display = data.filter(r=>(r.status||'Pending')==='Pending').length > 0 ? 'block' : 'none';
+}
+
+function filterResp(f) {
+  document.querySelectorAll('[id^="rf-"]').forEach(b => { b.style.borderColor=''; b.style.color=''; });
+  document.getElementById('rf-'+f).style.borderColor = '#1D9E75';
+  document.getElementById('rf-'+f).style.color = '#1D9E75';
+  var filtered = f === 'all' ? allResponses
+    : f === 'in' ? allResponses.filter(r => (r.entity||'').toLowerCase().includes('india') || (r.entity||'').toLowerCase() === 'in')
+    : f === 'us' ? allResponses.filter(r => (r.entity||'').toLowerCase().includes('us'))
+    : f === 'pending' ? allResponses.filter(r => (r.status||'Pending') === 'Pending')
+    : allResponses.filter(r => r.status === 'Approved');
+  renderResponses(filtered);
+}
+
+function updateMetrics(data) {
+  document.getElementById('ov-total').textContent = data.length;
+  document.getElementById('ov-pending').textContent = data.filter(r => (r.status||'Pending')==='Pending').length;
+  document.getElementById('ov-india').textContent = data.filter(r => (r.entity||'').toLowerCase().includes('india') || r.entity==='in').length;
+  document.getElementById('ov-us').textContent = data.filter(r => (r.entity||'').toLowerCase().includes('us')).length;
+}
+
+// ── SETTINGS ───────────────────────────────────────────
+function saveConfig() {
+  cfg.scriptUrl = document.getElementById('cfg-script-url').value;
+  cfg.sheetId = document.getElementById('cfg-sheet-id').value;
+  localStorage.setItem('pd_cfg', JSON.stringify(cfg));
+  document.getElementById('cfg-saved').style.display = 'block';
+  setTimeout(() => document.getElementById('cfg-saved').style.display='none', 2500);
+}
+
+function saveCompany() {
+  cfg.usDetails = document.getElementById('cfg-us-details').value;
+  cfg.inDetails = document.getElementById('cfg-in-details').value;
+  localStorage.setItem('pd_cfg', JSON.stringify(cfg));
+  showToast('Company details saved!', 'ok');
+}
+
+function copyCode() {
+  var fullCode = `// ParallelDots Vendor Onboarding Backend
+var SHEET_ID = 'YOUR_SHEET_ID';
+var DRIVE_FOLDER_ID = 'YOUR_FOLDER_ID';
+var ADMIN_EMAIL = 'you@paralleldots.com';
+
+function doPost(e) {
+  var params = JSON.parse(e.postData.contents);
+  var entity = params.entity;
+  if (entity === 'india') return handleIndia(params);
+  else return handleUS(params);
+}
+
+function doGet(e) {
+  if (e.parameter.action === 'getResponses') return getAll(e.parameter.entity);
+  return respond({status:'ok'});
+}
+
+function handleIndia(p) {
+  var ts = new Date();
+  var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID).createFolder('IN_' + p.supplierName.replace(/[^a-zA-Z0-9]/g,'_').substring(0,30) + '_' + Utilities.formatDate(ts, 'IST', 'ddMMyyyy'));
+  var docs = {};
+  ['gstCertificate','msmeCertificate','panCard','cancelledCheque','coi'].forEach(function(k) {
+    if (p[k] && p[k].data) {
+      var f = folder.createFile(Utilities.newBlob(Utilities.base64Decode(p[k].data), p[k].mimeType, p[k].fileName));
+      docs[k] = f.getUrl();
+    }
+  });
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sheet = ss.getSheetByName('India Vendors') || ss.insertSheet('India Vendors');
+  if (sheet.getLastRow() === 0) sheet.appendRow(['Date','Name','Type','GST No','PAN No','MSME','City','State','Email','Mobile','Bank','IFSC','Account No','GST Cert','PAN Card','Cheque','COI','MSME Cert','Folder','Status']);
+  sheet.appendRow([ts, p.supplierName||'', p.typeOfVendor||'', p.gstNo||'', p.panNo||'', p.msmeNumber||'', p.city||'', p.stateCode||'', p.email||'', p.mobileNo||'', p.bankName||'', p.ifscCode||'', p.bankAccountNo||'', docs.gstCertificate||'', docs.panCard||'', docs.cancelledCheque||'', docs.coi||'', docs.msmeCertificate||'', folder.getUrl(), 'Pending']);
+  MailApp.sendEmail(ADMIN_EMAIL, 'New India Vendor: ' + p.supplierName, 'View folder: ' + folder.getUrl());
+  return respond({status:'ok', folderUrl: folder.getUrl()});
+}
+
+function handleUS(p) {
+  var ts = new Date();
+  var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID).createFolder('US_' + p.companyName.replace(/[^a-zA-Z0-9]/g,'_').substring(0,30) + '_' + Utilities.formatDate(ts, 'PST', 'ddMMyyyy'));
+  var docs = {};
+  if (p.bankStatement && p.bankStatement.data) {
+    var f = folder.createFile(Utilities.newBlob(Utilities.base64Decode(p.bankStatement.data), p.bankStatement.mimeType, p.bankStatement.fileName));
+    docs.bankStatement = f.getUrl();
+  }
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sheet = ss.getSheetByName('US Vendors') || ss.insertSheet('US Vendors');
+  if (sheet.getLastRow() === 0) sheet.appendRow(['Date','Company','Legal Structure','EIN','VAT','Address','City','State','ZIP','Contact','Email','Phone','Bank','Account No','Routing No','Bank Statement','Folder','Status']);
+  sheet.appendRow([ts, p.companyName||'', p.legalStructure||'', p.ein||'', p.vat||'', p.address||'', p.city||'', p.state||'', p.zip||'', p.contactName||'', p.email||'', p.phone||'', p.bankName||'', p.accountNo||'', p.routingNo||'', docs.bankStatement||'', folder.getUrl(), 'Pending']);
+  MailApp.sendEmail(ADMIN_EMAIL, 'New US Vendor: ' + p.companyName, 'View folder: ' + folder.getUrl());
+  return respond({status:'ok', folderUrl: folder.getUrl()});
+}
+
+function getAll(entity) {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+  var sName = entity === 'us' ? 'US Vendors' : 'India Vendors';
+  var sheet = ss.getSheetByName(sName);
+  if (!sheet || sheet.getLastRow() < 2) return respond([]);
+  var rows = sheet.getDataRange().getValues();
+  var headers = rows[0];
+  return respond(rows.slice(1).map(function(r){var o={};headers.forEach(function(h,i){o[h]=r[i]});return o}));
+}
+
+function respond(data) {
+  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}`;
+  navigator.clipboard.writeText(fullCode);
+  showToast('Code copied! Paste in Apps Script', 'ok');
+}
+
+// ── UTILS ──────────────────────────────────────────────
+function copyText(id) {
+  var el = document.getElementById(id);
+  var text = el.tagName === 'TEXTAREA' ? el.value : el.textContent;
+  navigator.clipboard.writeText(text);
+  showToast('Copied!', 'ok');
+}
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.style.display='none', 3000);
+}
+</script>
+</body>
+</html>

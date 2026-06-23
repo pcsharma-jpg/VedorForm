@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Registration — ParallelDots, Inc.</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f6f8;color:#1a1a1a;min-height:100vh}
+  .header{background:#185FA5;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:12px}
+  .header-logo{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff}
+  .header-text{color:#fff}
+  .header-title{font-size:16px;font-weight:600}
+  .header-sub{font-size:12px;opacity:0.85;margin-top:2px}
+  .container{max-width:860px;margin:2rem auto;padding:0 1rem 3rem}
+  .section-card{background:#fff;border-radius:10px;border:1px solid #e8e8e8;margin-bottom:1.25rem;overflow:hidden}
+  .section-header{background:#f9f9f9;padding:12px 20px;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;gap:10px}
+  .section-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .icon-blue{background:#E6F1FB;color:#185FA5}
+  .icon-green{background:#EAF3DE;color:#3B6D11}
+  .icon-amber{background:#FAEEDA;color:#854F0B}
+  .icon-purple{background:#EEEDFE;color:#534AB7}
+  .section-title{font-size:14px;font-weight:600}
+  .section-sub{font-size:11px;color:#888;margin-top:1px}
+  .section-body{padding:20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field.full{grid-column:1/-1}
+  label{font-size:12px;font-weight:500;color:#555}
+  label .req{color:#e24b4a;margin-left:2px}
+  input,select,textarea{padding:9px 12px;border:1px solid #ddd;border-radius:7px;font-size:13px;color:#1a1a1a;background:#fff;width:100%;transition:border 0.15s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,0.1)}
+  input.error,select.error{border-color:#e24b4a}
+  .field-hint{font-size:10px;color:#aaa;margin-top:2px}
+  .upload-area{border:2px dashed #ddd;border-radius:8px;padding:1.25rem;text-align:center;cursor:pointer;transition:all 0.15s;background:#fafafa;position:relative}
+  .upload-area:hover{border-color:#185FA5;background:#E6F1FB20}
+  .upload-area.uploaded{border-color:#185FA5;background:#E6F1FB40;border-style:solid}
+  .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .upload-icon{font-size:22px;margin-bottom:6px}
+  .upload-title{font-size:12px;font-weight:500;color:#555}
+  .upload-sub{font-size:10px;color:#aaa;margin-top:3px}
+  .upload-name{font-size:11px;color:#185FA5;margin-top:6px;font-weight:500;word-break:break-all}
+  .opt-badge{display:inline-block;background:#FAEEDA;color:#854F0B;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;margin-bottom:8px}
+  .submit-bar{background:#fff;border-radius:10px;border:1px solid #e8e8e8;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .submit-note{font-size:12px;color:#888;flex:1}
+  .btn-submit{background:#185FA5;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.15s;min-width:160px}
+  .btn-submit:hover{background:#0C447C}
+  .btn-submit:disabled{background:#85B7EB;cursor:not-allowed}
+  .toast{position:fixed;bottom:2rem;right:2rem;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;display:none;max-width:360px;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+  .toast.success{background:#185FA5;color:#fff}
+  .toast.error{background:#e24b4a;color:#fff}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998;display:none;align-items:center;justify-content:center}
+  .overlay.show{display:flex}
+  .overlay-box{background:#fff;border-radius:12px;padding:2rem;text-align:center;max-width:380px}
+  .overlay-icon{font-size:40px;margin-bottom:12px}
+  .overlay-title{font-size:16px;font-weight:600;margin-bottom:8px}
+  .overlay-sub{font-size:13px;color:#666;line-height:1.6;margin-bottom:1rem}
+  .overlay-link{display:inline-flex;align-items:center;gap:6px;background:#E6F1FB;color:#185FA5;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;word-break:break-all}
+  .us-flag-banner{background:#E6F1FB;border:1px solid #B5D4F4;border-radius:8px;padding:10px 14px;font-size:12px;color:#185FA5;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+  @media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr}.submit-bar{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">PD</div>
+  <div class="header-text">
+    <div class="header-title">Vendor Registration — ParallelDots, Inc.</div>
+    <div class="header-sub">600 Stewart Street, Suite 300 & 400, Seattle WA 98101, USA &nbsp;|&nbsp; EIN: 32-0535986</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="us-flag-banner">
+    🇺🇸 <strong>US Entity Form</strong> — This form is for vendors registering with ParallelDots, Inc. (USA). For India entity registration, please use the India vendor form.
+  </div>
+
+  <!-- Company Details -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-blue">🏢</div>
+      <div>
+        <div class="section-title">Company Information</div>
+        <div class="section-sub">Legal business details as registered with federal/state authorities</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid2">
+        <div class="field full">
+          <label>Legal Company Name<span class="req">*</span></label>
+          <input type="text" id="companyName" placeholder="Full legal name as registered" required>
+        </div>
+        <div class="field">
+          <label>Legal Structure<span class="req">*</span></label>
+          <select id="legalStructure" required>
+            <option value="">Select</option>
+            <option>LLC</option>
+            <option>Corporation (C-Corp)</option>
+            <option>S-Corporation</option>
+            <option>Partnership</option>
+            <option>Sole Proprietorship</option>
+            <option>Non-Profit</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>EIN / Federal Tax ID<span class="req">*</span></label>
+          <input type="text" id="ein" placeholder="XX-XXXXXXX" maxlength="10" required>
+          <div class="field-hint">Employer Identification Number from IRS</div>
+        </div>
+        <div class="field">
+          <label>VAT Number (if applicable)</label>
+          <input type="text" id="vat" placeholder="VAT registration number" style="background:#f0f4fa">
+          <div class="field-hint">Leave blank if not VAT registered</div>
+        </div>
+        <div class="field full">
+          <label>Business Address<span class="req">*</span></label>
+          <input type="text" id="address" placeholder="Street address, Suite/Unit" required>
+        </div>
+        <div class="field">
+          <label>City<span class="req">*</span></label>
+          <input type="text" id="city" placeholder="City" required>
+        </div>
+        <div class="field">
+          <label>State<span class="req">*</span></label>
+          <select id="state" required>
+            <option value="">Select state</option>
+            <option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option>
+            <option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option>
+            <option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+            <option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option>
+            <option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option>
+            <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+            <option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option>
+            <option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option>
+            <option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+            <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option>
+            <option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option>
+            <option>Vermont</option><option>Virginia</option><option selected>Washington</option><option>West Virginia</option>
+            <option>Wisconsin</option><option>Wyoming</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>ZIP Code<span class="req">*</span></label>
+          <input type="text" id="zip" placeholder="5-digit ZIP" maxlength="10" required>
+        </div>
+        <div class="field">
+          <label>Country<span class="req">*</span></label>
+          <input type="text" id="country" value="USA" required>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Details -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-purple">👤</div>
+      <div>
+        <div class="section-title">Primary Contact</div>
+        <div class="section-sub">Person responsible for this vendor relationship</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid2">
+        <div class="field">
+          <label>Contact Name<span class="req">*</span></label>
+          <input type="text" id="contactName" placeholder="Full name" required>
+        </div>
+        <div class="field">
+          <label>Title / Designation</label>
+          <input type="text" id="contactTitle" placeholder="e.g. CFO, Accounts Manager" style="background:#f0f4fa">
+        </div>
+        <div class="field">
+          <label>Email Address<span class="req">*</span></label>
+          <input type="email" id="email" placeholder="accounts@yourcompany.com" required>
+        </div>
+        <div class="field">
+          <label>Phone Number<span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="+1 (XXX) XXX-XXXX" required>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bank Details -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-green">🏦</div>
+      <div>
+        <div class="section-title">Banking & Payment Details</div>
+        <div class="section-sub">For ACH / wire transfer payments</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="grid2">
+        <div class="field">
+          <label>Bank Name<span class="req">*</span></label>
+          <input type="text" id="bankName" placeholder="e.g. JPMorgan Chase, Bank of America" required>
+        </div>
+        <div class="field">
+          <label>Account Name<span class="req">*</span></label>
+          <input type="text" id="accountName" placeholder="Name on bank account" required>
+        </div>
+        <div class="field">
+          <label>Account Number<span class="req">*</span></label>
+          <input type="text" id="accountNo" placeholder="Bank account number" required>
+        </div>
+        <div class="field">
+          <label>ABA Routing Number<span class="req">*</span></label>
+          <input type="text" id="routingNo" placeholder="9-digit routing number" maxlength="9" required>
+        </div>
+        <div class="field">
+          <label>ACH / Wire Transfer Instructions</label>
+          <input type="text" id="achWire" placeholder="ACH or Wire (specify preference)" style="background:#f0f4fa">
+        </div>
+        <div class="field">
+          <label>Payment Terms<span class="req">*</span></label>
+          <select id="paymentTerms" required>
+            <option value="">Select</option>
+            <option value="Net 15">Net 15</option>
+            <option value="Net 30">Net 30</option>
+            <option value="Net 45">Net 45</option>
+            <option value="Net 60">Net 60</option>
+            <option value="Immediate">Immediate</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Currency<span class="req">*</span></label>
+          <select id="currency" required>
+            <option value="USD">USD — US Dollar</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Documents -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-icon icon-amber">📎</div>
+      <div>
+        <div class="section-title">Document Upload</div>
+        <div class="section-sub">Bank statement is optional but helps expedite verification</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="opt-badge">Optional</div>
+      <p style="font-size:12px;color:#666;margin-bottom:12px">Upload a recent bank statement (last 3 months) to verify banking details. This speeds up vendor approval.</p>
+      <div style="max-width:400px">
+        <div class="upload-area" id="zone-bank">
+          <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleUpload(this,'bankStatement','zone-bank','lbl-bank')">
+          <div class="upload-icon">🏦</div>
+          <div class="upload-title">Bank Statement (optional)</div>
+          <div class="upload-sub">PDF or image — last 3 months — max 5MB</div>
+          <div class="upload-name" id="lbl-bank"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-bar">
+    <div class="submit-note">By submitting, you confirm all details are accurate. This information will be used solely for vendor onboarding with ParallelDots, Inc.</div>
+    <button class="btn-submit" id="submitBtn" onclick="submitForm()">Submit Registration →</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <div class="overlay-icon">✅</div>
+    <div class="overlay-title">Registration Submitted!</div>
+    <div class="overlay-sub">Your vendor details have been received by <strong>ParallelDots, Inc.</strong> Our accounts team will review and contact you within 2-3 business days.</div>
+    <a class="overlay-link" id="folderLink" href="#" target="_blank">📁 View your submission folder</a>
+  </div>
+</div>
+
+<script>
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzeJ7UmpUr-QABgGWAlx_uwIYFk9zR5P2LAOXgzriZrLOn8kvnVzq6pbixcSTQ1D7r2jw/exec';
+var uploadedFiles = {};
+
+function handleUpload(input, key, zoneId, lblId) {
+  var file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('File too large (max 5MB)', 'error'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    uploadedFiles[key] = { data: e.target.result.split(',')[1], mimeType: file.type, fileName: file.name };
+    document.getElementById(lblId).textContent = '✓ ' + file.name;
+    document.getElementById(zoneId).classList.add('uploaded');
+  };
+  reader.readAsDataURL(file);
+}
+
+function validate() {
+  var required = ['companyName','legalStructure','ein','address','city','state','zip','country','contactName','email','phone','bankName','accountName','accountNo','routingNo','paymentTerms','currency'];
+  var ok = true;
+  required.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add('error'); ok = false; }
+    else el.classList.remove('error');
+  });
+  if (!ok) showToast('Please fill all required fields marked with *', 'error');
+  return ok;
+}
+
+async function submitForm() {
+  if (!validate()) return;
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  var payload = {
+    entity: 'us',
+    companyName: v('companyName'), legalStructure: v('legalStructure'),
+    ein: v('ein'), vat: v('vat'),
+    address: v('address'), city: v('city'), state: v('state'),
+    zip: v('zip'), country: v('country'),
+    contactName: v('contactName'), contactTitle: v('contactTitle'),
+    email: v('email'), phone: v('phone'),
+    bankName: v('bankName'), accountName: v('accountName'),
+    accountNo: v('accountNo'), routingNo: v('routingNo'),
+    achWire: v('achWire'), paymentTerms: v('paymentTerms'), currency: v('currency'),
+    bankStatement: uploadedFiles.bankStatement || null
+  };
+  try {
+    var res = await fetch(APPS_SCRIPT_URL, {method:'POST', body: JSON.stringify(payload)});
+    var data = await res.json();
+    if (data.status === 'ok') {
+      document.getElementById('folderLink').href = data.folderUrl || '#';
+      document.getElementById('overlay').classList.add('show');
+    } else throw new Error(data.message || 'Failed');
+  } catch(err) {
+    showToast('Submission failed: ' + err.message, 'error');
+    btn.disabled = false;
+    btn.textContent = 'Submit Registration →';
+  }
+}
+
+function v(id) { return document.getElementById(id) ? document.getElementById(id).value : ''; }
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  t.style.display = 'block';
+  setTimeout(function(){ t.style.display='none'; }, 4000);
+}
+</script>
+</body>
+</html>
