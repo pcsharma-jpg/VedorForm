@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Form Filler — ParallelDots</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a1a;min-height:100vh;padding:24px}
+.container{max-width:900px;margin:0 auto}
+.header{background:#1D9E75;color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.header-logo{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.header-title{font-size:15px;font-weight:600}
+.header-sub{font-size:11px;opacity:0.85;margin-top:1px}
+.card{background:#fff;border-radius:10px;border:1px solid #e5e7eb;margin-bottom:16px;overflow:hidden}
+.card-header{padding:12px 18px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:13px;font-weight:600;color:#111827;display:flex;align-items:center;gap:7px}
+.card-body{padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{font-size:12px;font-weight:500;color:#374151;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:8px 11px;border:1px solid #d1d5db;border-radius:7px;font-size:13px;color:#111827;background:#fff;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,0.1)}
+textarea{resize:vertical}
+.field{margin-bottom:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid #d1d5db;background:#fff;color:#374151;transition:all 0.15s}
+.btn:hover{background:#f9fafb}
+.btn-primary{background:#1D9E75;border-color:#1D9E75;color:#fff}
+.btn-primary:hover{background:#0F6E56}
+.btn-primary:disabled{background:#9acfbe;cursor:not-allowed}
+.btn-green{background:#059669;border-color:#059669;color:#fff}
+.btn-green:hover{background:#047857}
+.upload-zone{border:2px dashed #d1d5db;border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:all 0.15s;background:#fafafa;position:relative}
+.upload-zone:hover,.upload-zone.drag{border-color:#1D9E75;background:#f0fdf9}
+.upload-zone.done{border-color:#1D9E75;background:#f0fdf9;border-style:solid}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.progress-bar{height:5px;background:#e5e7eb;border-radius:3px;overflow:hidden;margin:8px 0}
+.progress-fill{height:100%;background:#1D9E75;border-radius:3px;transition:width 0.4s}
+.status-text{font-size:12px;color:#6b7280;display:flex;align-items:center;gap:6px;margin-top:4px}
+.dot{width:7px;height:7px;border-radius:50%;background:#1D9E75;animation:pulse 1s infinite;display:inline-block;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.result-section{display:none}
+.filled-table{width:100%;border-collapse:collapse;font-size:12px}
+.filled-table th{background:#f0fdf9;color:#166534;padding:8px 12px;text-align:left;border-bottom:1px solid #d1fae5;font-weight:600}
+.filled-table td{padding:7px 12px;border-bottom:1px solid #f3f4f6;vertical-align:top}
+.filled-table td:first-child{color:#374151;font-weight:500;width:40%}
+.filled-table td:last-child{color:#111827}
+.filled-table tr:hover td{background:#fafafa}
+.manual-tag{background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600}
+.entity-toggle{display:flex;background:#f3f4f6;border-radius:8px;padding:3px;gap:2px;margin-bottom:12px}
+.entity-btn{flex:1;padding:7px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#6b7280;transition:all 0.15s;text-align:center}
+.entity-btn.active{background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.download-bar{background:#f0fdf9;border:1px solid #bbf7d0;border-radius:8px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.dl-info{font-size:13px;color:#166534;font-weight:500}
+.dl-sub{font-size:11px;color:#6b7280;margin-top:2px}
+.toast{position:fixed;bottom:20px;right:20px;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;z-index:9999;display:none;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
+.toast.ok{background:#1D9E75;color:#fff}
+.toast.err{background:#ef4444;color:#fff}
+.profile-summary{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px;font-size:12px;color:#374151;line-height:1.8}
+.no-profile{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px;font-size:12px;color:#92400e}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-logo">PD</div>
+    <div>
+      <div class="header-title">AI Form Filler — ParallelDots Vendor Hub</div>
+      <div class="header-sub">Blank form upload karo → AI fills → Same format mein download karo</div>
+    </div>
+    <a href="index.html" style="margin-left:auto;background:rgba(255,255,255,0.2);color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:12px">← Dashboard</a>
+  </div>
+
+  <div class="grid2">
+    <div>
+
+      <!-- STEP 1: Upload -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Step 1 — Form Upload karo</div></div>
+        <div class="card-body">
+          <div class="upload-zone" id="upload-zone">
+            <input type="file" id="form-file" accept=".xlsx,.xls,.pdf,.docx,.doc,.png,.jpg,.jpeg,.txt,.csv" onchange="handleFile(this)">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.5" style="margin:0 auto 10px;display:block"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <div style="font-size:13px;font-weight:500;color:#374151">Click to upload</div>
+            <div style="font-size:11px;color:#9ca3af;margin-top:4px">Excel · PDF · Word · Image · Text</div>
+            <div id="file-info" style="margin-top:10px;font-size:12px;color:#1D9E75;font-weight:500"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Entity -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Step 2 — Company Select karo</div></div>
+        <div class="card-body">
+          <div class="entity-toggle">
+            <div class="entity-btn active" id="btn-in" onclick="selectEntity('in')">🇮🇳 ParallelDots Tech</div>
+            <div class="entity-btn" id="btn-us" onclick="selectEntity('us')">🇺🇸 ParallelDots Inc.</div>
+          </div>
+          <div id="entity-preview" class="profile-summary">Loading...</div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Instructions + Fill -->
+      <div class="card">
+        <div class="card-header"><div class="card-title">Step 3 — Fill karo</div></div>
+        <div class="card-body">
+          <div class="field">
+            <label>Extra instructions (optional)</label>
+            <textarea id="extra-inst" placeholder="e.g. Ye vendor code creation form hai, department Finance & Accounts rakho." style="min-height:60px"></textarea>
+          </div>
+          <button class="btn btn-primary" id="fill-btn" onclick="runFiller()" style="width:100%;justify-content:center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Fill Form with AI
+          </button>
+          <div id="progress-wrap" style="display:none;margin-top:12px">
+            <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+            <div class="status-text"><div class="dot"></div><span id="prog-text">Processing...</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <!-- RESULT -->
+      <div class="card" id="result-card" style="min-height:400px">
+        <div class="card-header">
+          <div class="card-title">AI Filled Output</div>
+          <div id="result-actions" style="display:none;gap:6px;display:none">
+            <button class="btn btn-sm" onclick="copyAll()">Copy Text</button>
+          </div>
+        </div>
+        <div class="card-body" id="result-body">
+          <div style="text-align:center;padding:60px 0;color:#9ca3af">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="1.5" style="display:block;margin:0 auto 12px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+            <div style="font-size:13px">Form upload karo aur fill karo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWNLOAD BAR -->
+      <div id="download-bar" style="display:none" class="card">
+        <div class="card-body">
+          <div class="download-bar">
+            <div>
+              <div class="dl-info" id="dl-info">Filled form ready!</div>
+              <div class="dl-sub" id="dl-sub">Same format mein download karo</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-green" id="dl-btn" onclick="downloadFilled()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Filled Form
+              </button>
+              <button class="btn" onclick="copyAll()">Copy Text</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ── STATE ──────────────────────────────────
+var uploadedFile = null;
+var fileType = '';  // 'xlsx','pdf','docx','image','text'
+var selectedEntity = 'in';
+var aiFilledData = null;  // parsed [{field, value}]
+var rawOutput = '';
+var profile = JSON.parse(localStorage.getItem('pd_profile') || '{}');
+var cfg = JSON.parse(localStorage.getItem('pd_cfg') || '{}');
+
+// ── INIT ───────────────────────────────────
+window.onload = function() {
+  updateEntityPreview();
+};
+
+// ── FILE HANDLING ──────────────────────────
+function handleFile(input) {
+  var f = input.files[0];
+  if (!f) return;
+  uploadedFile = f;
+  var ext = f.name.split('.').pop().toLowerCase();
+  if (['xlsx','xls'].includes(ext)) fileType = 'xlsx';
+  else if (ext === 'pdf') fileType = 'pdf';
+  else if (['docx','doc'].includes(ext)) fileType = 'docx';
+  else if (['png','jpg','jpeg'].includes(ext)) fileType = 'image';
+  else fileType = 'text';
+
+  document.getElementById('upload-zone').classList.add('done');
+  document.getElementById('file-info').textContent = '✓ ' + f.name + ' (' + Math.round(f.size/1024) + ' KB) — ' + fileType.toUpperCase();
+}
+
+// ── ENTITY ─────────────────────────────────
+function selectEntity(e) {
+  selectedEntity = e;
+  document.getElementById('btn-in').classList.toggle('active', e==='in');
+  document.getElementById('btn-us').classList.toggle('active', e==='us');
+  updateEntityPreview();
+}
+
+function updateEntityPreview() {
+  var el = document.getElementById('entity-preview');
+  if (!profile || !profile.in) {
+    el.className = 'no-profile';
+    el.innerHTML = '⚠️ Company Profile save nahi hua. <a href="index.html" style="color:#92400e;font-weight:600">Dashboard → Company Profile</a> mein details fill karo pehle.';
+    return;
+  }
+  el.className = 'profile-summary';
+  if (selectedEntity === 'us' && profile.us) {
+    el.innerHTML = '<strong>'+profile.us.name+'</strong><br>EIN: '+profile.us.ein+' | '+profile.us.city+', '+profile.us.state+'<br>Email: '+profile.us.email;
+  } else {
+    el.innerHTML = '<strong>'+profile.in.name+'</strong><br>GSTIN: '+profile.in.gstin+' | PAN: '+profile.in.pan+'<br>'+profile.in.city+', '+profile.in.state+'<br>Email: '+profile.in.email;
+  }
+}
+
+function buildEntityString() {
+  var p = selectedEntity==='us' ? profile.us : profile.in;
+  if (!p) return selectedEntity==='us'
+    ? 'ParallelDots, Inc. | EIN: 32-0535986 | 600 Stewart Street Seattle WA 98101 USA | accounts@paralleldots.com'
+    : 'ParallelDots Technology Pvt Ltd | GSTIN: 06AAJCP5428P1ZT | PAN: AAJCP5428P | 520 Ocus Quantum Mall Sector 51 Gurgaon 122003 Haryana | accounts@paralleldots.com';
+
+  if (selectedEntity === 'us') {
+    return [
+      'Company: '+p.name, 'EIN/Tax ID: '+p.ein, 'Legal Structure: '+(p.structure||''),
+      'VAT: '+(p.vat||''), 'Address: '+p.address, 'City: '+p.city,
+      'State: '+p.state, 'ZIP: '+p.zip, 'Country: '+p.country,
+      'Contact: '+(p.contact||''), 'Email: '+p.email, 'Phone: '+(p.phone||''),
+      'Bank: '+(p.bank||''), 'Account Name: '+(p.acctName||p.name),
+      'Account No: '+(p.acct||''), 'Routing No: '+(p.routing||''),
+      'Payment Terms: '+(p.payment||'Net 30'), 'Currency: '+(p.currency||'USD'),
+      'Website: '+(p.web||'paralleldots.com'),
+      profile.bizNature ? 'Business Nature: '+profile.bizNature : ''
+    ].filter(Boolean).join('\n');
+  } else {
+    return [
+      'Company: '+p.name, 'GSTIN: '+p.gstin, 'PAN: '+p.pan,
+      'Type of Vendor: '+(p.vendorType||'Service Vendor'),
+      'Vendor Account Group: Z004 Service Provider',
+      'Address Line 1: '+p.address, 'City: '+p.city,
+      'Pincode: '+p.pin, 'State Code: '+p.state, 'Country: '+p.country,
+      'Mobile: '+(p.mobile||''), 'Email: '+p.email,
+      'Bank Account Holder: '+(p.acctName||p.name),
+      'Bank Name: '+(p.bank||''), 'IFSC Code: '+(p.ifsc||''),
+      'Account No: '+(p.acct||''), 'Bank Branch: '+(p.branch||''),
+      'Registered to GSTIN: Yes',
+      'MSME Type: '+(p.msme||'NA'), 'MSME Number: '+(p.msmeNo||''),
+      'Payment Terms: '+(p.payment||'Net 30'), 'Currency: '+(p.currency||'INR'),
+      'Website: '+(p.web||'paralleldots.com'), 'Department of Applicant: Finance & Accounts',
+      profile.bizNature ? 'Business Nature: '+profile.bizNature : ''
+    ].filter(Boolean).join('\n');
+  }
+}
+
+// ── EXCEL READER ───────────────────────────
+async function readExcelContent(file) {
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        var wb = XLSX.read(e.target.result, {type:'binary', cellText:true, cellDates:true});
+        var result = [];
+        wb.SheetNames.forEach(function(sheetName) {
+          var ws = wb.Sheets[sheetName];
+          var range = XLSX.utils.decode_range(ws['!ref']||'A1');
+          result.push('=== Sheet: ' + sheetName + ' ===');
+          for (var R=range.s.r; R<=Math.min(range.e.r,50); R++) {
+            var row = [];
+            for (var C=range.s.c; C<=Math.min(range.e.c,10); C++) {
+              var addr = XLSX.utils.encode_cell({r:R,c:C});
+              var cell = ws[addr];
+              row.push(cell ? (cell.v||'') : '');
+            }
+            var rowStr = row.map(v=>String(v||'')).filter((_,i)=>i<8).join(' | ');
+            if (rowStr.replace(/\|/g,'').trim()) result.push(rowStr);
+          }
+        });
+        resolve(result.join('\n'));
+      } catch(err) { reject(err); }
+    };
+    reader.onerror = reject;
+    reader.readAsBinaryString(file);
+  });
+}
+
+// ── AI FILLER ──────────────────────────────
+async function runFiller() {
+  if (!uploadedFile) { showToast('Pehle form upload karo','err'); return; }
+  var btn = document.getElementById('fill-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<div class="dot" style="margin-right:6px"></div>Processing...';
+  document.getElementById('progress-wrap').style.display = 'block';
+  document.getElementById('download-bar').style.display = 'none';
+
+  var steps = ['Form padh raha hoon...','Fields identify kar raha hoon...','Company data match kar raha hoon...','Values fill kar raha hoon...'];
+  var pcts = [15,40,70,92]; var si=0;
+  var ticker = setInterval(function(){
+    if(si<steps.length){
+      document.getElementById('prog-text').textContent=steps[si];
+      document.getElementById('prog').style.width=pcts[si]+'%';
+      si++;
+    }
+  },1200);
+
+  var entityStr = buildEntityString();
+  var extra = document.getElementById('extra-inst').value;
+
+  var prompt = 'You are filling out a form on behalf of a company. Here are the company details:\n\n'+entityStr+
+    (profile.extraNotes?'\n\nExtra notes: '+profile.extraNotes:'')+
+    (extra?'\n\nAdditional instructions: '+extra:'')+
+    '\n\n---\nFor every field/cell in the form below, provide the filled value.\n'+
+    'IMPORTANT: Respond in EXACTLY this format, one field per line:\nFIELD: value\n\n'+
+    'Rules:\n- Use exact field names from the form\n- If data available: fill it\n- If not available: write FIELD: [Manual]\n'+
+    '- Keep original field names exactly as shown\n- Do not add any explanation, just FIELD: value lines\n\n'+
+    'FORM CONTENT:\n';
+
+  try {
+    var messages;
+    var isImg = fileType === 'image';
+    var isPdf = fileType === 'pdf';
+
+    if (isImg || isPdf) {
+      var b64 = await toBase64(uploadedFile);
+      messages = [{role:'user', content:[
+        {type:isPdf?'document':'image', source:{type:'base64',media_type:uploadedFile.type,data:b64}},
+        {type:'text', text:prompt+'(see uploaded form above)'}
+      ]}];
+    } else if (fileType === 'xlsx') {
+      var excelText = await readExcelContent(uploadedFile);
+      messages = [{role:'user', content: prompt + excelText}];
+    } else {
+      var text = await readAsText(uploadedFile);
+      messages = [{role:'user', content: prompt + text.substring(0,5000)}];
+    }
+
+    var data = await callAI(messages, 2000);
+    clearInterval(ticker);
+    document.getElementById('prog').style.width='100%';
+    document.getElementById('prog-text').textContent='Done!';
+
+    rawOutput = data.content && data.content[0] ? data.content[0].text : '';
+    if (!rawOutput) throw new Error('AI ne koi response nahi diya');
+
+    aiFilledData = parseAIOutput(rawOutput);
+    renderResult(aiFilledData);
+
+  } catch(err) {
+    clearInterval(ticker);
+    document.getElementById('result-body').innerHTML = '<div style="color:#ef4444;padding:20px;font-size:13px">Error: '+err.message+'</div>';
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Fill Form with AI';
+}
+
+async function callAI(messages, maxTokens) {
+  var scriptUrl = cfg.scriptUrl;
+  var resp, data;
+  if (scriptUrl) {
+    resp = await fetch(scriptUrl, {method:'POST', body:JSON.stringify({action:'aiProxy',messages,model:'claude-sonnet-4-6',max_tokens:maxTokens||1500})});
+    data = await resp.json();
+  } else {
+    resp = await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:maxTokens||1500,messages})});
+    data = await resp.json();
+  }
+  return data;
+}
+
+// ── PARSE AI OUTPUT ─────────────────────────
+function parseAIOutput(text) {
+  var lines = text.split('\n');
+  var result = [];
+  lines.forEach(function(line) {
+    line = line.trim();
+    if (!line) return;
+    // Match "FIELD: value" or "[FIELD]: value" or "FIELD NAME: value"
+    var match = line.match(/^\[?([^\]:]+)\]?\s*:\s*(.*)$/);
+    if (match) {
+      var field = match[1].trim().replace(/^\[|\]$/g,'');
+      var value = match[2].trim();
+      if (field && field.length < 80) {
+        result.push({field: field, value: value, manual: value.includes('[Manual]')||value.includes('[Please fill')});
+      }
+    }
+  });
+  return result;
+}
+
+// ── RENDER RESULT ──────────────────────────
+function renderResult(data) {
+  if (!data || data.length === 0) {
+    document.getElementById('result-body').innerHTML = '<pre style="font-size:12px;line-height:1.8;white-space:pre-wrap;color:#374151">'+rawOutput+'</pre>';
+    document.getElementById('result-actions').style.display = 'flex';
+    return;
+  }
+  var html = '<table class="filled-table"><thead><tr><th>Field</th><th>Filled Value</th></tr></thead><tbody>';
+  data.forEach(function(row) {
+    var valHtml = row.manual
+      ? '<span class="manual-tag">MANUAL</span>'
+      : '<span style="color:#111827">'+escHtml(row.value)+'</span>';
+    html += '<tr><td>'+escHtml(row.field)+'</td><td>'+valHtml+'</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('result-body').innerHTML = html;
+  document.getElementById('result-actions').style.display = 'flex';
+
+  var filled = data.filter(r=>!r.manual).length;
+  var manual = data.filter(r=>r.manual).length;
+  document.getElementById('dl-info').textContent = filled + ' fields filled, ' + manual + ' need manual entry';
+  document.getElementById('dl-sub').textContent = 'Download as ' + (fileType==='xlsx'?'Excel':fileType==='pdf'?'PDF':fileType==='docx'?'Word':'Text') + ' file';
+  document.getElementById('download-bar').style.display = 'block';
+  document.getElementById('dl-btn').textContent = '⬇ Download Filled ' + (fileType==='xlsx'?'Excel':fileType==='pdf'?'PDF':fileType==='docx'?'Word':'File');
+}
+
+// ── DOWNLOAD FILLED FILE ───────────────────
+async function downloadFilled() {
+  if (fileType === 'xlsx') {
+    await downloadFilledExcel();
+  } else if (fileType === 'docx') {
+    downloadFilledDocx();
+  } else {
+    // PDF, image, text — download as formatted text file
+    downloadFilledText();
+  }
+}
+
+async function downloadFilledExcel() {
+  showToast('Excel fill kar raha hoon...', 'ok');
+  try {
+    var b64 = await new Promise((res,rej)=>{
+      var r=new FileReader(); r.onload=e=>res(e.target.result); r.onerror=rej; r.readAsBinaryString(uploadedFile);
+    });
+    var wb = XLSX.read(b64, {type:'binary', cellStyles:true});
+    var ws = wb.Sheets[wb.SheetNames[0]];
+    var range = XLSX.utils.decode_range(ws['!ref']||'A1');
+
+    // Build a map of field→value from AI output
+    var fillMap = {};
+    aiFilledData.forEach(function(row) {
+      if (!row.manual) fillMap[row.field.toLowerCase().trim()] = row.value;
+    });
+
+    // For each cell in the sheet, check if adjacent cell has a matching field name
+    for (var R=range.s.r; R<=range.e.r; R++) {
+      for (var C=range.s.c; C<=range.e.c; C++) {
+        var addr = XLSX.utils.encode_cell({r:R, c:C});
+        var cell = ws[addr];
+        if (!cell || !cell.v) continue;
+        var cellVal = String(cell.v).toLowerCase().trim().replace(/\n/g,' ');
+        // Check if this cell label matches a field
+        if (fillMap[cellVal]) {
+          // Fill the next cell (same row, next column)
+          var fillAddr = XLSX.utils.encode_cell({r:R, c:C+1});
+          var existingCell = ws[fillAddr];
+          // Only fill if empty or not a formula
+          if (!existingCell || (!existingCell.f && (!existingCell.v || existingCell.v===''))) {
+            ws[fillAddr] = {t:'s', v: fillMap[cellVal]};
+          }
+        }
+        // Also check partial matches
+        Object.keys(fillMap).forEach(function(key) {
+          if (cellVal.includes(key) || key.includes(cellVal)) {
+            var fillAddr2 = XLSX.utils.encode_cell({r:R, c:C+1});
+            var existing = ws[fillAddr2];
+            if (!existing || (!existing.f && (!existing.v || String(existing.v).trim()===''))){
+              ws[fillAddr2] = {t:'s', v: fillMap[key]};
+            }
+          }
+        });
+      }
+    }
+
+    var outName = uploadedFile.name.replace(/\.xlsx?$/i,'') + '_Filled.xlsx';
+    XLSX.writeFile(wb, outName);
+    showToast('Excel downloaded: ' + outName, 'ok');
+  } catch(err) {
+    showToast('Excel fill error: '+err.message, 'err');
+    downloadFilledText();
+  }
+}
+
+function downloadFilledDocx() {
+  // For Word: download as filled text with field labels
+  downloadFilledText();
+}
+
+function downloadFilledText() {
+  var lines = ['PARALLELDOTS — FILLED FORM', '='.repeat(50), 'Form: ' + uploadedFile.name, 'Entity: ' + (selectedEntity==='us'?'ParallelDots, Inc.':'ParallelDots Technology Pvt Ltd'), 'Date: ' + new Date().toLocaleDateString(), '='.repeat(50), ''];
+  if (aiFilledData && aiFilledData.length > 0) {
+    aiFilledData.forEach(function(row) {
+      lines.push(row.field + ': ' + (row.manual ? '[PLEASE FILL MANUALLY]' : row.value));
+    });
+  } else {
+    lines.push(rawOutput);
+  }
+  var blob = new Blob([lines.join('\n')], {type:'text/plain'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = uploadedFile.name.replace(/\.[^.]+$/,'') + '_Filled.txt';
+  a.click();
+  showToast('Downloaded as text file', 'ok');
+}
+
+function copyAll() {
+  var text = aiFilledData ? aiFilledData.map(r=>r.field+': '+r.value).join('\n') : rawOutput;
+  navigator.clipboard.writeText(text);
+  showToast('Copied to clipboard!', 'ok');
+}
+
+// ── UTILS ──────────────────────────────────
+function toBase64(f){return new Promise((r,j)=>{var rd=new FileReader();rd.onload=e=>r(e.target.result.split(',')[1]);rd.onerror=j;rd.readAsDataURL(f);})}
+function readAsText(f){return new Promise((r,j)=>{var rd=new FileReader();rd.onload=e=>r(e.target.result);rd.onerror=j;rd.readAsText(f);})}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function showToast(msg,type){var t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',3500);}
+</script>
+</body>
+</html>
